@@ -1,0 +1,229 @@
+.main-container {
+   
+    margin-top: 4rem; /* Espaço para o header fixo */
+  }
+
+  .logo-container {
+    text-align: center; /* Centraliza o logo */
+    margin-bottom: 2rem; /* Espaço abaixo do logo */
+}
+
+.logo {
+    max-width: 100%; /* Garante que o logo não ultrapasse o tamanho do container */
+    max-height: 80px; /* Define uma altura máxima */
+    object-fit: contain; /* Mantém a proporção da imagem */
+}
+  aside {
+    width: 250px;
+    background-color: #2c3e50; /* Fundo escuro */
+    color: white; /* Texto branco */
+    padding: 1rem;
+    border-right: 1px solid #34495e; /* Borda sutil */
+    height: 100vh; /* Altura total da tela */
+    position: fixed; /* Fixa a barra lateral no lado esquerdo */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Alinha à esquerda */
+    transition: width 0.5s ease; /* Animação suave ao encolher */
+    overflow: hidden;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar a barra lateral */
+}
+
+aside ul {
+    list-style: none; /* Remove marcadores */
+    padding: 0;
+    margin: 0;
+}
+
+aside ul li {
+    margin: 1rem 0; /* Espaçamento entre os itens */
+}
+
+aside ul li a {
+    text-decoration: none; /* Remove sublinhado */
+    color: white; /* Texto branco */
+    display: flex; /* Alinha ícone e texto horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 15px; /* Espaço entre o ícone e o texto */
+    padding: 0.8rem 1rem; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+}
+
+aside ul li a:hover {
+    background-color: #34495e; /* Fundo mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+}
+
+aside ul li a i {
+    font-size: 1.5rem; /* Tamanho do ícone */
+}
+
+aside ul li a span {
+    font-size: 1rem; /* Tamanho do texto */
+    font-weight: 500; /* Peso do texto */
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Esconde texto extra */
+    text-overflow: ellipsis; /* Adiciona reticências se o texto for muito longo */
+}
+
+main {
+    background-color: #f8f9fa; /* Cor de fundo clara e profissional */
+    padding: 2rem; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas para um visual moderno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar o conteúdo */
+    margin: 2rem; /* Espaçamento externo para separar do restante do layout */
+}
+
+.secondary-container
+{
+    width: calc(100% - 250px);
+    transition: width 0.5s ease; 
+    float: right; /* Alinha o conteúdo à direita da barra lateral */
+}
+
+
+header {
+    background-color: #3498db; /* Azul claro */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Fixa a barra no topo */
+    top: 0; /* Posiciona no topo */
+    right: 0; /* Alinha à esquerda */
+    width: calc(100% - 250px); /* Ocupa toda a largura da tela */
+    transition: width 0.5s ease; 
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+.logo-hamburger{
+    display: flex;
+    cursor: pointer; /* Mostra o cursor de clique */
+    transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+}
+
+.logo-hamburger:hover {
+    color:white; /* Azul claro ao passar o mouse */
+    transform: scale(1.1); /* Leve aumento ao passar o mouse */
+}
+
+.logout{
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+}
+
+.logout:hover {
+    color: white; /* Vermelho ao passar o mouse */
+    transform: scale(1.1); /* Leve aumento ao passar o mouse */
+}
+
+.page-title {
+    font-size: 2rem; /* Tamanho grande para destaque */
+    font-weight: bold; /* Negrito */
+    color: #2c3e50; /* Cor escura para contraste */
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 1.5rem; /* Espaço abaixo do título */
+    text-transform: uppercase; /* Texto em maiúsculas */
+    letter-spacing: 0.05rem; /* Espaçamento entre letras */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.table-container {
+    background-color: #f9f9f9; /* Fundo claro para destacar a tabela */
+}
+
+.footer {
+    background-color: #333; /* Fundo escuro */
+    color: white; /* Texto branco */
+    padding: 1.5rem 1rem; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 2rem; /* Espaço acima do footer */
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve no topo */
+}
+
+.footer-content {
+    max-width: 1200px; /* Largura máxima */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+.footer p {
+    margin-bottom: 1rem; /* Espaço abaixo do texto */
+    font-size: 0.9rem; /* Tamanho do texto */
+}
+
+.footer-links {
+    list-style: none; /* Remove marcadores */
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centraliza os links */
+    gap: 1.5rem; /* Espaço entre os links */
+}
+
+.footer-links li {
+    display: inline; /* Exibe os itens em linha */
+}
+
+.footer-links a {
+    text-decoration: none; /* Remove sublinhado */
+    color: #3498db; /* Azul */
+    font-size: 0.9rem; /* Tamanho do texto */
+    transition: color 0.3s ease; /* Transição suave */
+}
+
+.footer-links a:hover {
+    color: #2980b9; /* Azul mais escuro ao passar o mouse */
+}
+
+.form-container {
+    background-color: #2c3e50; /* Fundo escuro */
+    color: white; /* Texto branco */
+    padding: 2rem; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    max-width: 600px; /* Largura máxima */
+    margin: 2rem auto; /* Centraliza o formulário */
+}
+
+.form-title {
+    font-size: 1.8rem; /* Tamanho do título */
+    font-weight: bold; /* Negrito */
+    margin-bottom: 1.5rem; /* Espaço abaixo do título */
+    text-align: center; /* Centraliza o título */
+}
+
+.form-group {
+    margin-bottom: 1.5rem; /* Espaço entre os campos */
+}
+
+.form-group label {
+    display: block; /* Exibe o rótulo em uma linha separada */
+    font-weight: bold; /* Negrito */
+    margin-bottom: 0.5rem; /* Espaço abaixo do rótulo */
+}
+
+.form-group input,
+.form-group select {
+    width: 100%; /* Largura total */
+    padding: 0.8rem; /* Espaçamento interno */
+    border: none; /* Remove bordas padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho do texto */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none; /* Remove o contorno padrão */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Sombra ao focar */
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between; /* Espaça os botões */
+}
