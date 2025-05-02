@@ -1,11 +1,49 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginService } from '../../../services/back-office/login.service';
+import { login } from '../../../models/login';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
+  loginForm: FormGroup;
+  responseMessage: string = ''; // Mensagem de resposta da API
+
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
+    // Inicializa o formulário com campos e validações
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]], // Campo de email com validação
+      password: ['', [Validators.required, Validators.minLength(6)]] // Campo de senha com validação
+    });
+  }
+
+  onSubmit() 
+  {
+    if (this.loginForm.valid) 
+    {
+         const loginData:login = this.loginForm.value as login; // Obtém os valores do formulário
+         this.loginService.loginEmployee(loginData).subscribe({
+         next: (response) => {
+             this.responseMessage = response; // Exibe a resposta da API
+             console.log('Login bem-sucedido:', response);
+             localStorage.setItem('token', response); // Armazena o token no localStorage
+             this.loginForm.reset(); // Reseta o formulário após o login
+    } ,
+        error: (err) => {
+          console.error('Erro no login:', err);
+          this.responseMessage = 'Erro ao realizar login. Tente novamente.';
+        }
+      });
+
+    }
+     else 
+    {
+      console.log('Formulário inválido');
+    }
+  }
 }
