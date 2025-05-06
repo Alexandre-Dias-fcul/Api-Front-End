@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-main-page',
@@ -9,4 +11,21 @@ import { RouterOutlet } from '@angular/router';
 })
 export class MainPageComponent {
 
+  role: string | null = null;
+  // Variável para armazenar o papel do usuário
+  constructor(private authorization: AuthorizationService, private router: Router) {
+
+    this.role = authorization.getRole();
+
+    if (this.role != 'Agent' && this.role != 'Manager' && this.role != 'Broker'
+      && this.role != 'Staff' && this.role != 'Admin') {
+
+      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+    }
+  }
+
+  logout() {
+    this.authorization.clearToken();
+    this.router.navigate(['/login']); // Redireciona para a página de login ao fazer logout
+  }
 }
