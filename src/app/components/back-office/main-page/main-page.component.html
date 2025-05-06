@@ -1,17 +1,45 @@
 <div class="main-container">
-
     <aside>
         <div class="logo-container">
-            <img src="logo.png" alt="Sintra imoveis" class="logo">
+            <!--   <img src="logo.png" alt="Sintra imoveis" class="logo">-->
         </div>
         <nav>
-            <ul>
+            <ul>@if(role == 'Agent')
+                {
+                <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
+                }
+                @else if(role == 'Manager')
+                {
+                <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Meus Agentes</span></a></li>
+                }
+                @else if(role == 'Broker')
+                {
+                <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Meus Agentes</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Meus Gestores</span></a></li>
+
+                }@else if(role == 'Staff')
+                {
+                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
+
+                }@else if(role == 'Admin')
+                {
+                <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Agentes</span></a></li>
+                <li><a href="#"><i class="fas fa-user"></i><span>Administrativos</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Utilizadores</span></a></li>
+                }
+
             </ul>
         </nav>
     </aside>
@@ -21,13 +49,13 @@
                 <i class="fas fa-bars"></i>
             </div>
             <div class="logout">
-                <h3>Logout</h3>
+                <h3 (click)="logout()">Logout</h3>
             </div>
-        </header>     
+        </header>
         <main>
             <h1 class="page-title">Back-Office</h1>
             <div class="table-container">
-               <router-outlet></router-outlet>
+                <router-outlet></router-outlet>
             </div>
         </main>
         <footer class="footer">
@@ -40,5 +68,5 @@
                 </ul>
             </div>
         </footer>
-    </div>   
- </div>
+    </div>
+</div>

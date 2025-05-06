@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '../../../services/back-office/login.service';
 import { login } from '../../../models/login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   responseMessage: string = ''; // Mensagem de resposta da API
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
     // Inicializa o formulário com campos e validações
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]], // Campo de email com validação
@@ -22,18 +23,17 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() 
-  {
-    if (this.loginForm.valid) 
-    {
-         const loginData:login = this.loginForm.value as login; // Obtém os valores do formulário
-         this.loginService.loginEmployee(loginData).subscribe({
-         next: (response) => {
-             this.responseMessage = response; // Exibe a resposta da API
-             console.log('Login bem-sucedido:', response);
-             localStorage.setItem('token', response); // Armazena o token no localStorage
-             this.loginForm.reset(); // Reseta o formulário após o login
-    } ,
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const loginData: login = this.loginForm.value as login; // Obtém os valores do formulário
+      this.loginService.loginEmployee(loginData).subscribe({
+        next: (response) => {
+          this.responseMessage = response; // Exibe a resposta da API
+          console.log('Login bem-sucedido:', response);
+          localStorage.setItem('token', response); // Armazena o token no localStorage
+          this.loginForm.reset(); // Reseta o formulário após o login
+          this.router.navigate(['/main-page/agent-list']); // Redireciona para a página principal após o login
+        },
         error: (err) => {
           console.error('Erro no login:', err);
           this.responseMessage = 'Erro ao realizar login. Tente novamente.';
@@ -41,8 +41,7 @@ export class LoginComponent {
       });
 
     }
-     else 
-    {
+    else {
       console.log('Formulário inválido');
     }
   }
