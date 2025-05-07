@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LoginService } from '../../../services/back-office/login.service';
 import { login } from '../../../models/login';
 import { Router } from '@angular/router';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent {
   loginForm: FormGroup;
   responseMessage: string = ''; // Mensagem de resposta da API
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+  constructor(private fb: FormBuilder, private authorizationService: AuthorizationService,
+    private loginService: LoginService, private router: Router) {
     // Inicializa o formulário com campos e validações
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]], // Campo de email com validação
@@ -30,7 +32,7 @@ export class LoginComponent {
         next: (response) => {
           this.responseMessage = response; // Exibe a resposta da API
           console.log('Login bem-sucedido:', response);
-          localStorage.setItem('token', response); // Armazena o token no localStorage
+          this.authorizationService.setToken(response); // Armazena o token de autenticação
           this.loginForm.reset(); // Reseta o formulário após o login
           this.router.navigate(['/main-page/agent-list']); // Redireciona para a página principal após o login
         },

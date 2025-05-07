@@ -1,9 +1,10 @@
 <div class="form-container">
     <h2 class="form-title">Novo Agente</h2>
-    <form action="#" method="POST">
+    <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="username">Nome de Agent</label>
-            <input type="text" id="username" name="username" placeholder="Digite o nome do utilizador" required>
+            <label for="username">Primeiro Nome</label>
+            <input type="text" id="PrimeiroNome" formControlName="PrimeiroNome"
+                placeholder="Digite o nome do utilizador" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>

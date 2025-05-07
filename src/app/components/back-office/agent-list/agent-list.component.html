@@ -5,62 +5,17 @@
 <table class="user-table">
     <thead>
         <tr>
-            <th>Coluna 1</th>
-            <th>Coluna 2</th>
-            <th>Coluna 3</th>
+            <th>Nome</th>
+            <th>Género</th>
+            <th>Função</th>
             <th>Ações</th> <!-- Coluna para os botões -->
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Dados 1</td>
-            <td>Dados 2</td>
-            <td>Dados 3</td>
-            <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>Dados 4</td>
-            <td>Dados 5</td>
-            <td>Dados 6</td>
-            <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>Dados 1</td>
-            <td>Dados 2</td>
-            <td>Dados 3</td>
-            <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>Dados 4</td>
-            <td>Dados 5</td>
-            <td>Dados 6</td>
-            <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>Dados 1</td>
-            <td>Dados 2</td>
-            <td>Dados 3</td>
-            <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>Dados 4</td>
-            <td>Dados 5</td>
-            <td>Dados 6</td>
+        <tr *ngFor="let agent of agents">
+            <td>{{ agent.name.firstName }} {{ agent.name.lastName}}</td>
+            <td>{{ agent.gender }}</td>
+            <td>{{ agent.role }}</td>
             <td>
                 <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
