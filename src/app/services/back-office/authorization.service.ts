@@ -12,7 +12,27 @@ export class AuthorizationService {
 
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('token');
+    }
+    console.warn('localStorage não está disponível no ambiente atual.');
+    return null;
+  }
+
+  setToken(token: string): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('token', token);
+    } else {
+      console.warn('localStorage não está disponível no ambiente atual.');
+    }
+  }
+
+  clearToken(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('token');
+    } else {
+      console.warn('localStorage não está disponível no ambiente atual.');
+    }
   }
 
   getTokenPayload(): any {
@@ -64,10 +84,6 @@ export class AuthorizationService {
 
     return null;
 
-  }
-
-  clearToken(): void {
-    localStorage.removeItem('token');
   }
 }
 
