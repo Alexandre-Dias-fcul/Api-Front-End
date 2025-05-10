@@ -53,8 +53,11 @@ export class AgentNewComponent {
       const middleNamesValue = this.agentForm.get('name.middleNames')?.value;
 
       if (middleNamesValue) {
-        agentData.name.middleNames = middleNamesValue.split(' ').map((name: string) => name.trim());
-      } else {
+        agentData.name.middleNames = middleNamesValue
+          .split(' ')
+          .map((name: string) => name.trim());
+      }
+      else {
         agentData.name.middleNames = [];
       }
 
