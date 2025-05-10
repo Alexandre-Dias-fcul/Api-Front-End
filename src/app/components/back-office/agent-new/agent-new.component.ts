@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { agent } from '../../../models/agent';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { Router } from '@angular/router';
 
@@ -22,23 +22,46 @@ export class AgentNewComponent {
     // Inicializa o formulário com campos e validações
     this.agentForm = this.fb.group(
       {
-        firstName: ['', [Validators.required]],
-        middleNames: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
+        name: this.fb.group({
+          firstName: ['', [Validators.required]],
+          middleNames: ['', [Validators.required]], // Campo de nomes do meio
+          lastName: ['', [Validators.required]],
+        }),
         isActive: [true, [Validators.required]],
+        gender: ['', [Validators.required]],
         dateOfBirth: [''], // Campo de data de nascimento
-        hiredeDate: [''], // Campo de data de contratação
+        hiredDate: [''], // Campo de data de contratação
         dateOfTermination: [''],// Campo de data de demissão
-        photoPhileName: [''], // Campo de nome do arquivo da foto
+        photoFileName: [''], // Campo de nome do arquivo da foto
         supervisorId: [null], // Campo de ID do supervisor
-        role: [null], // Campo de função
+        role: [null, Validators.required], // Campo de função
       });
   }
 
   onSubmit() {
+
     if (this.agentForm.valid) {
+
       const agentData: agent = this.agentForm.value as agent; // Obtém os valores do formulário
 
+      agentData.role = Number(this.agentForm.get('role')?.value);
+
+      if (agentData.supervisorId !== null) {
+        agentData.supervisorId = Number(this.agentForm.get('supervisorId')?.value);
+      }
+
+      const middleNamesValue = this.agentForm.get('name.middleNames')?.value;
+
+      if (middleNamesValue) {
+        agentData.name.middleNames = middleNamesValue
+          .split(' ')
+          .map((name: string) => name.trim());
+      }
+      else {
+        agentData.name.middleNames = [];
+      }
+
+      console.log('Dados do agente:', agentData); // Exibe os dados do agente no console
       this.agentService.addAgent(agentData).subscribe(
         {
           next: (response) => {

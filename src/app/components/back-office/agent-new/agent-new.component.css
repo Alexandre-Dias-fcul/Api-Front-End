@@ -9,7 +9,7 @@
     /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* Sombra leve */
-    max-width: 600px;
+    max-width: 800px;
     /* Largura máxima */
     margin: 2rem auto;
     /* Centraliza o formulário */
@@ -29,6 +29,17 @@
 .form-group {
     margin-bottom: 1.5rem;
     /* Espaço entre os campos */
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    /* Espaçamento entre os campos */
+}
+
+.form-row .form-group {
+    flex: 1;
+    /* Faz com que os campos ocupem o mesmo espaço */
 }
 
 .form-group label {
