@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { agent } from '../../../models/agent';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { Router } from '@angular/router';
 
@@ -29,9 +29,9 @@ export class AgentNewComponent {
         }),
         isActive: [true, [Validators.required]],
         gender: ['', [Validators.required]],
-        dateOfBirth: [''], // Campo de data de nascimento
-        hiredDate: [''], // Campo de data de contratação
-        dateOfTermination: [''],// Campo de data de demissão
+        dateOfBirth: [null], // Campo de data de nascimento
+        hiredDate: [null], // Campo de data de contratação
+        dateOfTermination: [null],// Campo de data de demissão
         photoFileName: [''], // Campo de nome do arquivo da foto
         supervisorId: [null], // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
@@ -70,7 +70,7 @@ export class AgentNewComponent {
 
             this.agentForm.reset();
 
-            this.router.navigate(['/main-page/agent-list']); // Mensagem de sucesso
+            this.router.navigate(['/main-page/agent-new-account/', response.id]); // Mensagem de sucesso
           },
           error: (err) => {
             console.error('Erro ao criar agente:', err); // Mensagem de erro

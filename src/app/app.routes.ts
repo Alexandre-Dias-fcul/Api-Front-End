@@ -5,6 +5,7 @@ import { MainPageComponent } from './components/back-office/main-page/main-page.
 import { AgentListComponent } from './components/back-office/agent-list/agent-list.component';
 import { AgentNewComponent } from './components/back-office/agent-new/agent-new.component';
 import { AgentEditComponent } from './components/back-office/agent-edit/agent-edit.component';
+import { AgentNewAccountComponent } from './components/back-office/agent-new-account/agent-new-account.component';
 
 
 export const routes: Routes = [
@@ -16,7 +17,8 @@ export const routes: Routes = [
         { path: '', redirectTo: 'agent-list', pathMatch: 'full' },
         { path: 'agent-list', component: AgentListComponent },
         { path: 'agent-new', component: AgentNewComponent },
-        { path: 'agent-edit/:id', component: AgentEditComponent }
+        { path: 'agent-edit/:id', component: AgentEditComponent },
+        { path: 'agent-new-account/:id', component: AgentNewAccountComponent },
       ]
   }
 ];

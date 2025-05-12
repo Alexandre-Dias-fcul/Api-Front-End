@@ -5,10 +5,10 @@ export interface agent {
         middleNames: string[],
         lastName: string
     }
-    dateOfBirth: Date,
+    dateOfBirth: Date | null,
     gender: string,
-    hiredDate: Date,
-    dateOfTermination: Date,
+    hiredDate: Date | null,
+    dateOfTermination: Date | null,
     photoFileName: string,
     role: number,
     supervisorId: number | null,

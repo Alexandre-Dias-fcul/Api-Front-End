@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { agent } from '../../models/agent';
+import { account } from '../../models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,16 @@ export class AgentService {
 
   deleteAgent(id: number): Observable<void> {
     return this.http.delete<void>(`${this.urlAgent}/${id}`);
+  }
+
+  agentAddAccount(account: account, agentId: number): Observable<account> {
+    return this.http.post<account>(`${this.urlAgent}/AddAccount/${agentId}`, account, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada agentAddAccount:', error);
+        return throwError(() => new Error('Erro ao adicionar conta ao agente.'));
+      })
+    );
   }
 }
