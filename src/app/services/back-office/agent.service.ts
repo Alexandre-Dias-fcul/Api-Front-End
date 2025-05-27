@@ -37,8 +37,8 @@ export class AgentService {
     );
   }
 
-  updateAgent(agent: agent): Observable<agent> {
-    return this.http.put<agent>(`${this.urlAgent}/${agent.id}`, agent,
+  updateAgent(id: number, agent: agent): Observable<agent> {
+    return this.http.put<agent>(`${this.urlAgent}/${id}`, agent,
       { headers: { 'Content-Type': 'application/json' } }).pipe(
         catchError((error) => {
           console.error('Erro na chamada updateAgent:', error);

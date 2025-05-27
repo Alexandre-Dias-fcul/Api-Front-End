@@ -99,14 +99,14 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-reset {
+.btn-back {
     display: inline-block;
     text-align: center;
     text-decoration: none;
     /* Remove o sublinhado */
     background-color: white;
     /* Fundo branco */
-    color: #e74c3c;
+    color: #3ce778;
     /* Vermelho */
     border: none;
     /* Remove bordas padrão */
@@ -132,8 +132,9 @@
     /* Leve aumento ao passar o mouse */
 }
 
-.btn-reset:hover {
-    background-color: #e74c3c;
+.btn-back:hover {
+    background-color: #3ce778;
+    ;
     /* Vermelho ao passar o mouse */
     color: white;
     /* Texto branco */

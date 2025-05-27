@@ -22,6 +22,7 @@ export const routes: Routes = [
         { path: '', redirectTo: 'agent-list', pathMatch: 'full' },
         { path: 'agent-list', component: AgentListComponent },
         { path: 'agent-new', component: AgentNewComponent },
+        { path: 'agent-new/:id', component: AgentNewComponent },
         { path: 'agent-new-account/:id', component: AgentNewAccountComponent },
         { path: 'agent-new-address/:id', component: AgentNewAddressComponent },
         { path: 'agent-new-contact/:id', component: AgentNewContactComponent },
