@@ -36,6 +36,7 @@ export class AgentNewComponent {
         supervisorId: [null], // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
       });
+
   }
 
   onSubmit() {
