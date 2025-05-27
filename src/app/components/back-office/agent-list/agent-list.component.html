@@ -17,7 +17,7 @@
             <td>{{ agent.gender }}</td>
             <td>{{ agent.role }}</td>
             <td>
-                <a href="edit.html"><i class="fas fa-edit edit-icon"></i></a>
+                <a [routerLink]="['/main-page','agent-edit',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
             </td>
         </tr>

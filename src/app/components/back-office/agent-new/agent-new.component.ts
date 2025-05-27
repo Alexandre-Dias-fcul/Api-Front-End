@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { agent } from '../../../models/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-agent-new',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './agent-new.component.html',
   styleUrl: './agent-new.component.css'
 })

@@ -81,8 +81,7 @@
     /* Espaça os botões */
 }
 
-.btn-submit,
-.btn-reset {
+.btn-submit {
     background-color: white;
     /* Fundo branco */
     color: #3498db;
@@ -98,6 +97,29 @@
     cursor: pointer;
     /* Mostra o cursor de clique */
     transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-reset {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    /* Remove o sublinhado */
+    background-color: white;
+    /* Fundo branco */
+    color: #e74c3c;
+    /* Vermelho */
+    border: none;
+    /* Remove bordas padrão */
+    padding: 0.8rem 1.5rem;
+    /* Espaçamento interno */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    font-size: 1rem;
+    /* Tamanho do texto */
+    cursor: pointer;
+    /* Mostra o cursor de clique */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Transição suave */
     /* Transição suave */
 }
 
