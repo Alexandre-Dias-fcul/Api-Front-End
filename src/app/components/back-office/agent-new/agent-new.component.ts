@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { agent } from '../../../models/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-agent-new',
@@ -15,10 +15,14 @@ export class AgentNewComponent {
 
   agentForm: FormGroup;
   responseMessage: string = ''; // Mensagem de resposta da API
+  id: number | null = null; // ID do agente, usado para determinar se é uma criação ou atualização
 
   constructor(private fb: FormBuilder,
     private agentService: AgentService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
+
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
     // Inicializa o formulário com campos e validações
     this.agentForm = this.fb.group(
       {
@@ -36,6 +40,20 @@ export class AgentNewComponent {
         supervisorId: [null], // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
       });
+
+    if (this.id) {
+      this.agentService.getAgentById(this.id).subscribe(agent => {
+        // Ajusta middleNames para string se necessário
+        const agentData = {
+          ...agent,
+          name: {
+            ...agent.name,
+            middleNames: agent.name.middleNames ? agent.name.middleNames.join(' ') : ''
+          }
+        };
+        this.agentForm.patchValue(agentData);
+      });
+    }
 
   }
 
@@ -63,22 +81,34 @@ export class AgentNewComponent {
       }
 
       console.log('Dados do agente:', agentData); // Exibe os dados do agente no console
-      this.agentService.addAgent(agentData).subscribe(
-        {
+      if (this.id) {
+        agentData.id = this.id; // Define o ID do agente se estiver atualizando
+        // UPDATE
+        this.agentService.updateAgent(this.id, agentData).subscribe({
           next: (response) => {
-            // Exibe a resposta da API
-            console.log('Agente criado com sucesso:', response);
-
-            this.agentForm.reset();
-
-            this.router.navigate(['/main-page/agent-new-account/', response.id]); // Mensagem de sucesso
+            console.log('Agente atualizado com sucesso:', response);
+            this.responseMessage = 'Agente atualizado com sucesso!';
+            this.router.navigate(['/main-page/agent-new-account/', response.id]);
           },
           error: (err) => {
-            console.error('Erro ao criar agente:', err); // Mensagem de erro
+            console.error('Erro ao atualizar agente:', err);
+            this.responseMessage = 'Erro ao atualizar agente. Tente novamente.';
+          }
+        });
+      } else {
+        // CREATE
+        this.agentService.addAgent(agentData).subscribe({
+          next: (response) => {
+            console.log('Agente criado com sucesso:', response);
+            this.agentForm.reset();
+            this.router.navigate(['/main-page/agent-new-account/', response.id]);
+          },
+          error: (err) => {
+            console.error('Erro ao criar agente:', err);
             this.responseMessage = 'Erro ao criar agente. Tente novamente.';
           }
-        }
-      );
+        });
+      }
 
       // Redireciona para a página de lista de agentes após a criação
     }
