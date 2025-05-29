@@ -80,6 +80,8 @@ export class AgentNewComponent {
         agentData.name.middleNames = [];
       }
 
+      agentData.isActive = this.agentForm.get('isActive')?.value === 'true';
+
       console.log('Dados do agente:', agentData); // Exibe os dados do agente no console
       if (this.id) {
         agentData.id = this.id; // Define o ID do agente se estiver atualizando
