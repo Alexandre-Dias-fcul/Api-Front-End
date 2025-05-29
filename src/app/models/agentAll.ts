@@ -1,6 +1,8 @@
+import e from 'express';
 import { account } from './account';
 import { address } from './address';
 import { contact } from './contact';
+import { entitylink } from './entitylink';
 
 export interface agentAll {
     id: number,
@@ -16,9 +18,7 @@ export interface agentAll {
     photoFileName: string,
     role: number,
     supervisorId: number | null,
-    isActive: boolean
+    isActive: boolean,
+    entityLink: entitylink
 
-    address: address[],
-    contact: contact[],
-    account: account,
 } 

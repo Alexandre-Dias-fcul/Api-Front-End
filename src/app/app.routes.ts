@@ -28,8 +28,8 @@ export const routes: Routes = [
         { path: 'agent-new-contact/:id', component: AgentNewContactComponent },
         { path: 'agent-edit/:id', component: AgentEditComponent },
         { path: 'agent-edit-account/:id', component: AgentEditAccountComponent },
-        { path: 'agent-edit-address/:id/:addressId', component: AgentEditAddressComponent },
-        { path: 'agent-edit-contact/:id/:contactId', component: AgentEditContactComponent }
+        { path: 'agent-edit-address/:id', component: AgentEditAddressComponent },
+        { path: 'agent-edit-contact/:id', component: AgentEditContactComponent }
 
       ]
   }
