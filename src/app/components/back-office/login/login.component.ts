@@ -34,7 +34,22 @@ export class LoginComponent {
           console.log('Login bem-sucedido:', response);
           this.authorizationService.setToken(response); // Armazena o token de autenticação
           this.loginForm.reset(); // Reseta o formulário após o login
-          this.router.navigate(['/main-page/agent-list']); // Redireciona para a página principal após o login
+
+          const role = this.authorizationService.getRole();
+
+          if (role == 'Manager' || role == 'Broker' || role == 'Admin') {
+            this.router.navigate(['/main-page/agent-list']);
+          }
+          else if (role == 'Agent') {
+
+          }
+          else if (role == 'Staff') {
+
+          }
+          else {
+
+          }
+          // Redireciona para a página principal após o login
         },
         error: (err) => {
           console.error('Erro no login:', err);

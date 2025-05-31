@@ -1,8 +1,7 @@
-import e from 'express';
-import { account } from './account';
-import { address } from './address';
-import { contact } from './contact';
-import { entitylink } from './entitylink';
+
+import { entityLink } from './entitylink';
+
+
 
 export interface agentAll {
     id: number,
@@ -19,6 +18,6 @@ export interface agentAll {
     role: number,
     supervisorId: number | null,
     isActive: boolean,
-    entityLink: entitylink
+    entityLink?: entityLink
 
 } 
