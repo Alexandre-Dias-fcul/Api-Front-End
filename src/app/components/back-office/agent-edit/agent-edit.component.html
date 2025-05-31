@@ -1,7 +1,7 @@
 @if(isLoaded)
 {
 <div class="form-container">
-    <h2 class="form-title">Novo Agente</h2>
+    <h2 class="form-title">Editar Agente</h2>
     <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
         <div formGroupName="name">
             <div class="form-row">
@@ -127,36 +127,41 @@
         {
         <div class="error-message">ID inválido</div>
         }
+
         <div class="form-actions">
+
             <button type="submit" class="btn-submit">Salvar</button>
 
-            @if(agent.entityLink?.account)
+            @if(agent.entityLink?.account == null || agent.entityLink?.account == undefined)
             {
-            <a [routerLink]="['/main-page/agent-edit-account',agent.id]">Editar Conta</a>
+            <a [routerLink]="['/main-page/agent-new-account', agent.id]" class="btn-action-new">Criar Conta</a>
             }
             @else
             {
-            <a [routerLink]="['/main-page/agent-new-account',agent.id]">Criar Conta</a>
+            <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
             }
 
-            @if(agent.entityLink?.addresses)
+            @if(agent.entityLink?.addresses?.length == 0)
             {
-            <a [routerLink]="['/main-page/agent-edit-address',agent.id]">Editar Endereço</a>
+            <a [routerLink]="['/main-page/agent-new-address', agent.id]" class="btn-action-new">Criar Endereço</a>
             }
             @else
             {
-            <a [routerLink]="['/main-page/agent-new-address',agent.id]">Criar Endereço</a>
+            <a [routerLink]="['/main-page/agent-edit-address', agent.id]" class="btn-action-edit">Editar Endereço</a>
             }
 
-            @if(agent.entityLink?.contacts)
+            @if(agent.entityLink?.contacts?.length == 0)
             {
-            <a [routerLink]="['/main-page/agent-edit-contact',agent.id]">Editar Contacto</a>
+            <a [routerLink]="['/main-page/agent-new-contact', agent.id]" class="btn-action-new">Criar Contacto</a>
             }
             @else
             {
-            <a [routerLink]="['/main-page/agent-new-contact',agent.id]">Criar Contacto</a>
+            <a [routerLink]="['/main-page/agent-edit-contact', agent.id]" class="btn-action-edit">Editar Contacto</a>
             }
+
+
             <a [routerLink]="['/main-page/agent-list']" class="btn-reset">Cancelar</a>
+
         </div>
     </form>
 </div>

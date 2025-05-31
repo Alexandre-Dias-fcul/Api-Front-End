@@ -3,6 +3,7 @@ import { agent } from '../../../models/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
 
 @Component({
   selector: 'app-agent-new',
@@ -18,9 +19,18 @@ export class AgentNewComponent {
   id: number | null = null; // ID do agente, usado para determinar se é uma criação ou atualização
 
   constructor(private fb: FormBuilder,
+    private authorization: AuthorizationService,
     private agentService: AgentService,
     private router: Router,
     private route: ActivatedRoute) {
+
+    const role = this.authorization.getRole();
+
+    if (role != 'Manager' && role != 'Broker' && role != 'Admin') {
+
+      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+    }
+
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     // Inicializa o formulário com campos e validações

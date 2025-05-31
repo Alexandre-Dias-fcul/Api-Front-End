@@ -3,7 +3,8 @@ import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Console } from 'console';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
+
 
 @Component({
   selector: 'app-agent-edit',
@@ -50,9 +51,36 @@ export class AgentEditComponent {
 
 
   constructor(private fb: FormBuilder,
+    private authorization: AuthorizationService,
     private agentService: AgentService,
     private route: ActivatedRoute,
     private router: Router) {
+
+    this.agentForm = this.fb.group(
+      {
+        name: this.fb.group({
+          firstName: ['', [Validators.required]],
+          middleNames: ['', [Validators.required]], // Campo de nomes do meio
+          lastName: ['', [Validators.required]],
+        }),
+        isActive: [true, [Validators.required]],
+        gender: ['', [Validators.required]],
+        dateOfBirth: [null], // Campo de data de nascimento
+        hiredDate: [null], // Campo de data de contratação
+        dateOfTermination: [null],// Campo de data de demissão
+        photoFileName: [''], // Campo de nome do arquivo da foto
+        supervisorId: [null], // Campo de ID do supervisor
+        role: [null, Validators.required], // Campo de função
+      });
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+
+      this.router.navigate(['/login']);
+
+      return;
+    }
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -65,7 +93,6 @@ export class AgentEditComponent {
         this.isLoaded = true; // Define isLoaded como true após obter os dados
         console.log('Dados do agente obtidos:', data);
         console.log('Dados do agente:', this.agent);
-        console.log('Account:', this.agent.entityLink.account);
 
         const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
 
@@ -90,23 +117,6 @@ export class AgentEditComponent {
 
     }
 
-
-    this.agentForm = this.fb.group(
-      {
-        name: this.fb.group({
-          firstName: ['', [Validators.required]],
-          middleNames: ['', [Validators.required]], // Campo de nomes do meio
-          lastName: ['', [Validators.required]],
-        }),
-        isActive: [true, [Validators.required]],
-        gender: ['', [Validators.required]],
-        dateOfBirth: [null], // Campo de data de nascimento
-        hiredDate: [null], // Campo de data de contratação
-        dateOfTermination: [null],// Campo de data de demissão
-        photoFileName: [''], // Campo de nome do arquivo da foto
-        supervisorId: [null], // Campo de ID do supervisor
-        role: [null, Validators.required], // Campo de função
-      });
   }
 
 

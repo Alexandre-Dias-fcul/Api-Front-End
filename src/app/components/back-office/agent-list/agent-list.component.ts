@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { agent } from '../../../models/agent';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { CommonModule } from '@angular/common';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
 
 @Component({
   selector: 'app-agent-list',
@@ -14,7 +15,19 @@ export class AgentListComponent {
 
   agents: agent[] = []; // Array to hold agent data
 
-  constructor(private agentService: AgentService) {
+  constructor(private agentService: AgentService,
+    private authorization: AuthorizationService,
+    private router: Router) {
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+
+      this.router.navigate(['/login']);
+
+      return;// Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+    }
+
 
     this.agentService.getAllAgents().subscribe({
 
@@ -28,6 +41,5 @@ export class AgentListComponent {
 
     ); // Fetch all agents on component initialization
   }
-
 
 }

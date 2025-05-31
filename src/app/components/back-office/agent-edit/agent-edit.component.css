@@ -140,3 +140,43 @@
     transform: scale(1.05);
     /* Leve aumento ao passar o mouse */
 }
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn-action-new {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-action-edit {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background-color: #f1c40f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-action:hover {
+    background-color: #217dbb;
+    transform: translateY(-2px) scale(1.03);
+}
