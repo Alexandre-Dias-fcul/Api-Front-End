@@ -22,21 +22,23 @@ export class AgentNewAccountComponent {
     private router: Router
   ) {
 
-    const role = this.authorization.getRole();
-
-    if (role != 'Manager' && role != 'Broker' && role != 'Admin') {
-
-      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
-
-    }
-
-    this.agentId = Number(this.route.snapshot.paramMap.get('id')); // Obtém o ID do agente da rota
-
     this.accountForm = this.fb.group(
       {
         email: ['', Validators.required],
         password: ['', Validators.required],
       });
+
+    this.agentId = Number(this.route.snapshot.paramMap.get('id')); // Obtém o ID do agente da rota
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+
+      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+
+      return;
+    }
+
   }
 
   onSubmit() {

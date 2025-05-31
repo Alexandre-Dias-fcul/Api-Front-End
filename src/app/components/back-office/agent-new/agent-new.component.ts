@@ -24,16 +24,6 @@ export class AgentNewComponent {
     private router: Router,
     private route: ActivatedRoute) {
 
-    const role = this.authorization.getRole();
-
-    if (role != 'Manager' && role != 'Broker' && role != 'Admin') {
-
-      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
-    }
-
-
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    // Inicializa o formulário com campos e validações
     this.agentForm = this.fb.group(
       {
         name: this.fb.group({
@@ -50,6 +40,19 @@ export class AgentNewComponent {
         supervisorId: [null], // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
       });
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+
+      this.router.navigate(['/login']);
+
+      return;
+    }
+
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    // Inicializa o formulário com campos e validações
+
 
     if (this.id) {
       this.agentService.getAgentById(this.id).subscribe(agent => {
