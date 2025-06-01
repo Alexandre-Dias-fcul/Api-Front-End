@@ -1,0 +1,62 @@
+<div class="form-container">
+    <h2 class="form-title">Novo Agente</h2>
+    <form [formGroup]="listingForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="type">Tipo de Imóvel</label>
+                <input type="text" id="type" formControlName="type" placeholder="Digite o tipo de imóvel" required>
+            </div>
+            @if(listingForm.get('type')?.invalid &&
+            (listingForm.get('type')?.dirty || listingForm.get('type')?.touched))
+            {
+            <div class="error-message">Tipo inválido</div>
+            }
+            <div class="form-group">
+                <label for="status">Estado do Imovel</label>
+                <input type="text" id="status" formControlName="status" placeholder="Digite o estado do imóvel"
+                    required>
+            </div>
+
+            @if(listingForm.get('status')?.invalid &&
+            (listingForm.get('status')?.dirty || listingForm.get('status')?.touched))
+            {
+            <div class="error-message">Estado inválido</div>
+            }
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="rooms">Número de Quartos</label>
+                <input type="text" id="rooms" formControlName="rooms" placeholder="Digite o número" required>
+            </div>
+            @if(listingForm.get('rooms')?.invalid &&
+            (listingForm.get('rooms')?.dirty || listingForm.get('rooms')?.touched))
+            {
+            <div class="error-message">Número inválido</div>
+            }
+            <div class="form-group">
+                <label for="bathrooms">Número de WC(s)</label>
+                <input type="text" id="bathrooms" formControlName="bathrooms" placeholder="Digite o número" required>
+            </div>
+            @if(listingForm.get('bathrooms')?.invalid &&
+            (listingForm.get('bathrooms')?.dirty || listingForm.get('bathrooms')?.touched))
+            {
+            <div class="error-message">Número inválido</div>
+            }
+
+            <div class="form-group">
+                <label for="kitchens">Número de Cosinhas</label>
+                <input type="text" id="kitchens" formControlName="kitchens" placeholder="Digite o número" required>
+            </div>
+            @if(listingForm.get('kitchens')?.invalid &&
+            (listingForm.get('kitchens')?.dirty || listingForm.get('kitchens')?.touched))
+            {
+            <div class="error-message">Número inválido</div>
+            }
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page/listing-list']" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>

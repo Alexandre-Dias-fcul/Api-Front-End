@@ -75,7 +75,7 @@ export class AgentEditComponent {
 
     const role = this.authorization.getRole();
 
-    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
       this.router.navigate(['/login']);
 

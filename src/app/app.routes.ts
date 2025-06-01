@@ -11,6 +11,10 @@ import { AgentNewAddressComponent } from './components/back-office/agent-new-add
 import { AgentNewContactComponent } from './components/back-office/agent-new-contact/agent-new-contact.component';
 import { AgentEditAccountComponent } from './components/back-office/agent-edit-account/agent-edit-account.component';
 import { AgentEditContactComponent } from './components/back-office/agent-edit-contact/agent-edit-contact.component';
+import { ListingListComponent } from './components/back-office-agent/listing-list/listing-list.component';
+import { ListingNewComponent } from './components/back-office-agent/listing-new/listing-new.component';
+import { ListingEditComponent } from './components/back-office-agent/listing-edit/listing-edit.component';
+
 
 
 export const routes: Routes = [
@@ -29,7 +33,10 @@ export const routes: Routes = [
         { path: 'agent-edit/:id', component: AgentEditComponent },
         { path: 'agent-edit-account/:id', component: AgentEditAccountComponent },
         { path: 'agent-edit-address/:id', component: AgentEditAddressComponent },
-        { path: 'agent-edit-contact/:id', component: AgentEditContactComponent }
+        { path: 'agent-edit-contact/:id', component: AgentEditContactComponent },
+        { path: 'listing-list', component: ListingListComponent },
+        { path: 'listing-new', component: ListingNewComponent },
+        { path: 'listing-edit/:id', component: ListingEditComponent }
 
       ]
   }

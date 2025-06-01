@@ -32,7 +32,7 @@ export class AgentNewAccountComponent {
 
     const role = this.authorization.getRole();
 
-    if (!role || (role != 'Manager' && role != 'Broker' && role != 'Admin')) {
+    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
       this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
 

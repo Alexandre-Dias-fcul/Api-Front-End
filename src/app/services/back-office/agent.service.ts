@@ -6,6 +6,7 @@ import { account } from '../../models/account';
 import { address } from '../../models/address';
 import { contact } from '../../models/contact';
 import { agentAll } from '../../models/agentAll';
+import { agentListing } from '../../models/agentListing';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,10 @@ export class AgentService {
 
   getByIdWithAll(id: number): Observable<agentAll> {
     return this.http.get<agentAll>(`${this.urlAgent}/GetByIdWithAll/${id}`);
+  }
+
+  getByIdwithListings(id: number): Observable<agentListing> {
+    return this.http.get<agentListing>(`${this.urlAgent}/GetByIdWithListings/${id}`);
   }
 
   addAgent(agent: agent): Observable<agent> {
@@ -48,8 +53,8 @@ export class AgentService {
       );
   }
 
-  deleteAgent(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.urlAgent}/${id}`);
+  deleteAgent(id: number): Observable<agent> {
+    return this.http.delete<agent>(`${this.urlAgent}/${id}`);
   }
 
   agentAddAccount(account: account, agentId: number): Observable<account> {
