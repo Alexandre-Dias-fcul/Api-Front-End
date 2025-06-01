@@ -37,11 +37,11 @@ export class LoginComponent {
 
           const role = this.authorizationService.getRole();
 
-          if (role == 'Manager' || role == 'Broker' || role == 'Admin') {
+          if (role === 'Manager' || role === 'Broker' || role === 'Admin') {
             this.router.navigate(['/main-page/agent-list']);
           }
-          else if (role == 'Agent') {
-
+          else if (role === 'Agent') {
+            this.router.navigate(['/main-page/listing-list']);
           }
           else if (role == 'Staff') {
 

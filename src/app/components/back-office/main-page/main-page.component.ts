@@ -17,10 +17,12 @@ export class MainPageComponent {
 
     this.role = authorization.getRole();
 
-    if (this.role != 'Agent' && this.role != 'Manager' && this.role != 'Broker'
-      && this.role != 'Staff' && this.role != 'Admin') {
+    if (!this.role || (this.role !== 'Agent' && this.role !== 'Manager' && this.role !== 'Broker'
+      && this.role !== 'Staff' && this.role !== 'Admin')) {
 
-      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/login']);
+
+      return;
     }
   }
 

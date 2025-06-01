@@ -4,20 +4,20 @@
             <!--   <img src="logo.png" alt="Sintra imoveis" class="logo">-->
         </div>
         <nav>
-            <ul>@if(role == 'Agent')
+            <ul>@if(role === 'Agent')
                 {
                 <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 }
-                @else if(role == 'Manager')
+                @else if(role === 'Manager')
                 {
                 <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Meus Agentes</span></a></li>
                 }
-                @else if(role == 'Broker')
+                @else if(role === 'Broker')
                 {
                 <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
@@ -25,12 +25,12 @@
                 <li><a href="#"><i class="fas fa-user"></i><span>Meus Agentes</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Meus Gestores</span></a></li>
 
-                }@else if(role == 'Staff')
+                }@else if(role === 'Staff')
                 {
                 <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
 
-                }@else if(role == 'Admin')
+                }@else if(role === 'Admin')
                 {
                 <li><a href="#"><i class="fas fa-user"></i><span>Imóveis</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>

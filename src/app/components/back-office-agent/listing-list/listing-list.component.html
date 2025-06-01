@@ -1,0 +1,36 @@
+<div class="table-header">
+    <a [routerLink]="['/main-page','listing-new']" class="add-user-link">Novo Imóvel</a>
+    <input type="text" class="search-bar" placeholder="Pesquisar...">
+</div>
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Tipo de Imóvel</th>
+            <th>Estado</th>
+            <th>Preço</th>
+            <th>Localização</th>
+            <th>Ações</th> <!-- Coluna para os botões -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let listing of agent.listings">
+            <td>{{ listing.id }}</td>
+            <td>{{ listing.type }}</td>
+            <td>{{ listing.status }}</td>
+            <td>{{ listing.price }}</td>
+            <td>{{ listing.location }}</td>
+            <td>
+                <a [routerLink]="['/main-page','listing-edit',listing.id]"><i class="fas fa-edit edit-icon"></i></a>
+                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="pagination">
+    <button class="pagination-btn prev-btn" disabled>&laquo; Anterior</button>
+    <button class="pagination-btn">1</button>
+    <button class="pagination-btn">2</button>
+    <button class="pagination-btn">3</button>
+    <button class="pagination-btn next-btn">Próximo &raquo;</button>
+</div>
