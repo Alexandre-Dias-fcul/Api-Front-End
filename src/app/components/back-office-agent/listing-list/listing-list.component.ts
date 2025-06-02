@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AgentService } from '../../../services/back-office/agent.service';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { Router, RouterLink } from '@angular/router';
-import { agentListing } from '../../../models/agentListing';
 import { CommonModule } from '@angular/common';
+import { listing } from '../../../models/listing';
+import { ListingService } from '../../../services/back-office-agent/listing.service';
 
 
 @Component({
@@ -14,49 +14,43 @@ import { CommonModule } from '@angular/common';
 })
 export class ListingListComponent {
 
-  agent: agentListing = {
-    id: 0,
-    name: {
-      firstName: '',
-      middleNames: [],
-      lastName: ''
-    },
-    dateOfBirth: null,
-    gender: '',
-    hiredDate: null,
-    dateOfTermination: null,
-    photoFileName: '',
-    role: 0,
-    supervisorId: null,
-    isActive: true,
-    listings: []
-  };
-  constructor(private agentService: AgentService,
+  listings: listing[] = [];
+
+  id: number = 0;
+
+  constructor(private listingService: ListingService,
     private authorization: AuthorizationService,
     private router: Router) {
+
     const role = authorization.getRole();
 
-    if (!role || role !== 'Agent') {
+    if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
       this.router.navigate(['/login']);
 
       return;
     }
 
-    const id = Number(authorization.getId());
+    this.id = Number(authorization.getId());
 
-    if (id) {
-      this.agentService.getByIdwithListings(id).subscribe(
-        {
-          next: (data) => {
-            this.agent = data; // Assign the fetched data to the agents array// Log the agents data to the console
-          },
-          error: (err) => {
-            console.error('Error fetching agent:', err); // Log any errors that occur during the fetch
-          }
-        }
-      );
+    if (!this.id) {
+      this.router.navigate(['/login'])
+
+      return;
     }
+
+
+    this.listingService.getAllListings().subscribe(
+      {
+        next: (data) => {
+          this.listings = data;
+        },
+        error: (err) => {
+          console.error('Error fetching listings:', err);
+        }
+      }
+    );
+
   }
 
 

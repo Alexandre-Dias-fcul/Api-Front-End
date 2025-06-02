@@ -31,7 +31,7 @@ export class AgentNewComponent {
           middleNames: ['', [Validators.required]], // Campo de nomes do meio
           lastName: ['', [Validators.required]],
         }),
-        isActive: [true, [Validators.required]],
+        isActive: [null, [Validators.required]],
         gender: ['', [Validators.required]],
         dateOfBirth: [null], // Campo de data de nascimento
         hiredDate: [null], // Campo de data de contratação
