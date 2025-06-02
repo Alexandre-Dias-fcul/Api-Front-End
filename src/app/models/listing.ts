@@ -1,7 +1,7 @@
 export interface listing {
     id: number
     type: string
-    status: string
+    status: number
     numberOfRooms: number
     numberOfBathrooms: number
     numberOfKitchens: number

@@ -14,15 +14,29 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let listing of agent.listings">
+        <tr *ngFor="let listing of listings">
             <td>{{ listing.id }}</td>
             <td>{{ listing.type }}</td>
-            <td>{{ listing.status }}</td>
+            @if(listing.status === 0)
+            {
+            <td>Disponível</td>
+            }
+            @else if(listing.status === 1)
+            {
+            <td>Reservada</td>
+            }
+            @else if(listing.status === 2)
+            {
+            <td>Vendida</td>
+            }
             <td>{{ listing.price }}</td>
             <td>{{ listing.location }}</td>
             <td>
+                @if(listing.agentId === id)
+                {
                 <a [routerLink]="['/main-page','listing-edit',listing.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+                }
             </td>
         </tr>
     </tbody>

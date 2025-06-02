@@ -24,7 +24,7 @@ export class ListingNewComponent {
     this.listingForm = this.fb.group(
       {
         type: ['', [Validators.required]],
-        status: ['', [Validators.required]],
+        status: [null, [Validators.required]],
         numberOfRooms: [null],
         numberOfBathrooms: [null],
         numberOfKitchens: [null],
@@ -40,7 +40,7 @@ export class ListingNewComponent {
 
     const role = this.authorization.getRole();
 
-    if (!role || role !== 'Agent') {
+    if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
       this.router.navigate(['/login']);
 
@@ -54,11 +54,13 @@ export class ListingNewComponent {
 
       const listingData: listing = this.listingForm.value as listing;
 
+      listingData.status = Number(this.listingForm.get('status')?.value);
+
       this.listingService.addListing(listingData).subscribe({
         next: (response) => {
           console.log('Listing criada com sucesso:', response);
           this.listingForm.reset();
-          this.router.navigate(['/main-page/listing-list/']);
+          this.router.navigate(['/main-page/listing-list']);
         },
         error: (err) => {
           console.error('Erro ao criar listing:', err);
