@@ -32,8 +32,8 @@ export class ListingService {
     );
   }
 
-  updateListing(listing: listing, id: number): Observable<listing> {
-    return this.http.put<listing>(`${this.urlListing}/${id}`, listing, {
+  updateListing(listing: listing): Observable<listing> {
+    return this.http.put<listing>(`${this.urlListing}/${listing.id}`, listing, {
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
       catchError((error) => {

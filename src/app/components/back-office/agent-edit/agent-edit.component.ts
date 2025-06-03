@@ -84,38 +84,40 @@ export class AgentEditComponent {
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (this.id) {
+    if (!this.id) {
+      this.router.navigate(['/login']);
 
-      agentService.getByIdWithAll(this.id).subscribe((data: agentAll) => {
-
-        this.agent = data; // Atribui os dados do agente à variável agent
-
-        this.isLoaded = true; // Define isLoaded como true após obter os dados
-        console.log('Dados do agente obtidos:', data);
-        console.log('Dados do agente:', this.agent);
-
-        const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
-
-        this.agentForm.patchValue({
-
-          name: {
-            firstName: data.name.firstName,
-            middleNames: middleNames, // Ajusta middleNames para string
-            lastName: data.name.lastName
-          },
-
-          isActive: data.isActive,
-          gender: data.gender,
-          dateOfBirth: data.dateOfBirth,
-          hiredDate: data.hiredDate,
-          dateOfTermination: data.dateOfTermination,
-          photoFileName: data.photoFileName,
-          supervisorId: data.supervisorId,
-          role: data.role
-        });
-      });
-
+      return;
     }
+
+    agentService.getByIdWithAll(this.id).subscribe((data: agentAll) => {
+
+      this.agent = data; // Atribui os dados do agente à variável agent
+
+      this.isLoaded = true; // Define isLoaded como true após obter os dados
+      console.log('Dados do agente obtidos:', data);
+      console.log('Dados do agente:', this.agent);
+
+      const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
+
+      this.agentForm.patchValue({
+
+        name: {
+          firstName: data.name.firstName,
+          middleNames: middleNames, // Ajusta middleNames para string
+          lastName: data.name.lastName
+        },
+
+        isActive: data.isActive,
+        gender: data.gender,
+        dateOfBirth: data.dateOfBirth,
+        hiredDate: data.hiredDate,
+        dateOfTermination: data.dateOfTermination,
+        photoFileName: data.photoFileName,
+        supervisorId: data.supervisorId,
+        role: data.role
+      });
+    });
 
   }
 
@@ -144,7 +146,7 @@ export class AgentEditComponent {
 
       agentData.id = this.id; // Define o ID do agente se estiver atualizando
       // UPDATE
-      this.agentService.updateAgent(this.id, agentData).subscribe({
+      this.agentService.updateAgent(agentData).subscribe({
         next: (response) => {
           console.log('Agente atualizado com sucesso:', response);
 
