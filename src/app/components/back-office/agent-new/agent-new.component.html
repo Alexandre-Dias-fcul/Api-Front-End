@@ -9,7 +9,7 @@
                         required>
                 </div>
                 @if(agentForm.get('firstName')?.invalid &&
-                (agentForm.get('FirstName')?.dirty || agentForm.get('firstName')?.touched))
+                (agentForm.get('firstName')?.dirty || agentForm.get('firstName')?.touched))
                 {
                 <div class="error-message">Nome inválido</div>
                 }
@@ -117,11 +117,12 @@
         <div class="error-message">Nome inválido</div>
         }
         <div class="form-group">
-            <label for="supervisorId">Supervisor</label>
-            <input type="text" id="supervisorId" formControlName="supervisorId" placeholder="Digite o id do supervisor">
+            <label for="supervisorEmail">Supervisor</label>
+            <input type="text" id="supervisorEmail" formControlName="supervisorEmail"
+                placeholder="Digite o email do supervisor">
         </div>
-        @if(agentForm.get('supervisorId')?.invalid &&
-        (agentForm.get('supervisorId')?.dirty || agentForm.get('supervisorId')?.touched))
+        @if(agentForm.get('supervisorEmail')?.invalid &&
+        (agentForm.get('supervisorEmail')?.dirty || agentForm.get('supervisorEmail')?.touched))
         {
         <div class="error-message">ID inválido</div>
         }

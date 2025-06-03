@@ -37,7 +37,7 @@ export class AgentNewComponent {
         hiredDate: [null], // Campo de data de contratação
         dateOfTermination: [null],// Campo de data de demissão
         photoFileName: [''], // Campo de nome do arquivo da foto
-        supervisorId: [null], // Campo de ID do supervisor
+        supervisorEmail: [null], // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
       });
 
@@ -74,13 +74,25 @@ export class AgentNewComponent {
 
     if (this.agentForm.valid) {
 
-      const agentData: agent = this.agentForm.value as agent; // Obtém os valores do formulário
+      const agentData: agent = {
+        id: 0,
+        name: {
+          firstName: '',
+          middleNames: [],
+          lastName: ''
+        },
+        isActive: false,
+        gender: '',
+        dateOfBirth: null,
+        hiredDate: null,
+        dateOfTermination: null,
+        photoFileName: '',
+        role: 0,
+        supervisorId: null,
 
-      agentData.role = Number(this.agentForm.get('role')?.value);
+      } as agent;
 
-      if (agentData.supervisorId !== null) {
-        agentData.supervisorId = Number(this.agentForm.get('supervisorId')?.value);
-      }
+      agentData.name.firstName = this.agentForm.get('name.firstName')?.value;
 
       const middleNamesValue = this.agentForm.get('name.middleNames')?.value;
 
@@ -93,42 +105,71 @@ export class AgentNewComponent {
         agentData.name.middleNames = [];
       }
 
-      agentData.isActive = this.agentForm.get('isActive')?.value === 'true';
+      agentData.name.lastName = this.agentForm.get('name.lastName')?.value;
 
-      console.log('Dados do agente:', agentData); // Exibe os dados do agente no console
-      if (this.id) {
-        agentData.id = this.id; // Define o ID do agente se estiver atualizando
-        // UPDATE
-        this.agentService.updateAgent(this.id, agentData).subscribe({
-          next: (response) => {
-            console.log('Agente atualizado com sucesso:', response);
-            this.responseMessage = 'Agente atualizado com sucesso!';
-            this.router.navigate(['/main-page/agent-new-account/', response.id]);
-          },
-          error: (err) => {
-            console.error('Erro ao atualizar agente:', err);
-            this.responseMessage = 'Erro ao atualizar agente. Tente novamente.';
+      agentData.isActive = this.agentForm.get('isActive')?.value === 'true';
+      agentData.gender = this.agentForm.get('gender')?.value;
+      agentData.dateOfBirth = this.agentForm.get('dateOfBirth')?.value;
+      agentData.hiredDate = this.agentForm.get('hiredDate')?.value;
+      agentData.dateOfTermination = this.agentForm.get('dateOfTermination')?.value;
+      agentData.photoFileName = this.agentForm.get('photoFileName')?.value;
+      agentData.role = Number(this.agentForm.get('role')?.value);
+
+      const supervisorEmail = this.agentForm.get('supervisorEmail')?.value;
+
+      if (supervisorEmail != null) {
+        this.agentService.getAgentByEmail(supervisorEmail).subscribe(
+          {
+            next: (response) => {
+              agentData.supervisorId = response.id;
+
+              this.saveAgent(agentData);
+            },
+            error: (err) => {
+              console.error('Erro ao buscar agent:', err);
+            }
           }
-        });
-      } else {
-        // CREATE
-        this.agentService.addAgent(agentData).subscribe({
-          next: (response) => {
-            console.log('Agente criado com sucesso:', response);
-            this.agentForm.reset();
-            this.router.navigate(['/main-page/agent-new-account/', response.id]);
-          },
-          error: (err) => {
-            console.error('Erro ao criar agente:', err);
-            this.responseMessage = 'Erro ao criar agente. Tente novamente.';
-          }
-        });
+        )
+      }
+      else {
+        this.saveAgent(agentData);
       }
 
-      // Redireciona para a página de lista de agentes após a criação
     }
     else {
-      console.log('Formulário inválido'); // Mensagem de erro se o formulário for inválido
+      console.log('Formulário inválido');
     }
+  }
+
+  private saveAgent(agentData: agent) {
+    if (this.id) {
+      agentData.id = this.id;
+      // UPDATE
+      this.agentService.updateAgent(agentData).subscribe({
+        next: (response) => {
+          console.log('Agente atualizado com sucesso:', response);
+          this.responseMessage = 'Agente atualizado com sucesso!';
+          this.router.navigate(['/main-page/agent-new-account/', response.id]);
+        },
+        error: (err) => {
+          console.error('Erro ao atualizar agente:', err);
+          this.responseMessage = 'Erro ao atualizar agente. Tente novamente.';
+        }
+      });
+    } else {
+      // CREATE
+      this.agentService.addAgent(agentData).subscribe({
+        next: (response) => {
+          console.log('Agente criado com sucesso:', response);
+          this.agentForm.reset();
+          this.router.navigate(['/main-page/agent-new-account/', response.id]);
+        },
+        error: (err) => {
+          console.error('Erro ao criar agente:', err);
+          this.responseMessage = 'Erro ao criar agente. Tente novamente.';
+        }
+      });
+    }
+
   }
 }

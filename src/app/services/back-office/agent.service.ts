@@ -23,6 +23,10 @@ export class AgentService {
     return this.http.get<agent>(`${this.urlAgent}/${id}`);
   }
 
+  getAgentByEmail(email: string): Observable<agent> {
+    return this.http.get<agent>(`${this.urlAgent}/GetByEmail?email=${email}`);
+  }
+
   getByIdWithAll(id: number): Observable<agentAll> {
     return this.http.get<agentAll>(`${this.urlAgent}/GetByIdWithAll/${id}`);
   }
@@ -42,8 +46,8 @@ export class AgentService {
     );
   }
 
-  updateAgent(id: number, agent: agent): Observable<agent> {
-    return this.http.put<agent>(`${this.urlAgent}/${id}`, agent,
+  updateAgent(agent: agent): Observable<agent> {
+    return this.http.put<agent>(`${this.urlAgent}/${agent.id}`, agent,
       { headers: { 'Content-Type': 'application/json' } }).pipe(
         catchError((error) => {
           console.error('Erro na chamada updateAgent:', error);
