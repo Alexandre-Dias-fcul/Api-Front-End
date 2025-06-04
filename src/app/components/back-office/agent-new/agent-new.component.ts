@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
+import { agentAll } from '../../../models/agentAll';
 
 @Component({
   selector: 'app-agent-new',
@@ -64,6 +65,17 @@ export class AgentNewComponent {
             middleNames: agent.name.middleNames ? agent.name.middleNames.join(' ') : ''
           }
         };
+
+        if (agent.supervisorId != null) {
+          this.agentService.getByIdWithAll(agent.supervisorId).subscribe((supervisor) => {
+            const supervisorEmail = supervisor.entityLink?.account?.email || '';
+            this.agentForm.patchValue({ supervisorEmail });
+          });
+        }
+        else {
+          this.agentForm.patchValue({ supervisorEmail: '' });
+        }
+
         this.agentForm.patchValue(agentData);
       });
     }

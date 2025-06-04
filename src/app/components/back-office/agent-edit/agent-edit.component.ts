@@ -4,8 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-
-
+import { agent } from '../../../models/agent';
 @Component({
   selector: 'app-agent-edit',
   imports: [RouterLink, ReactiveFormsModule],
@@ -69,7 +68,7 @@ export class AgentEditComponent {
         hiredDate: [null], // Campo de data de contratação
         dateOfTermination: [null],// Campo de data de demissão
         photoFileName: [''], // Campo de nome do arquivo da foto
-        supervisorId: [null], // Campo de ID do supervisor
+        supervisorEmail: '', // Campo de ID do supervisor
         role: [null, Validators.required], // Campo de função
       });
 
@@ -100,6 +99,15 @@ export class AgentEditComponent {
 
       const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
 
+      if (this.agent.supervisorId != null) {
+        this.agentService.getByIdWithAll(this.agent.supervisorId).subscribe((supervisor: agentAll) => {
+          const supervisorEmail = supervisor.entityLink?.account?.email || '';
+          this.agentForm.patchValue({ supervisorEmail });
+        });
+      } else {
+        this.agentForm.patchValue({ supervisorEmail: '' });
+      }
+
       this.agentForm.patchValue({
 
         name: {
@@ -114,7 +122,6 @@ export class AgentEditComponent {
         hiredDate: data.hiredDate,
         dateOfTermination: data.dateOfTermination,
         photoFileName: data.photoFileName,
-        supervisorId: data.supervisorId,
         role: data.role
       });
     });
@@ -126,13 +133,25 @@ export class AgentEditComponent {
 
     if (this.agentForm.valid) {
 
-      const agentData: agentAll = this.agentForm.value as agentAll; // Obtém os valores do formulário
+      const agentData: agent = {
+        id: 0,
+        name: {
+          firstName: '',
+          middleNames: [],
+          lastName: ''
+        },
+        isActive: false,
+        gender: '',
+        dateOfBirth: null,
+        hiredDate: null,
+        dateOfTermination: null,
+        photoFileName: '',
+        role: 0,
+        supervisorId: null,
 
-      agentData.role = Number(this.agentForm.get('role')?.value);
+      } as agent;
 
-      if (agentData.supervisorId !== null) {
-        agentData.supervisorId = Number(this.agentForm.get('supervisorId')?.value);
-      }
+      agentData.name.firstName = this.agentForm.get('name.firstName')?.value;
 
       const middleNamesValue = this.agentForm.get('name.middleNames')?.value;
 
@@ -141,23 +160,55 @@ export class AgentEditComponent {
           .split(' ')
           .map((name: string) => name.trim());
       }
+      else {
+        agentData.name.middleNames = [];
+      }
+
+      agentData.name.lastName = this.agentForm.get('name.lastName')?.value;
 
       agentData.isActive = this.agentForm.get('isActive')?.value === 'true';
+      agentData.gender = this.agentForm.get('gender')?.value;
+      agentData.dateOfBirth = this.agentForm.get('dateOfBirth')?.value;
+      agentData.hiredDate = this.agentForm.get('hiredDate')?.value;
+      agentData.dateOfTermination = this.agentForm.get('dateOfTermination')?.value;
+      agentData.photoFileName = this.agentForm.get('photoFileName')?.value;
+      agentData.role = Number(this.agentForm.get('role')?.value);
 
-      agentData.id = this.id; // Define o ID do agente se estiver atualizando
-      // UPDATE
-      this.agentService.updateAgent(agentData).subscribe({
-        next: (response) => {
-          console.log('Agente atualizado com sucesso:', response);
+      agentData.id = this.id;
 
-          this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após a atualizaçã
-        },
-        error: (err) => {
-          console.error('Erro ao atualizar agente:', err);
+      const supervisorEmail = this.agentForm.get('supervisorEmail')?.value;
 
-        }
-      });
+      if (supervisorEmail != null) {
+        this.agentService.getAgentByEmail(supervisorEmail).subscribe(
+          {
+            next: (response) => {
+              agentData.supervisorId = response.id;
 
+              this.saveAgent(agentData);
+            },
+            error: (err) => {
+              console.error('Erro ao buscar agent:', err);
+            }
+          }
+        )
+      }
+      else {
+        this.saveAgent(agentData);
+      }
     }
+  }
+
+  private saveAgent(agentData: agent) {
+    this.agentService.updateAgent(agentData).subscribe({
+      next: (response) => {
+        console.log('Agente atualizado com sucesso:', response);
+
+        this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após a atualizaçã
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar agente:', err);
+
+      }
+    });
   }
 }
