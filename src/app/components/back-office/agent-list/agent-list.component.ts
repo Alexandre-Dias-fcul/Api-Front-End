@@ -14,6 +14,7 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 export class AgentListComponent {
 
   agents: agent[] = []; // Array to hold agent data
+  id: number;
 
   constructor(private agentService: AgentService,
     private authorization: AuthorizationService,
@@ -21,13 +22,21 @@ export class AgentListComponent {
 
     const role = this.authorization.getRole();
 
+    this.id = Number(this.authorization.getId());
+
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
       this.router.navigate(['/login']);
 
-      return;// Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      return;
     }
 
+    if (!this.id) {
+
+      this.router.navigate(['/login']);
+
+      return;
+    }
 
     this.agentService.getAllAgents().subscribe({
 

@@ -1,0 +1,60 @@
+.form-container {
+    background-color: #2c3e50;
+    /* Fundo escuro */
+    color: white;
+    /* Texto branco */
+    padding: 2rem;
+    /* Espaçamento interno */
+    border-radius: 8px;
+    /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra leve */
+    max-width: 800px;
+    /* Largura máxima */
+    margin: 2rem auto;
+    /* Centraliza o formulário */
+}
+
+.form-title {
+    font-size: 1.8rem;
+    /* Tamanho do título */
+    font-weight: bold;
+    /* Negrito */
+    margin-bottom: 1.5rem;
+    /* Espaço abaixo do título */
+    text-align: center;
+    /* Centraliza o título */
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    /* Espaça os botões */
+}
+
+.btn-submit {
+    background-color: white;
+    /* Fundo branco */
+    color: #3498db;
+    /* Texto na cor do header */
+    border: none;
+    /* Remove bordas padrão */
+    padding: 0.8rem 1.5rem;
+    /* Espaçamento interno */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    font-size: 1rem;
+    /* Tamanho do texto */
+    cursor: pointer;
+    /* Mostra o cursor de clique */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+    /* Azul mais escuro ao passar o mouse */
+    color: white;
+    /* Texto branco */
+    transform: scale(1.05);
+    /* Leve aumento ao passar o mouse */
+}
