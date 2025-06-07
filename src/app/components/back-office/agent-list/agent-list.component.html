@@ -19,6 +19,11 @@
             <td>
                 <a [routerLink]="['/main-page','agent-edit',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+                @if(agent.supervisorId == id){
+
+                <a [routerLink]="['/main-page','agent-reassign',agent.id]"><i
+                        class="fa-solid fa-check reassign-icon"></i></a>
+                }
             </td>
         </tr>
     </tbody>
