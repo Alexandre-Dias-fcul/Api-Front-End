@@ -1,6 +1,7 @@
 <div class="form-container">
-    <h2 class="form-title"></h2>
+    <h2 class="form-title">Atribuir este Imóvel para mim.</h2>
     <div class="form-actions">
-        <button type="submit" class="btn-submit">Salvar</button>
+        <a (click)="reassign()" class="btn-submit">Confirmar</a>
+        <a [routerLink]="['/main-page','agent-reassign',idAgent]" class="btn-reset">Cancelar</a>
     </div>
 </div>

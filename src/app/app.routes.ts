@@ -41,8 +41,8 @@ export const routes: Routes = [
         { path: 'listing-new', component: ListingNewComponent },
         { path: 'listing-edit/:id', component: ListingEditComponent },
         { path: 'agent-reassign/:id', component: AgentReassignComponent },
-        { path: 'listing-self-reassign/:id', component: ListingSelfReassignComponent },
-        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent }
+        { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
+        { path: 'listing-reassign-to-agent/:idAgent/:idListing', component: ListingReassignToAgentComponent }
       ]
   }
 ];
