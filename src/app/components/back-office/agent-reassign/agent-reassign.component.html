@@ -1,4 +1,5 @@
 <div class="table-header">
+    <a [routerLink]="['/main-page','agent-list']" class="return-link">Voltar</a>
     <input type="text" class="search-bar" placeholder="Pesquisar...">
 </div>
 <table class="user-table">
@@ -31,10 +32,10 @@
             <td>{{ listing.price }}</td>
             <td>{{ listing.location }}</td>
             <td>
-                <a [routerLink]="['/main-page','listing-self-reassign',listing.id]"><i
-                        class="fas fa-edit edit-icon"></i></a>
-                <a [routerLink]="['/main-page','listing-reassign-to-agent',listing.id]"><i
-                        class="fas fa-edit edit-icon"></i></a>
+                <a [routerLink]="['/main-page','listing-self-reassign',id,listing.id]">
+                    <i class="fa-regular fa-thumbs-up self-reassign-icon"></i></a>
+                <a [routerLink]="['/main-page','listing-reassign-to-agent',id,listing.id]">
+                    <i class="fa-regular fa-face-smile reassign-to-icon"></i></a>
             </td>
         </tr>
     </tbody>
@@ -46,4 +47,3 @@
     <button class="pagination-btn">3</button>
     <button class="pagination-btn next-btn">Próximo &raquo;</button>
 </div>
-<p>agent-reassign works!</p>

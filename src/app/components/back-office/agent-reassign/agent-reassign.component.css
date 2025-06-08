@@ -108,6 +108,73 @@
     color: #555;
 }
 
+/* Estilo do botão Delete */
+/* Botão Novo Usuário */
+.return-link {
+    display: inline-block;
+    /* Para que o link se comporte como um botão */
+    background-color: #0be10e;
+    /* Azul */
+    color: white;
+    text-decoration: none;
+    /* Remove o sublinhado do link */
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    /* Espaço abaixo do link */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.return-link:hover {
+    background-color: #48b929;
+    /* Azul mais escuro ao passar o mouse */
+    transform: scale(1.05);
+    /* Leve aumento ao passar o mouse */
+}
+
+.self-reassign-icon {
+    color: #0be10e;
+    /* Amarelo */
+    font-size: 1.2rem;
+    /* Tamanho do ícone */
+    cursor: pointer;
+    /* Mostra o cursor de clique */
+    margin-right: 0.5rem;
+    /* Espaço entre o ícone de edição e o ícone de deletar */
+    transition: color 0.3s ease, transform 0.2s ease;
+    /* Transição suave */
+}
+
+.self-reassign-icon:hover {
+    color: #48b929;
+    /* Amarelo mais escuro ao passar o mouse */
+    transform: scale(1.2);
+    /* Leve aumento ao passar o mouse */
+}
+
+
+.reassign-to-icon {
+    color: #064fc5;
+    /* Vermelho */
+    font-size: 1.2rem;
+    /* Tamanho do ícone */
+    cursor: pointer;
+    /* Mostra o cursor de clique */
+    margin-left: 0.5rem;
+    /* Espaço entre o ícone e o botão "Editar" */
+    transition: color 0.3s ease, transform 0.2s ease;
+    /* Transição suave */
+}
+
+.reassign-to-icon:hover {
+    color: #1a1db5;
+    /* Vermelho mais escuro ao passar o mouse */
+    transform: scale(1.2);
+    /* Leve aumento ao passar o mouse */
+}
+
 .pagination {
     display: flex;
     justify-content: center;

@@ -154,13 +154,6 @@
     /* Leve aumento ao passar o mouse */
 }
 
-.edit-btn:hover {
-    background-color: #d4ac0d;
-    /* Amarelo mais escuro ao passar o mouse */
-    transform: scale(1.05);
-    /* Leve aumento ao passar o mouse */
-}
-
 
 .delete-icon {
     color: #e74c3c;

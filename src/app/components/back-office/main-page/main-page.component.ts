@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-main-page',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })

@@ -46,4 +46,15 @@ export class ListingService {
   deleteListing(id: number): Observable<listing> {
     return this.http.delete<listing>(`${this.urlListing}/${id}`);
   }
+
+  selfReassign(id: number) {
+    return this.http.post(`${this.urlListing}/SelfReassign/${id}`, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada de selfReassign:', error);
+        return throwError(() => new Error('Erro ao fazer o reassign.'));
+      })
+    );
+  }
 }
