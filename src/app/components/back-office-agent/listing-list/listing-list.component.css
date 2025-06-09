@@ -175,6 +175,26 @@
     /* Leve aumento ao passar o mouse */
 }
 
+.reassign-icon {
+    color: #0be10e;
+    /* Amarelo */
+    font-size: 1.5rem;
+    /* Tamanho do ícone */
+    cursor: pointer;
+    /* Mostra o cursor de clique */
+    margin-left: 0.5rem;
+    /* Espaço entre o ícone de edição e o ícone de deletar */
+    transition: color 0.3s ease, transform 0.2s ease;
+    /* Transição suave */
+}
+
+.reassign-icon:hover {
+    color: #48b929;
+    /* Amarelo mais escuro ao passar o mouse */
+    transform: scale(1.2);
+    /* Leve aumento ao passar o mouse */
+}
+
 .pagination {
     display: flex;
     justify-content: center;

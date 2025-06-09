@@ -1,1 +1,21 @@
-<p>listing-reassign-to-agent works!</p>
+<div class="form-container">
+    <h2 class="form-title">Atribuir este Imóvel a um Agente.</h2>
+    <form [formGroup]="reassignForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="emailAgent">Email</label>
+                <input type="text" id="emailAgent" formControlName="emailAgent" placeholder="Digite o email do Agente"
+                    required>
+            </div>
+            @if(reassignForm.get('emailAgent')?.invalid &&
+            (reassignForm.get('emailAgent')?.dirty || reassignForm.get('emailAgent')?.touched))
+            {
+            <div class="error-message">Email inválido</div>
+            }
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page','listing-list']" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>

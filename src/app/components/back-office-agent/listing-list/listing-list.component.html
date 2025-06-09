@@ -36,6 +36,8 @@
                 {
                 <a [routerLink]="['/main-page','listing-edit',listing.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+                <a [routerLink]="['/main-page','listing-reassign-to-agent',listing.id]">
+                    <i class="fa-solid fa-person reassign-icon"></i></a>
                 }
             </td>
         </tr>

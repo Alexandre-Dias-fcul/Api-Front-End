@@ -16,6 +16,7 @@ import { ListingNewComponent } from './components/back-office-agent/listing-new/
 import { ListingEditComponent } from './components/back-office-agent/listing-edit/listing-edit.component';
 import { AgentReassignComponent } from './components/back-office/agent-reassign/agent-reassign.component';
 import { ListingSelfReassignComponent } from './components/back-office-agent/listing-self-reassign/listing-self-reassign.component';
+import { ListingReassignBetweenAgentsComponent } from './components/back-office-agent/listing-reassign-between-agents/listing-reassign-between-agents.component';
 import { ListingReassignToAgentComponent } from './components/back-office-agent/listing-reassign-to-agent/listing-reassign-to-agent.component';
 
 
@@ -42,7 +43,8 @@ export const routes: Routes = [
         { path: 'listing-edit/:id', component: ListingEditComponent },
         { path: 'agent-reassign/:id', component: AgentReassignComponent },
         { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
-        { path: 'listing-reassign-to-agent/:idAgent/:idListing', component: ListingReassignToAgentComponent }
+        { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent },
+        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent }
       ]
   }
 ];
