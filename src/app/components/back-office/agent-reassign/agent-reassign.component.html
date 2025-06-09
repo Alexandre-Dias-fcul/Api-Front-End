@@ -33,9 +33,9 @@
             <td>{{ listing.location }}</td>
             <td>
                 <a [routerLink]="['/main-page','listing-self-reassign',id,listing.id]">
-                    <i class="fa-regular fa-thumbs-up self-reassign-icon"></i></a>
-                <a [routerLink]="['/main-page','listing-reassign-to-agent',id,listing.id]">
-                    <i class="fa-regular fa-face-smile reassign-to-icon"></i></a>
+                    <i class="fa-solid fa-person reassign-icon"></i></a>
+                <a [routerLink]="['/main-page','listing-reassign-between-agents',id,listing.id]">
+                    <i class="fa-solid fa-people-arrows reassign-blue-icon"></i></a>
             </td>
         </tr>
     </tbody>

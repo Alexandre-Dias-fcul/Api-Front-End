@@ -57,4 +57,15 @@ export class ListingService {
       })
     );
   }
+
+  reassignTo(idListing: number, idAgent: number) {
+    return this.http.post(`${this.urlListing}/SelfReassignTo/${idListing}/${idAgent}`, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada de reassignTo:', error);
+        return throwError(() => new Error('Erro ao fazer o reassign.'));
+      })
+    );
+  }
 }

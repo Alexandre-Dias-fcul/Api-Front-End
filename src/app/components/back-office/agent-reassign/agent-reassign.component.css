@@ -134,10 +134,10 @@
     /* Leve aumento ao passar o mouse */
 }
 
-.self-reassign-icon {
+.reassign-icon {
     color: #0be10e;
     /* Amarelo */
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     /* Tamanho do ícone */
     cursor: pointer;
     /* Mostra o cursor de clique */
@@ -147,30 +147,29 @@
     /* Transição suave */
 }
 
-.self-reassign-icon:hover {
+.reassign-icon:hover {
     color: #48b929;
     /* Amarelo mais escuro ao passar o mouse */
     transform: scale(1.2);
     /* Leve aumento ao passar o mouse */
 }
 
-
-.reassign-to-icon {
-    color: #064fc5;
-    /* Vermelho */
-    font-size: 1.2rem;
+.reassign-blue-icon {
+    color: #0b0be1;
+    /* Amarelo */
+    font-size: 1.5rem;
     /* Tamanho do ícone */
     cursor: pointer;
     /* Mostra o cursor de clique */
-    margin-left: 0.5rem;
-    /* Espaço entre o ícone e o botão "Editar" */
+    margin-right: 0.5rem;
+    /* Espaço entre o ícone de edição e o ícone de deletar */
     transition: color 0.3s ease, transform 0.2s ease;
     /* Transição suave */
 }
 
-.reassign-to-icon:hover {
-    color: #1a1db5;
-    /* Vermelho mais escuro ao passar o mouse */
+.reassign-blue-icon:hover {
+    color: #072b72;
+    /* Amarelo mais escuro ao passar o mouse */
     transform: scale(1.2);
     /* Leve aumento ao passar o mouse */
 }
