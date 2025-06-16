@@ -42,7 +42,7 @@ export class ListingNewComponent {
 
     if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }

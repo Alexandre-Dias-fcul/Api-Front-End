@@ -62,7 +62,7 @@ export class ListingEditComponent {
 
     if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -70,7 +70,7 @@ export class ListingEditComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }

@@ -76,7 +76,7 @@ export class AgentEditComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Manager', 'Broker' ou 'Admin'
 
       return;
     }
@@ -84,7 +84,7 @@ export class AgentEditComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o ID não for válido
 
       return;
     }

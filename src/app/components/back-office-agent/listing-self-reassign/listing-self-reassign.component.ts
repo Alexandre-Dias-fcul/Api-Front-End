@@ -28,7 +28,7 @@ export class ListingSelfReassignComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }

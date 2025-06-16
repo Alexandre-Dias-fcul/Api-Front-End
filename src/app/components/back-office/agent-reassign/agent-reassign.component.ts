@@ -45,14 +45,14 @@ export class AgentReassignComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
 
     if (!this.id) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
