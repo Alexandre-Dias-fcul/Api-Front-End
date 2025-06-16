@@ -34,7 +34,7 @@ export class AgentNewAccountComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
 
       return;
     }

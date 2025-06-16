@@ -1,8 +1,8 @@
-.main-content {
-    flex: 1;
+.listings-container {
     display: flex;
     flex-direction: column;
     padding: 32px;
+    background-color: #f8f9fa;
 }
 
 header {

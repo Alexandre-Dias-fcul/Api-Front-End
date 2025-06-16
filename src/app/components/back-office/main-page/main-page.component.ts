@@ -19,7 +19,7 @@ export class MainPageComponent {
     if (!this.role || (this.role !== 'Agent' && this.role !== 'Manager' && this.role !== 'Broker'
       && this.role !== 'Staff' && this.role !== 'Admin')) {
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for válido
 
       return;
     }

@@ -3,7 +3,7 @@
         <span class="logo-mini">Sintra House</span>
         <div class="topbar-actions">
             <!-- Troque pelo botão adequado conforme o estado do usuário -->
-            <a [routerLink]="['/front-page','login']" class="link-topbar">Login</a>
+            <a [routerLink]="['/front-page','login-user']" class="link-topbar">Login</a>
             <!-- <button class="btn-topbar">Logout</button> -->
         </div>
     </div>
@@ -19,7 +19,9 @@
             </ul>
         </nav>
     </aside>
-    <router-outlet></router-outlet>
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
 </div>
 <footer class="footer">
     © 2025 Imobiliária Sintra House. Todos os direitos reservados.

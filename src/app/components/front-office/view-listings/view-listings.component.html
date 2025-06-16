@@ -1,45 +1,15 @@
-<main class="main-content">
+<div class="listings-container">
     <header>
         <h1>Imobiliária Sintra House</h1>
         <input type="text" placeholder="Buscar imóveis...">
     </header>
     <section class="properties">
-        <div class="property-card">
+        <div *ngFor="let list of listings" class="property-card">
             <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Apartamento no Centro</h3>
-            <p>3 quartos, 2 banheiros, 120m²</p>
-            <span>R$ 500.000</span>
+            <h3>{{ list.type }}</h3>
+            <p>{{ list.numberOfRooms }} quartos,
+                {{ list.numberOfBathrooms}} casa de banho, {{ list.area }}m²</p>
+            <span>{{list.price}}</span>
         </div>
-        <div class="property-card">
-            <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Casa com Piscina</h3>
-            <p>4 quartos, 3 banheiros, 250m²</p>
-            <span>R$ 950.000</span>
-        </div>
-        <div class="property-card">
-            <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Apartamento no Centro</h3>
-            <p>3 quartos, 2 banheiros, 120m²</p>
-            <span>R$ 500.000</span>
-        </div>
-        <div class="property-card">
-            <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Casa com Piscina</h3>
-            <p>4 quartos, 3 banheiros, 250m²</p>
-            <span>R$ 950.000</span>
-        </div>
-        <div class="property-card">
-            <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Apartamento no Centro</h3>
-            <p>3 quartos, 2 banheiros, 120m²</p>
-            <span>R$ 500.000</span>
-        </div>
-        <div class="property-card">
-            <img src="https://picsum.photos/300/200" alt="Imóvel">
-            <h3>Casa com Piscina</h3>
-            <p>4 quartos, 3 banheiros, 250m²</p>
-            <span>R$ 950.000</span>
-        </div>
-        <!-- Adicione mais cards conforme necessário -->
     </section>
-</main>
+</div>

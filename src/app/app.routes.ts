@@ -19,8 +19,7 @@ import { ListingReassignBetweenAgentsComponent } from './components/back-office-
 import { ListingReassignToAgentComponent } from './components/back-office-agent/listing-reassign-to-agent/listing-reassign-to-agent.component';
 import { FrontPageComponent } from './components/front-office/front-page/front-page.component';
 import { ViewListingsComponent } from './components/front-office/view-listings/view-listings.component';
-
-
+import { LoginUserComponent } from './components/front-office/login-user/login-user.component';
 
 export const routes: Routes = [
   {
@@ -30,7 +29,8 @@ export const routes: Routes = [
     path: 'front-page', component: FrontPageComponent, children: [
       { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
       { path: 'view-listings', component: ViewListingsComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'login-user', component: LoginUserComponent } // This path is redundant, consider removing it
     ]
   },
   {
