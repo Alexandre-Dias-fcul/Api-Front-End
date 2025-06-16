@@ -27,6 +27,6 @@ export class MainPageComponent {
 
   logout() {
     this.authorization.clearToken();
-    this.router.navigate(['/login']); // Redireciona para a página de login ao fazer logout
+    this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login ao fazer logout
   }
 }

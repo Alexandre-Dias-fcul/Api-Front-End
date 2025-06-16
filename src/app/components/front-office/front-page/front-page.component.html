@@ -1,0 +1,26 @@
+<div class="topbar">
+    <div class="topbar-content">
+        <span class="logo-mini">Sintra House</span>
+        <div class="topbar-actions">
+            <!-- Troque pelo botão adequado conforme o estado do usuário -->
+            <a [routerLink]="['/front-page','login']" class="link-topbar">Login</a>
+            <!-- <button class="btn-topbar">Logout</button> -->
+        </div>
+    </div>
+</div>
+<div class="container">
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Imóveis</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+    © 2025 Imobiliária Sintra House. Todos os direitos reservados.
+</footer>

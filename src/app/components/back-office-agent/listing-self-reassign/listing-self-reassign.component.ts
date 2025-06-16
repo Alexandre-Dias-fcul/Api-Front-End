@@ -38,6 +38,8 @@ export class ListingSelfReassignComponent {
 
     this.listingService.selfReassign(this.idListing).subscribe();
 
-    this.router.navigate(['/main-page/agent-reassign/', this.idAgent]);
+    this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
+      window.location.reload();
+    });
   }
 }
