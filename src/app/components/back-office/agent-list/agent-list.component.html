@@ -15,7 +15,15 @@
         <tr *ngFor="let agent of agents">
             <td>{{ agent.name.firstName }} {{ agent.name.lastName}}</td>
             <td>{{ agent.gender }}</td>
-            <td>{{ agent.role }}</td>
+            @if(agent.role === 0) {
+            <td>{{ 'Agente' }}</td>
+            } @else if(agent.role === 1) {
+            <td>{{ 'Gestor de Agentes' }}</td>
+            } @else if(agent.role === 2) {
+            <td>{{ 'Direcção' }}</td>
+            } @else if(agent.role === 3) {
+            <td>{{ 'Administrador' }}</td>
+            }
             <td>
                 <a [routerLink]="['/main-page','agent-edit',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>

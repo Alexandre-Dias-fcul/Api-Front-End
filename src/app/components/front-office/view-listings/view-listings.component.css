@@ -1,0 +1,61 @@
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+header input {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
+
+.properties {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.property-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    padding: 16px;
+    width: 300px;
+    transition: box-shadow 0.2s;
+}
+
+.property-card:hover {
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.16);
+}
+
+.property-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.property-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+}
+
+.property-card p {
+    margin: 0 0 8px 0;
+    color: #636e72;
+}
+
+.property-card span {
+    color: #00b894;
+    font-weight: bold;
+    font-size: 1.1rem;
+}

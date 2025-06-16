@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/back-office/login/login.component';
-import { HomeComponent } from './components/front-office/home/home.component';
 import { MainPageComponent } from './components/back-office/main-page/main-page.component';
 import { AgentListComponent } from './components/back-office/agent-list/agent-list.component';
 import { AgentNewComponent } from './components/back-office/agent-new/agent-new.component';
@@ -18,12 +17,22 @@ import { AgentReassignComponent } from './components/back-office/agent-reassign/
 import { ListingSelfReassignComponent } from './components/back-office-agent/listing-self-reassign/listing-self-reassign.component';
 import { ListingReassignBetweenAgentsComponent } from './components/back-office-agent/listing-reassign-between-agents/listing-reassign-between-agents.component';
 import { ListingReassignToAgentComponent } from './components/back-office-agent/listing-reassign-to-agent/listing-reassign-to-agent.component';
+import { FrontPageComponent } from './components/front-office/front-page/front-page.component';
+import { ViewListingsComponent } from './components/front-office/view-listings/view-listings.component';
 
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: '', redirectTo: 'front-page', pathMatch: 'full'
+  },
+  {
+    path: 'front-page', component: FrontPageComponent, children: [
+      { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
+      { path: 'view-listings', component: ViewListingsComponent },
+      { path: 'login', component: LoginComponent }
+    ]
+  },
   {
     path: 'main-page', component: MainPageComponent, children:
       [

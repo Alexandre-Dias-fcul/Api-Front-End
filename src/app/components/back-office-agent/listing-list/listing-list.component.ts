@@ -18,13 +18,16 @@ export class ListingListComponent {
 
   id: number = 0;
 
+  role: string | null = null;
+
   constructor(private listingService: ListingService,
     private authorization: AuthorizationService,
     private router: Router) {
 
-    const role = authorization.getRole();
+    this.role = this.authorization.getRole();
 
-    if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
+    if (!this.role || (this.role !== 'Agent' && this.role !== 'Manager' && this.role !== 'Broker'
+      && this.role !== 'Admin')) {
 
       this.router.navigate(['/login']);
 
