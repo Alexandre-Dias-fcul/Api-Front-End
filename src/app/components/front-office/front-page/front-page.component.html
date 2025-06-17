@@ -4,7 +4,10 @@
         <div class="topbar-actions">
             <!-- Troque pelo botão adequado conforme o estado do usuário -->
             <a [routerLink]="['/front-page','login-user']" class="link-topbar">Login</a>
-            <!-- <button class="btn-topbar">Logout</button> -->
+            @if(role === 'User')
+            {
+            <a [routerLink]="['/front-page','user-profile']">Conta</a>
+            }
         </div>
     </div>
 </div>

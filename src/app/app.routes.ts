@@ -20,6 +20,7 @@ import { ListingReassignToAgentComponent } from './components/back-office-agent/
 import { FrontPageComponent } from './components/front-office/front-page/front-page.component';
 import { ViewListingsComponent } from './components/front-office/view-listings/view-listings.component';
 import { LoginUserComponent } from './components/front-office/login-user/login-user.component';
+import { RegisterComponent } from './components/front-office/register/register.component';
 
 export const routes: Routes = [
   {
@@ -30,7 +31,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
       { path: 'view-listings', component: ViewListingsComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'login-user', component: LoginUserComponent } // This path is redundant, consider removing it
+      { path: 'login-user', component: LoginUserComponent },
+      { path: 'register', component: RegisterComponent } // Assuming register uses the same component
     ]
   },
   {
