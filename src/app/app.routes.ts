@@ -21,6 +21,8 @@ import { FrontPageComponent } from './components/front-office/front-page/front-p
 import { ViewListingsComponent } from './components/front-office/view-listings/view-listings.component';
 import { LoginUserComponent } from './components/front-office/login-user/login-user.component';
 import { RegisterComponent } from './components/front-office/register/register.component';
+import { UserProfileComponent } from './components/front-office/user-profile/user-profile.component';
+import { EditUserProfileComponent } from './components/front-office/edit-user-profile/edit-user-profile.component';
 
 export const routes: Routes = [
   {
@@ -32,7 +34,9 @@ export const routes: Routes = [
       { path: 'view-listings', component: ViewListingsComponent },
       { path: 'login', component: LoginComponent },
       { path: 'login-user', component: LoginUserComponent },
-      { path: 'register', component: RegisterComponent } // Assuming register uses the same component
+      { path: 'register', component: RegisterComponent },
+      { path: 'user-profile', component: UserProfileComponent },
+      { path: 'edit-user-profile', component: EditUserProfileComponent }
     ]
   },
   {

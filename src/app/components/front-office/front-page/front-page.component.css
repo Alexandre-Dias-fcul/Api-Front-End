@@ -55,7 +55,62 @@ body {
     background: #019170;
 }
 
-/* Ajuste para o layout não ficar escondido atrás da barra */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    padding: 0.5rem 0.9rem;
+    background: #3498db;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+    background: #217dbb;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    min-width: 180px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    right: 0;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.7rem 1.2rem;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background: #f2f2f2;
+    color: #3498db;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
 .container,
 .footer {
     margin-top: 56px;

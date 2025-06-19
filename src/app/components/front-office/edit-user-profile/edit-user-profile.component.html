@@ -1,0 +1,77 @@
+<div class="profile-edit-container">
+    <form class="profile-edit-card" [formGroup]="userForm" ] (ngSubmit)="onSubmit()">
+        <div class="profile-edit-avatar">
+            <img src="https://ui-avatars.com/api/?name=Nome+Utilizador" alt="Avatar do utilizador">
+        </div>
+        <div class="profile-edit-fields">
+            <h2>Editar Perfil</h2>
+            <div formGroupName="name">
+                <div class="profile-edit-group">
+                    <label for="name">Primeiro Nome</label>
+                    <input id="name" type="text" placeholder="Digite o primeiro nome" required>
+                </div>
+                <div *ngIf="userForm.get('firstName')?.invalid &&
+                                    (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched)">Nome
+                    inválido
+                </div>
+                <div class="profile-edit-group">
+                    <label for="middleNames">Nomes Do meio</label>
+                    <input id="middleNames" type="text" placeholder="Digite os nomes de meio">
+                </div>
+                <div
+                    *ngIf="userForm.get('middleNames')?.invalid &&
+                                            (userForm.get('middleNames')?.dirty || userForm.get('middleNames')?.touched)">
+                    Nome inválido
+                </div>
+                <div class="profile-edit-group">
+                    <label for="lastName">Último Nome</label>
+                    <input id="phone" type="text" placeholder="Digite o último nome" required>
+                </div>
+                <div *ngIf="userForm.get('lastName')?.invalid &&
+                                            (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched)">
+                    Nome inválido
+                </div>
+            </div>
+            <div class="profile-edit-group">
+                <label for="dateOfBirth">Data de Nascimento</label>
+                <input id="dateOfBirth" type="date">
+            </div>
+            <div *ngIf="userForm.get('dateOfBirth')?.invalid &&
+                        (userForm.get('dateOfBirth')?.dirty || userForm.get('dateOfBirth')?.touched)">Data inválida
+            </div>
+            <div class="profile-edit-group">
+                <label for="gender">Género</label>
+                <select id="gender">
+                    <option value="" disabled selected>Selecione o género</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+            </div>
+            <div *ngIf="userForm.get('gender')?.invalid &&
+                        (userForm.get('gender')?.dirty || userForm.get('gender')?.touched)">Género inválido
+            </div>
+            <div class="profile-edit-group">
+                <label for="photoFileName">Foto</label>
+                <input id="photoFileName" type="text" placeholder="">
+            </div>
+            <div *ngIf="userForm.get('photoFileName')?.invalid &&
+                        (userForm.get('photoFileName')?.dirty || userForm.get('photoFileName')?.touched)">Foto inválida
+            </div>
+            <div class="profile-edit-group" required>
+                <label for="isActive">Activo</label>
+                <select id="isActive">
+                    <option value="" disabled selected>Selecione o género</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+            <div *ngIf="userForm.get('isActive')?.invalid &&
+                        (userForm.get('isActive')?.dirty || userForm.get('isActive')?.touched)">Estádo inválido
+            </div>
+            <div class="profile-edit-actions">
+                <button type="submit" class="profile-edit-btn">Salvar</button>
+                <a [routerLink]="['/front-page','user-profile']" class="profile-edit-link">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>

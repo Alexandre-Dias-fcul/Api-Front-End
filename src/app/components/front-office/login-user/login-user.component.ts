@@ -39,13 +39,14 @@ export class LoginUserComponent {
           console.log('Login bem-sucedido:', response);
           this.authorizationService.setToken(response);
           this.loginForm.reset();
-          this.router.navigate(['/front-page/view-listings']);
-
+          this.router.navigate(['/front-page', 'view-listings']);
+          window.location.reload();
         },
         error: (err) => {
           console.error('Erro no login:', err);
         }
-      })
+      });
+
     } else {
       console.log('Formulário inválido');
     }
