@@ -13,9 +13,16 @@ export class FrontPageComponent {
   role: string | null = null;
 
   constructor(private authorization: AuthorizationService) {
-    {
-      this.role = this.authorization.getRole();
-    }
+
+    this.role = this.authorization.getRole();
+
+  }
+
+  logout() {
+
+    this.authorization.clearToken();
+
+    window.location.reload();
   }
 
 }

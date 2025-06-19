@@ -2,11 +2,20 @@
     <div class="topbar-content">
         <span class="logo-mini">Sintra House</span>
         <div class="topbar-actions">
-            <!-- Troque pelo botão adequado conforme o estado do usuário -->
-            <a [routerLink]="['/front-page','login-user']" class="link-topbar">Login</a>
+            <div>
+                <a [routerLink]="['/front-page','login-user']" class="link-topbar">Login</a>
+            </div>
             @if(role === 'User')
             {
-            <a [routerLink]="['/front-page','user-profile']">Conta</a>
+            <div class="dropdown">
+                <a class="dropdown-toggle">Conta &#x25BC;</a>
+                <ul class="dropdown-menu">
+                    <li><a [routerLink]="['/front-page','user-profile']">Perfil</a></li>
+                    <li><a href="#">Segurança</a></li>
+                    <li><a href="#" (click)="logout()">Sair</a></li>
+                </ul>
+            </div>
+
             }
         </div>
     </div>
