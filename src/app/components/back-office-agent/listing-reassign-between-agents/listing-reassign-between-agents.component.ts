@@ -1,11 +1,74 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
+import { ListingService } from '../../../services/back-office-agent/listing.service';
+import { AgentService } from '../../../services/back-office/agent.service';
 
 @Component({
   selector: 'app-listing-reassign-between-agents',
-  imports: [],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './listing-reassign-between-agents.component.html',
   styleUrl: './listing-reassign-between-agents.component.css'
 })
+
 export class ListingReassignBetweenAgentsComponent {
 
+  reassignForm: FormGroup;
+  idListing: number;
+  idAgent: number;
+
+  constructor(private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private authorization: AuthorizationService,
+    private router: Router,
+    private listingService: ListingService,
+    private agentService: AgentService
+  ) {
+
+    this.reassignForm = this.fb.group(
+      {
+        emailAgent: ['', [Validators.required, Validators.email]],
+      }
+    );
+
+    this.idAgent = Number(this.route.snapshot.paramMap.get('idAgent'));
+
+    this.idListing = Number(this.route.snapshot.paramMap.get('idListing'));
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
+
+      this.router.navigate(['/front-page', 'login']);
+
+      return;
+    }
+  }
+
+  onSubmit() {
+    if (this.reassignForm.valid) {
+
+      const emailAgent = this.reassignForm.get('emailAgent')?.value; // Obtém o email do agente do formulário
+
+      this.agentService.getAgentByEmail(emailAgent).subscribe((agent) => {
+
+        if (!agent) {
+          console.error(`Agente com email ${emailAgent} não encontrado.`);
+          return;
+        }
+
+        this.reassign(agent.id);
+      });
+    }
+  }
+
+  reassign(idAgent: number) {
+
+    this.listingService.reassignBetween(this.idListing, idAgent).subscribe();
+
+    this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
+      window.location.reload();
+    });
+  }
 }

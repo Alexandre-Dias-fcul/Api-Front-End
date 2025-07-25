@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { user } from '../../models/user';
 import { catchError, Observable, throwError } from 'rxjs';
 import { account } from '../../models/account';
+import { userAll } from '../../models/userAll';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,11 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<user> {
-
     return this.http.get<user>(`${this.urlUser}/${id}`);
+  }
+
+  getByIdWithAll(id: number): Observable<userAll> {
+    return this.http.get<userAll>(`${this.urlUser}/GetByIdWithAll/${id}`);
   }
 
   addUser(user: user): Observable<user> {
@@ -37,7 +41,7 @@ export class UserService {
   }
 
   updateUser(user: user): Observable<user> {
-    return this.http.put<user>(`${this.urlUser}/${user.id}}`,
+    return this.http.put<user>(`${this.urlUser}/${user.id}`,
       user, { headers: { 'Content-Type': 'application/json' } }).pipe(
         catchError((error) => {
           console.error('Erro na chamada updateUser:', error)

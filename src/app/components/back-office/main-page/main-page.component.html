@@ -59,7 +59,30 @@
             </div>
         </header>
         <main>
-            <h1 class="page-title">Back-Office</h1>
+            @if(role === 'Agent')
+            {
+            <h1 class="page-title">Bem-vindo Agente</h1>
+            }
+            @else if(role === 'Manager')
+            {
+            <h1 class="page-title">Bem-vindo Gestor</h1>
+            }
+            @else if(role === 'Broker')
+            {
+            <h1 class="page-title">Bem-vindo Corretor</h1>
+            }
+            @else if(role === 'Staff')
+            {
+            <h1 class="page-title">Bem-vindo Administrativo</h1>
+            }
+            @else if(role === 'Admin')
+            {
+            <h1 class="page-title">Bem-vindo Administrador</h1>
+            }
+            <h4 class="page-subtitle">
+                <i class="fas fa-user-circle"></i>
+                {{ agent.name.firstName }} {{ agent.name.lastName }}
+            </h4>
             <div class="table-container">
                 <router-outlet></router-outlet>
             </div>

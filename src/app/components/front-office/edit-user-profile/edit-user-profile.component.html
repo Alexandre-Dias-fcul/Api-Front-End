@@ -1,5 +1,5 @@
 <div class="profile-edit-container">
-    <form class="profile-edit-card" [formGroup]="userForm" ] (ngSubmit)="onSubmit()">
+    <form class="profile-edit-card" [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="profile-edit-avatar">
             <img src="https://ui-avatars.com/api/?name=Nome+Utilizador" alt="Avatar do utilizador">
         </div>
@@ -7,8 +7,9 @@
             <h2>Editar Perfil</h2>
             <div formGroupName="name">
                 <div class="profile-edit-group">
-                    <label for="name">Primeiro Nome</label>
-                    <input id="name" type="text" placeholder="Digite o primeiro nome" required>
+                    <label for="firstName">Primeiro Nome</label>
+                    <input id="firstName" type="text" formControlName="firstName" placeholder="Digite o primeiro nome"
+                        required>
                 </div>
                 <div *ngIf="userForm.get('firstName')?.invalid &&
                                     (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched)">Nome
@@ -16,7 +17,8 @@
                 </div>
                 <div class="profile-edit-group">
                     <label for="middleNames">Nomes Do meio</label>
-                    <input id="middleNames" type="text" placeholder="Digite os nomes de meio">
+                    <input id="middleNames" type="text" formControlName="middleNames"
+                        placeholder="Digite os nomes de meio">
                 </div>
                 <div
                     *ngIf="userForm.get('middleNames')?.invalid &&
@@ -25,7 +27,8 @@
                 </div>
                 <div class="profile-edit-group">
                     <label for="lastName">Último Nome</label>
-                    <input id="phone" type="text" placeholder="Digite o último nome" required>
+                    <input id="lastname" type="text" formControlName="lastName" placeholder="Digite o último nome"
+                        required>
                 </div>
                 <div *ngIf="userForm.get('lastName')?.invalid &&
                                             (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched)">
@@ -34,14 +37,14 @@
             </div>
             <div class="profile-edit-group">
                 <label for="dateOfBirth">Data de Nascimento</label>
-                <input id="dateOfBirth" type="date">
+                <input id="dateOfBirth" type="date" formControlName="dateOfBirth">
             </div>
             <div *ngIf="userForm.get('dateOfBirth')?.invalid &&
                         (userForm.get('dateOfBirth')?.dirty || userForm.get('dateOfBirth')?.touched)">Data inválida
             </div>
             <div class="profile-edit-group">
                 <label for="gender">Género</label>
-                <select id="gender">
+                <select id="gender" formControlName="gender">
                     <option value="" disabled selected>Selecione o género</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
@@ -52,17 +55,17 @@
             </div>
             <div class="profile-edit-group">
                 <label for="photoFileName">Foto</label>
-                <input id="photoFileName" type="text" placeholder="">
+                <input id="photoFileName" type="text" formControlName="photoFileName">
             </div>
             <div *ngIf="userForm.get('photoFileName')?.invalid &&
                         (userForm.get('photoFileName')?.dirty || userForm.get('photoFileName')?.touched)">Foto inválida
             </div>
-            <div class="profile-edit-group" required>
+            <div class="profile-edit-group">
                 <label for="isActive">Activo</label>
-                <select id="isActive">
-                    <option value="" disabled selected>Selecione o género</option>
-                    <option value="Sim">Sim</option>
-                    <option value="Não">Não</option>
+                <select id="isActive" formControlName="isActive" required>
+                    <option value="" disabled selected>Selecione a opção</option>
+                    <option value='true'>Sim</option>
+                    <option value='false'>Não</option>
                 </select>
             </div>
             <div *ngIf="userForm.get('isActive')?.invalid &&

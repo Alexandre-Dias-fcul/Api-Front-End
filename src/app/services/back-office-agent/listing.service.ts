@@ -68,4 +68,16 @@ export class ListingService {
       })
     );
   }
+
+  reassignBetween(idListing: number, idAgent: number) {
+    return this.http.post(`${this.urlListing}/BetweenReassign/${idListing}/${idAgent}`, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada de reassignBetween:', error);
+        return throwError(() => new Error('Erro ao fazer o reassign.'));
+      })
+    );
+  }
+
 }

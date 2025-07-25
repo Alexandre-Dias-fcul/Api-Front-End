@@ -32,6 +32,8 @@ export class ListingSelfReassignComponent {
 
       return;
     }
+
+
   }
 
   reassign() {
