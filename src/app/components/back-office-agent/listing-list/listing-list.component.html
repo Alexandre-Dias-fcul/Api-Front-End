@@ -35,7 +35,7 @@
                 @if(listing.agentId === id)
                 {
                 <a [routerLink]="['/main-page','listing-edit',listing.id]"><i class="fas fa-edit edit-icon"></i></a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+                <a (click)="deleteList(listing.id)"><i class="fas fa-trash delete-icon"></i></a>
 
                 @if(role === 'Manager' || role === 'Broker' || role === 'Admin')
                 {

@@ -56,6 +56,19 @@ export class ListingListComponent {
 
   }
 
+  deleteList(id: number) {
+
+    this.listingService.deleteListing(id).subscribe({
+      next: () => {
+        window.location.reload();
+        console.log('Listing deleted successfully');
+      },
+      error: (err) => {
+        console.error('Error deleting listing:', err);
+      }
+    });
+
+  }
 
 
 }

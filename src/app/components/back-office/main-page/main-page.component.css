@@ -143,6 +143,13 @@ header {
     /* Garante que fique acima de outros elementos */
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espaço entre logout e user-info */
+}
+
 .logo-hamburger {
     display: flex;
     cursor: pointer;
@@ -158,20 +165,113 @@ header {
     /* Leve aumento ao passar o mouse */
 }
 
+/* LOGOUT */
 .logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, #3498db 60%, #1976d2 100%);
+    color: #fff;
+    border-radius: 24px;
+    padding: 8px 22px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.08);
     cursor: pointer;
-    color: white;
-    font-size: 1.2rem;
-    font-size: 1.2rem;
-    transition: color 0.3s ease, transform 0.2s ease;
-    /* Transição suave */
+    border: none;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s, color 0.2s;
+    user-select: none;
 }
 
-.logout:hover {
-    color: white;
-    /* Vermelho ao passar o mouse */
-    transform: scale(1.1);
-    /* Leve aumento ao passar o mouse */
+.logout h4 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    color: inherit;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.logout:hover,
+.logout:focus-within {
+    background: linear-gradient(90deg, #1976d2 60%, #3498db 100%);
+    box-shadow: 0 4px 16px rgba(52, 152, 219, 0.18);
+    transform: translateY(-2px) scale(1.04);
+    color: #ffd600;
+}
+
+.logout:active {
+    transform: scale(0.98);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 30px;
+    padding: 3px 14px 3px 6px;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.10);
+    margin-left: 12px;
+    min-height: 36px;
+    min-width: 36px;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+
+.user-info-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 30px;
+    padding: 2px 8px 2px 2px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.user-info-link:hover,
+.user-info-link:focus {
+    background: #e3eafc;
+    color: #3498db;
+}
+
+.user-info i {
+    font-size: 1.5rem;
+    color: #1976d2;
+    background: #e3eafc;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 1px 4px rgba(52, 152, 219, 0.10);
+    transition: color 0.2s, background 0.2s;
+}
+
+.user-info-link:hover i,
+.user-info-link:focus i {
+    color: #3498db;
+    background: #fff;
+}
+
+.user-info-name {
+    margin-left: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1976d2;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+
+@media (max-width: 600px) {
+    .user-info {
+        padding: 2px 6px;
+    }
+
+    .user-info-name {
+        display: none;
+    }
 }
 
 .page-title {

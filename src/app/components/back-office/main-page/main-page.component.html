@@ -54,8 +54,16 @@
             <div class="logo-hamburger">
                 <i class="fas fa-bars"></i>
             </div>
-            <div class="logout">
-                <h3 (click)="logout()">Logout</h3>
+            <div class="header-actions">
+                <div class="logout">
+                    <h4 (click)="logout()">Logout</h4>
+                </div>
+                <div class="user-info">
+                    <a [routerLink]="['/main-page','agent-profile']" class="user-info-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="user-info-name">{{ agent?.name?.firstName }}</span>
+                    </a>
+                </div>
             </div>
         </header>
         <main>
@@ -80,7 +88,6 @@
             <h1 class="page-title">Bem-vindo Administrador</h1>
             }
             <h4 class="page-subtitle">
-                <i class="fas fa-user-circle"></i>
                 {{ agent.name.firstName }} {{ agent.name.lastName }}
             </h4>
             <div class="table-container">

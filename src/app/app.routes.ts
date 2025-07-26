@@ -23,6 +23,8 @@ import { LoginUserComponent } from './components/front-office/login-user/login-u
 import { RegisterComponent } from './components/front-office/register/register.component';
 import { UserProfileComponent } from './components/front-office/user-profile/user-profile.component';
 import { EditUserProfileComponent } from './components/front-office/edit-user-profile/edit-user-profile.component';
+import { agent } from './models/agent';
+import { AgentProfileComponent } from './components/back-office/agent-profile/agent-profile.component';
 
 export const routes: Routes = [
   {
@@ -59,7 +61,8 @@ export const routes: Routes = [
         { path: 'agent-reassign/:id', component: AgentReassignComponent },
         { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
         { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent },
-        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent }
+        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent },
+        { path: 'agent-profile', component: AgentProfileComponent }
       ]
   }
 ];
