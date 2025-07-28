@@ -131,4 +131,16 @@ export class AgentService {
       })
     );
   }
+
+  agentDeleteAccount(agentId: number): Observable<account> {
+    return this.http.delete<account>(`${this.urlAgent}/DeleteAccount/${agentId}`);
+  }
+
+  agentDeleteAddress(agentId: number, addressId: number): Observable<address> {
+    return this.http.delete<address>(`${this.urlAgent}/DeleteAddress/${agentId}/${addressId}`);
+  }
+
+  agentDeleteContact(agentId: number, contactId: number): Observable<contact> {
+    return this.http.delete<contact>(`${this.urlAgent}/DeleteContact/${agentId}/${contactId}`);
+  }
 }

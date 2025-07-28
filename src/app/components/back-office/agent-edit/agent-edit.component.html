@@ -142,7 +142,7 @@
             <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
             }
 
-            @if(agent.entityLink?.addresses?.length == 0)
+            @if(agent.entityLink?.addresses?.length == 0 || agent.entityLink?.addresses == undefined)
             {
             <a [routerLink]="['/main-page/agent-new-address', agent.id]" class="btn-action-new">Criar Endereço</a>
             }
@@ -151,7 +151,7 @@
             <a [routerLink]="['/main-page/agent-edit-address', agent.id]" class="btn-action-edit">Editar Endereço</a>
             }
 
-            @if(agent.entityLink?.contacts?.length == 0)
+            @if(agent.entityLink?.contacts?.length == 0 || agent.entityLink?.contacts == undefined)
             {
             <a [routerLink]="['/main-page/agent-new-contact', agent.id]" class="btn-action-new">Criar Contacto</a>
             }

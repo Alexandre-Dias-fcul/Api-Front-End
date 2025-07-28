@@ -22,7 +22,13 @@
 
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
-            <a [routerLink]="['/main-page/agent-new',agentId]" class="btn-back">Voltar</a>
+            @if(continue === 1) {
+            <a [routerLink]="['/main-page/agent-new',agentId]" class="btn-reset">Cancelar</a>
+            }
+            @else
+            {
+            <a [routerLink]="['/main-page/agent-edit',agentId]" class="btn-reset">Cancelar</a>
+            }
         </div>
     </form>
 </div>
