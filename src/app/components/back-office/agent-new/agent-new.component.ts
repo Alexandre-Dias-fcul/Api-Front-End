@@ -161,7 +161,7 @@ export class AgentNewComponent {
         next: (response) => {
           console.log('Agente atualizado com sucesso:', response);
           this.responseMessage = 'Agente atualizado com sucesso!';
-          this.router.navigate(['/main-page/agent-new-account/', response.id]);
+          this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
         },
         error: (err) => {
           console.error('Erro ao atualizar agente:', err);
@@ -174,7 +174,7 @@ export class AgentNewComponent {
         next: (response) => {
           console.log('Agente criado com sucesso:', response);
           this.agentForm.reset();
-          this.router.navigate(['/main-page/agent-new-account/', response.id]);
+          this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
         },
         error: (err) => {
           console.error('Erro ao criar agente:', err);

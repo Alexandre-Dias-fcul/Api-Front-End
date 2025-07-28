@@ -49,6 +49,7 @@ export const routes: Routes = [
         { path: 'agent-new', component: AgentNewComponent },
         { path: 'agent-new/:id', component: AgentNewComponent },
         { path: 'agent-new-account/:id', component: AgentNewAccountComponent },
+        { path: 'agent-new-account/:id/:continue', component: AgentNewAccountComponent },
         { path: 'agent-new-address/:id', component: AgentNewAddressComponent },
         { path: 'agent-new-contact/:id', component: AgentNewContactComponent },
         { path: 'agent-edit/:id', component: AgentEditComponent },

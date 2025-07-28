@@ -61,7 +61,7 @@
                 <div class="user-info">
                     <a [routerLink]="['/main-page','agent-profile']" class="user-info-link">
                         <i class="fas fa-user-circle"></i>
-                        <span class="user-info-name">{{ agent?.name?.firstName }}</span>
+                        <span class="user-info-name">{{ agent.name.firstName }}</span>
                     </a>
                 </div>
             </div>
@@ -87,9 +87,6 @@
             {
             <h1 class="page-title">Bem-vindo Administrador</h1>
             }
-            <h4 class="page-subtitle">
-                {{ agent.name.firstName }} {{ agent.name.lastName }}
-            </h4>
             <div class="table-container">
                 <router-outlet></router-outlet>
             </div>

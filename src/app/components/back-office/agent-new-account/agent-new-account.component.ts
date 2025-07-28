@@ -14,6 +14,7 @@ export class AgentNewAccountComponent {
 
   agentId: number; // Obtém o ID do agente da rota
   accountForm: FormGroup;
+  continue: number; // Variável para controlar o fluxo de criação de conta
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -28,7 +29,9 @@ export class AgentNewAccountComponent {
         password: ['', Validators.required],
       });
 
-    this.agentId = Number(this.route.snapshot.paramMap.get('id')); // Obtém o ID do agente da rota
+    this.agentId = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.continue = Number(this.route.snapshot.paramMap.get('continue'))
 
     const role = this.authorization.getRole();
 
