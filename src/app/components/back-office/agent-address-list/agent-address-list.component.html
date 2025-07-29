@@ -1,0 +1,29 @@
+<div class="table-header">
+    <a [routerLink]="['/main-page','agent-edit',agent.id]" class="add-user-link">Voltar</a>
+    <input type="text" class="search-bar" placeholder="Pesquisar...">
+</div>
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Morada</th>
+            <th>Cidade</th>
+            <th>Código Postal</th>
+            <th>País</th>
+            <th>Ações</th> <!-- Coluna para os botões -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let address of agent.entityLink?.addresses">
+            <td>{{ address.street }}</td>
+            <td>{{ address.city }}</td>
+            <td>{{ address.postalCode}}</td>
+            <td>{{ address.contry}}</td>
+            <td>
+                <a [routerLink]="['/main-page','agent-edit-address',agent.id,address.id]">
+                    <i class="fas fa-edit edit-icon"></i>
+                </a>
+                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>

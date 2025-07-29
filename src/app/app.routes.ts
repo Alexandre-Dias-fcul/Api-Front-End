@@ -25,6 +25,7 @@ import { UserProfileComponent } from './components/front-office/user-profile/use
 import { EditUserProfileComponent } from './components/front-office/edit-user-profile/edit-user-profile.component';
 import { agent } from './models/agent';
 import { AgentProfileComponent } from './components/back-office/agent-profile/agent-profile.component';
+import { AgentAddressListComponent } from './components/back-office/agent-address-list/agent-address-list.component';
 
 export const routes: Routes = [
   {
@@ -54,7 +55,7 @@ export const routes: Routes = [
         { path: 'agent-new-contact/:id', component: AgentNewContactComponent },
         { path: 'agent-edit/:id', component: AgentEditComponent },
         { path: 'agent-edit-account/:id', component: AgentEditAccountComponent },
-        { path: 'agent-edit-address/:id', component: AgentEditAddressComponent },
+        { path: 'agent-edit-address/:idAgent/:idAddress', component: AgentEditAddressComponent },
         { path: 'agent-edit-contact/:id', component: AgentEditContactComponent },
         { path: 'listing-list', component: ListingListComponent },
         { path: 'listing-new', component: ListingNewComponent },
@@ -63,7 +64,8 @@ export const routes: Routes = [
         { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
         { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent },
         { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent },
-        { path: 'agent-profile', component: AgentProfileComponent }
+        { path: 'agent-profile', component: AgentProfileComponent },
+        { path: 'agent-address-list/:id', component: AgentAddressListComponent },
       ]
   }
 ];
