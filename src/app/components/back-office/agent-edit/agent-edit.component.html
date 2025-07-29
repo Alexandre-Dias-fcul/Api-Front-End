@@ -148,7 +148,7 @@
             }
             @else
             {
-            <a [routerLink]="['/main-page/agent-edit-address', agent.id]" class="btn-action-edit">Editar Endereço</a>
+            <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-edit">Editar Endereço</a>
             }
 
             @if(agent.entityLink?.contacts?.length == 0 || agent.entityLink?.contacts == undefined)
