@@ -1,7 +1,7 @@
 @if(isLoaded)
 {
 <div class="form-container">
-    <h2 class="form-title">Editar Agente</h2>
+    <h2 class="form-title">Alterar Agente</h2>
     <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
         <div formGroupName="name">
             <div class="form-row">
@@ -142,24 +142,9 @@
             <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
             }
 
-            @if(agent.entityLink?.addresses?.length == 0 || agent.entityLink?.addresses == undefined)
-            {
-            <a [routerLink]="['/main-page/agent-new-address', agent.id]" class="btn-action-new">Criar Endereço</a>
-            }
-            @else
-            {
-            <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-edit">Editar Endereço</a>
-            }
+            <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-list">Ver Endereços</a>
 
-            @if(agent.entityLink?.contacts?.length == 0 || agent.entityLink?.contacts == undefined)
-            {
-            <a [routerLink]="['/main-page/agent-new-contact', agent.id]" class="btn-action-new">Criar Contacto</a>
-            }
-            @else
-            {
-            <a [routerLink]="['/main-page/agent-edit-contact', agent.id]" class="btn-action-edit">Editar Contacto</a>
-            }
-
+            <a [routerLink]="['/main-page/agent-contact-list', agent.id]" class="btn-action-list">Ver Contactos</a>
 
             <a [routerLink]="['/main-page/agent-list']" class="btn-reset">Cancelar</a>
 

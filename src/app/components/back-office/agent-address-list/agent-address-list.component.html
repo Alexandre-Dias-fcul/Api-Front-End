@@ -1,5 +1,8 @@
 <div class="table-header">
-    <a [routerLink]="['/main-page','agent-edit',agent.id]" class="add-user-link">Voltar</a>
+    <div>
+        <a [routerLink]="['/main-page','agent-edit',agent.id]" class="return-link">Voltar</a>
+        <a [routerLink]="['/main-page','agent-new-address',agent.id]" class="new-address-link">Novo Endereço</a>
+    </div>
     <input type="text" class="search-bar" placeholder="Pesquisar...">
 </div>
 <table class="user-table">
@@ -17,12 +20,12 @@
             <td>{{ address.street }}</td>
             <td>{{ address.city }}</td>
             <td>{{ address.postalCode}}</td>
-            <td>{{ address.contry}}</td>
+            <td>{{ address.country}}</td>
             <td>
                 <a [routerLink]="['/main-page','agent-edit-address',agent.id,address.id]">
                     <i class="fas fa-edit edit-icon"></i>
                 </a>
-                <a href="delete.html"><i class="fas fa-trash delete-icon"></i></a>
+                <a (click)="deleteAddress(address.id)"><i class="fas fa-trash delete-icon"></i></a>
             </td>
         </tr>
     </tbody>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { AgentService } from '../../../services/back-office/agent.service';
+import { address } from '../../../models/address';
 
 @Component({
   selector: 'app-agent-address-list',
@@ -46,6 +47,7 @@ export class AgentAddressListComponent {
     private authorization: AuthorizationService,
     private route: ActivatedRoute,
     private router: Router) {
+
     const role = this.authorization.getRole();
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
@@ -67,4 +69,17 @@ export class AgentAddressListComponent {
     );
   }
 
+
+  deleteAddress(address: number) {
+    if (confirm('Tem a certeza que pretende apagar o endereço?')) {
+      this.agentService.agentDeleteAddress(this.agent.id, address).subscribe(
+        (response) => {
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error deleting address:', error);
+        }
+      );
+    }
+  }
 }

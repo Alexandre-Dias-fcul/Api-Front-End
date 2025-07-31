@@ -113,7 +113,7 @@
 .return-link {
     display: inline-block;
     /* Para que o link se comporte como um botão */
-    background-color: #0be10e;
+    background-color: #2ecc71;
     /* Azul */
     color: white;
     text-decoration: none;
@@ -128,7 +128,7 @@
 }
 
 .return-link:hover {
-    background-color: #48b929;
+    background-color: #299f5a;
     /* Azul mais escuro ao passar o mouse */
     transform: scale(1.05);
     /* Leve aumento ao passar o mouse */
