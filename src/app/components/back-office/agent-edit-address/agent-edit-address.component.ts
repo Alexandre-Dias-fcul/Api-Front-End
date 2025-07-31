@@ -1,11 +1,113 @@
 import { Component } from '@angular/core';
+import { agentAll } from '../../../models/agentAll';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AgentService } from '../../../services/back-office/agent.service';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
+import { address } from '../../../models/address';
+
 
 @Component({
   selector: 'app-agent-edit-address',
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './agent-edit-address.component.html',
   styleUrl: './agent-edit-address.component.css'
 })
 export class AgentEditAddressComponent {
+
+  addressForm: FormGroup;
+
+  agent: agentAll = {
+    id: 0,
+    name: {
+      firstName: '',
+      middleNames: [],
+      lastName: ''
+    },
+    dateOfBirth: null,
+    gender: '',
+    hiredDate: null,
+    dateOfTermination: null,
+    photoFileName: '',
+    role: 0,
+    supervisorId: null,
+    isActive: true,
+    entityLink: {
+      id: 0,
+      entityType: 0,
+      entityId: 0,
+      addresses: [],
+      contacts: [],
+      account: {
+        email: '',
+        password: ''
+      }
+    }
+  };
+
+  addressId: number;
+
+  constructor(private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private agentService: AgentService,
+    private authorization: AuthorizationService
+  ) {
+    this.addressForm = this.fb.group({
+      street: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
+      country: ['', [Validators.required]]
+    });
+
+    const agentId = Number(this.route.snapshot.paramMap.get('idAgent'));
+
+    this.addressId = Number(this.route.snapshot.paramMap.get('idAddress'));
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
+
+      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+
+      return;
+    }
+
+    this.agentService.getByIdWithAll(agentId).subscribe(
+      (response: agentAll) => {
+        this.agent = response;
+        const address = this.agent.entityLink?.addresses?.find(a => a.id === this.addressId);
+        if (address) {
+          this.addressForm.patchValue({
+            street: address.street,
+            city: address.city,
+            postalCode: address.postalCode,
+            country: address.country
+          });
+        }
+      },
+      (error) => {
+        console.error('Erro ao obter agente:', error);
+      }
+    );
+
+  }
+
+  onSubmit() {
+    if (this.addressForm.valid) {
+
+      const addressData = this.addressForm.value;
+      addressData.id = this.addressId;
+
+      this.agentService.agentUpdateAddress(addressData, this.agent.id, this.addressId).subscribe(
+        (response) => {
+          this.router.navigate(['/main-page/agent-address-list', this.agent.id]);
+        },
+        (error) => {
+          console.error('Erro ao editar endereço:', error);
+        }
+      );
+    }
+  }
 
 }

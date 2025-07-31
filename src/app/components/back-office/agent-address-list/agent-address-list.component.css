@@ -110,7 +110,31 @@
 
 /* Estilo do botão Delete */
 /* Botão Novo Usuário */
-.add-user-link {
+.return-link {
+    display: inline-block;
+    /* Para que o link se comporte como um botão */
+    background-color: #2ecc71;
+    /* Azul */
+    color: white;
+    text-decoration: none;
+    /* Remove o sublinhado do link */
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    /* Espaço abaixo do link */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.return-link:hover {
+    background-color: #299f5a;
+    /* Azul mais escuro ao passar o mouse */
+    transform: scale(1.05);
+    /* Leve aumento ao passar o mouse */
+}
+
+.new-address-link {
     display: inline-block;
     /* Para que o link se comporte como um botão */
     background-color: #3498db;
@@ -127,7 +151,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.add-user-link:hover {
+.new-address-link:hover {
     background-color: #2980b9;
     /* Azul mais escuro ao passar o mouse */
     transform: scale(1.05);

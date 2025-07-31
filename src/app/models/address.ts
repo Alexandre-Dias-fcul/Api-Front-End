@@ -2,6 +2,6 @@ export interface address {
     id: number;
     street: string;
     city: string;
-    contry: string;
+    country: string;
     postalCode: string;
 }

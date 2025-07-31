@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
@@ -22,10 +22,10 @@ export class AgentNewAddressComponent {
     private router: Router
   ) {
     this.addressForm = this.fb.group({
-      street: [''],
-      city: [''],
-      country: [''],
-      postalCode: ['']
+      street: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]]
     });
 
     this.agentId = Number(this.route.snapshot.paramMap.get('id'));
@@ -47,8 +47,7 @@ export class AgentNewAddressComponent {
 
       this.agentService.agentAddAddress(addressData, this.agentId).subscribe(
         (response) => {
-          console.log('Endereço adicionado com sucesso:', response);
-          this.router.navigate(['/main-page/agent-edit', this.agentId]); // Redireciona para a lista de agentes após adicionar o endereço
+          this.router.navigate(['/main-page/agent-address-list', this.agentId]); // Redireciona para a lista de agentes após adicionar o endereço
         },
         (error) => {
           console.error('Erro ao adicionar endereço:', error);
