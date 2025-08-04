@@ -16,6 +16,7 @@ import { address } from '../../../models/address';
 export class AgentEditAddressComponent {
 
   addressForm: FormGroup;
+  addressId: number;
 
   agent: agentAll = {
     id: 0,
@@ -45,7 +46,7 @@ export class AgentEditAddressComponent {
     }
   };
 
-  addressId: number;
+
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,

@@ -70,9 +70,9 @@ export class AgentAddressListComponent {
   }
 
 
-  deleteAddress(address: number) {
+  deleteAddress(idAddress: number) {
     if (confirm('Tem a certeza que pretende apagar o endereço?')) {
-      this.agentService.agentDeleteAddress(this.agent.id, address).subscribe(
+      this.agentService.agentDeleteAddress(this.agent.id, idAddress).subscribe(
         (response) => {
           window.location.reload();
         },

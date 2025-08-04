@@ -1,5 +1,5 @@
-.user-table {
-    width: 100%;
+.address-table {
+    width: 80%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -20,6 +20,12 @@
     /* Alinha verticalmente */
     margin-bottom: 1rem;
     /* Espaço entre o cabeçalho e a tabela */
+}
+
+.header-links {
+    display: flex;
+    gap: 1rem;
+    /* Espaço entre os links */
 }
 
 .search-bar {
@@ -53,7 +59,7 @@
     display: inline-block;
 }
 
-.user-table thead {
+.address-table thead {
     color: white;
     /* Texto branco */
     text-transform: uppercase;
@@ -66,7 +72,7 @@
     /* Espaçamento entre letras */
 }
 
-.user-table th {
+.address-table th {
     padding: 1rem;
     /* Espaçamento interno */
     text-align: left;
@@ -82,29 +88,29 @@
     font-weight: bold;
 }
 
-.user-table td {
+.address-table td {
     border: 1px solid #ddd;
     padding: 1rem;
     text-align: left;
     font-size: 0.9rem;
 }
 
-.user-table tr {
+.address-table tr {
     transition: background-color 0.3s ease;
     /* Transição suave ao passar o mouse */
 }
 
-.user-table tr:nth-child(even) {
+.address-table tr:nth-child(even) {
     background-color: #f9f9f9;
     /* Fundo alternado para linhas pares */
 }
 
-.user-table tr:hover {
+.address-table tr:hover {
     background-color: #eaf2f8;
     /* Destaque ao passar o mouse */
 }
 
-.user-table td {
+.address-table td {
     color: #555;
 }
 
@@ -178,13 +184,6 @@
     /* Leve aumento ao passar o mouse */
 }
 
-.edit-btn:hover {
-    background-color: #d4ac0d;
-    /* Amarelo mais escuro ao passar o mouse */
-    transform: scale(1.05);
-    /* Leve aumento ao passar o mouse */
-}
-
 
 .delete-icon {
     color: #e74c3c;
@@ -201,25 +200,6 @@
 
 .delete-icon:hover {
     color: #c0392b;
-    /* Vermelho mais escuro ao passar o mouse */
-    transform: scale(1.2);
-    /* Leve aumento ao passar o mouse */
-}
-
-.reassign-icon {
-    color: #3ebc08;
-    /* Vermelho */
-    font-size: 1.2rem;
-    /* Tamanho do ícone */
-    cursor: pointer;
-    /* Mostra o cursor de clique */
-    margin-left: 0.5rem;
-    /* Espaço entre o ícone e o botão "Editar" */
-    transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.reassign-icon:hover {
-    color: #1b5203;
     /* Vermelho mais escuro ao passar o mouse */
     transform: scale(1.2);
     /* Leve aumento ao passar o mouse */

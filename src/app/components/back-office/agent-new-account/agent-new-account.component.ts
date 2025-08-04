@@ -25,8 +25,8 @@ export class AgentNewAccountComponent {
 
     this.accountForm = this.fb.group(
       {
-        email: ['', Validators.required],
-        password: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
       });
 
     this.agentId = Number(this.route.snapshot.paramMap.get('id'));
