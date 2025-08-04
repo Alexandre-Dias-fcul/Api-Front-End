@@ -94,8 +94,6 @@ export class AgentEditComponent {
       this.agent = data; // Atribui os dados do agente à variável agent
 
       this.isLoaded = true; // Define isLoaded como true após obter os dados
-      console.log('Dados do agente obtidos:', data);
-      console.log('Dados do agente:', this.agent);
 
       const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
 
@@ -109,18 +107,16 @@ export class AgentEditComponent {
       }
 
       this.agentForm.patchValue({
-
         name: {
           firstName: data.name.firstName,
-          middleNames: middleNames, // Ajusta middleNames para string
+          middleNames: middleNames,
           lastName: data.name.lastName
         },
-
         isActive: data.isActive,
         gender: data.gender,
-        dateOfBirth: data.dateOfBirth,
-        hiredDate: data.hiredDate,
-        dateOfTermination: data.dateOfTermination,
+        dateOfBirth: this.toDateInputString(data.dateOfBirth),
+        hiredDate: this.toDateInputString(data.hiredDate),
+        dateOfTermination: this.toDateInputString(data.dateOfTermination),
         photoFileName: data.photoFileName,
         role: data.role
       });
@@ -178,7 +174,10 @@ export class AgentEditComponent {
 
       const supervisorEmail = this.agentForm.get('supervisorEmail')?.value;
 
-      if (supervisorEmail != null) {
+      if (supervisorEmail === null || supervisorEmail === undefined || supervisorEmail === '') {
+        this.saveAgent(agentData);
+      }
+      else {
         this.agentService.getAgentByEmail(supervisorEmail).subscribe(
           {
             next: (response) => {
@@ -191,9 +190,6 @@ export class AgentEditComponent {
             }
           }
         )
-      }
-      else {
-        this.saveAgent(agentData);
       }
     }
   }
@@ -210,5 +206,30 @@ export class AgentEditComponent {
 
       }
     });
+  }
+
+  private toDateInputString(date: Date | string | null | undefined): string | null {
+    // Caso seja null, undefined ou string vazia
+    if (!date) return null;
+
+    // Se já estiver no formato YYYY-MM-DD, retorna direto
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+
+    // Tenta converter para Date
+    const d = typeof date === 'string' ? new Date(date) : date;
+
+    // Verifica se a data é válida
+    if (!(d instanceof Date) || isNaN(d.getTime())) {
+      return null;
+    }
+
+    // Formata para YYYY-MM-DD (formato aceito por inputs type="date")
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }
