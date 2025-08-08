@@ -23,10 +23,12 @@ import { LoginUserComponent } from './components/front-office/login-user/login-u
 import { RegisterComponent } from './components/front-office/register/register.component';
 import { UserProfileComponent } from './components/front-office/user-profile/user-profile.component';
 import { EditUserProfileComponent } from './components/front-office/edit-user-profile/edit-user-profile.component';
-import { agent } from './models/agent';
 import { AgentProfileComponent } from './components/back-office/agent-profile/agent-profile.component';
 import { AgentAddressListComponent } from './components/back-office/agent-address-list/agent-address-list.component';
 import { AgentContactListComponent } from './components/back-office/agent-contact-list/agent-contact-list.component';
+import { AppointmentNewComponent } from './components/back-office-appointment/appointment-new/appointment-new.component';
+import { AppointmentListComponent } from './components/back-office-appointment/appointment-list/appointment-list.component';
+import { AppointmentEditComponent } from './components/back-office-appointment/appointment-edit/appointment-edit.component';
 
 export const routes: Routes = [
   {
@@ -67,7 +69,11 @@ export const routes: Routes = [
         { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent },
         { path: 'agent-profile', component: AgentProfileComponent },
         { path: 'agent-address-list/:id', component: AgentAddressListComponent },
-        { path: 'agent-contact-list/:id', component: AgentContactListComponent }
+        { path: 'agent-contact-list/:id', component: AgentContactListComponent },
+        { path: 'appointment-list', component: AppointmentListComponent },
+        { path: 'appointment-new', component: AppointmentNewComponent },
+        { path: 'paoointment-edit/:id', component: AppointmentEditComponent }
+
       ]
   }
 ];

@@ -5,12 +5,13 @@
             <div class="form-group">
                 <label for="type">Tipo de Imóvel</label>
                 <input type="text" id="type" formControlName="type" placeholder="Digite o tipo de imóvel" required>
+                @if(listingForm.get('type')?.invalid &&
+                (listingForm.get('type')?.dirty || listingForm.get('type')?.touched))
+                {
+                <div class="error-message">Tipo inválido</div>
+                }
             </div>
-            @if(listingForm.get('type')?.invalid &&
-            (listingForm.get('type')?.dirty || listingForm.get('type')?.touched))
-            {
-            <div class="error-message">Tipo inválido</div>
-            }
+
 
             <div class="form-group">
                 <label for="status">Estado do Imóvel</label>
@@ -19,87 +20,95 @@
                     <option value="1">Reservada</option>
                     <option value="2">Vendida</option>
                 </select>
+                @if(listingForm.get('status')?.invalid &&
+                (listingForm.get('status')?.dirty || listingForm.get('status')?.touched))
+                {
+                <div class="error-message">Estado inválido</div>
+                }
             </div>
 
-            @if(listingForm.get('status')?.invalid &&
-            (listingForm.get('status')?.dirty || listingForm.get('status')?.touched))
-            {
-            <div class="error-message">Estado inválido</div>
-            }
+
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label for="rooms">Número de Quartos</label>
                 <input type="text" id="rooms" formControlName="numberOfRooms" placeholder="Digite o número">
+                @if(listingForm.get('numberOfRooms')?.invalid &&
+                (listingForm.get('numberOfRooms')?.dirty || listingForm.get('numberOfRooms')?.touched))
+                {
+                <div class="error-message">Número inválido</div>
+                }
             </div>
-            @if(listingForm.get('numberOfRooms')?.invalid &&
-            (listingForm.get('numberOfRooms')?.dirty || listingForm.get('numberOfRooms')?.touched))
-            {
-            <div class="error-message">Número inválido</div>
-            }
+
             <div class="form-group">
                 <label for="bathrooms">Número de WC(s)</label>
                 <input type="text" id="bathrooms" formControlName="numberOfBathrooms" placeholder="Digite o número">
+                @if(listingForm.get('numberOfBathrooms')?.invalid &&
+                (listingForm.get('numberOfBathrooms')?.dirty || listingForm.get('numberOfBathrooms')?.touched))
+                {
+                <div class="error-message">Número inválido</div>
+                }
             </div>
-            @if(listingForm.get('numberOfBathrooms')?.invalid &&
-            (listingForm.get('numberOfBathrooms')?.dirty || listingForm.get('numberOfBathrooms')?.touched))
-            {
-            <div class="error-message">Número inválido</div>
-            }
+
 
             <div class="form-group">
                 <label for="kitchens">Número de Cozinhas</label>
                 <input type="text" id="kitchens" formControlName="numberOfKitchens" placeholder="Digite o número">
+                @if(listingForm.get('numberOfKitchens')?.invalid &&
+                (listingForm.get('numberOfKitchens')?.dirty || listingForm.get('numberOfKitchens')?.touched))
+                {
+                <div class="error-message">Número inválido</div>
+                }
             </div>
-            @if(listingForm.get('numberOfKitchens')?.invalid &&
-            (listingForm.get('numberOfKitchens')?.dirty || listingForm.get('numberOfKitchens')?.touched))
-            {
-            <div class="error-message">Número inválido</div>
-            }
+
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="price">Preço</label>
                 <input type="text" id="price" formControlName="price" placeholder="Digite o preço" required>
+                @if(listingForm.get('price')?.invalid &&
+                (listingForm.get('price')?.dirty || listingForm.get('price')?.touched))
+                {
+                <div class="error-message">Preço inválido</div>
+                }
             </div>
-            @if(listingForm.get('price')?.invalid &&
-            (listingForm.get('price')?.dirty || listingForm.get('price')?.touched))
-            {
-            <div class="error-message">Preço inválido</div>
-            }
+
             <div class="form-group">
                 <label for="parking">Número de Garagens</label>
                 <input type="text" id="parking" formControlName="parking" placeholder="Digite o número de garagens"
                     required>
+                @if(listingForm.get('parking')?.invalid &&
+                (listingForm.get('parking')?.dirty || listingForm.get('parking')?.touched))
+                {
+                <div class="error-message">Número inválido</div>
+                }
             </div>
-            @if(listingForm.get('parking')?.invalid &&
-            (listingForm.get('parking')?.dirty || listingForm.get('parking')?.touched))
-            {
-            <div class="error-message">Número inválido</div>
-            }
+
 
             <div class="form-group">
                 <label for="area">Área</label>
                 <input type="text" id="area" formControlName="area" placeholder="Digite a area" required>
+                @if(listingForm.get('area')?.invalid &&
+                (listingForm.get('area')?.dirty || listingForm.get('area')?.touched))
+                {
+                <div class="error-message">Área inválida</div>
+                }
             </div>
-            @if(listingForm.get('area')?.invalid &&
-            (listingForm.get('area')?.dirty || listingForm.get('area')?.touched))
-            {
-            <div class="error-message">Área inválida</div>
-            }
+
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="location">Localização</label>
                 <input type="text" id="location" formControlName="location" placeholder="Digite a localização" required>
+                @if(listingForm.get('location')?.invalid &&
+                (listingForm.get('location')?.dirty || listingForm.get('location')?.touched))
+                {
+                <div class="error-message">Localização inválida</div>
+                }
             </div>
-            @if(listingForm.get('location')?.invalid &&
-            (listingForm.get('location')?.dirty || listingForm.get('location')?.touched))
-            {
-            <div class="error-message">Localização inválida</div>
-            }
+
         </div>
 
         <div class="form-row">
@@ -108,34 +117,37 @@
                 <textarea type="text" id="description" formControlName="description" placeholder="Digite a descrição"
                     required>
                 </textarea>
+                @if(listingForm.get('description')?.invalid &&
+                (listingForm.get('description')?.dirty || listingForm.get('description')?.touched))
+                {
+                <div class="error-message">Descrição inválida</div>
+                }
             </div>
-            @if(listingForm.get('description')?.invalid &&
-            (listingForm.get('description')?.dirty || listingForm.get('description')?.touched))
-            {
-            <div class="error-message">Descrição inválida</div>
-            }
+
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="fileName">Imagem</label>
                 <input type="text" id="fileName" formControlName="mainImageFileName">
+                @if(listingForm.get('mainImageFileName')?.invalid &&
+                (listingForm.get('mainImageFileName')?.dirty || listingForm.get('mainImageFileName')?.touched))
+                {
+                <div class="error-message">Imagem inválida</div>
+                }
             </div>
-            @if(listingForm.get('mainImageFileName')?.invalid &&
-            (listingForm.get('mainImageFileName')?.dirty || listingForm.get('mainImageFileName')?.touched))
-            {
-            <div class="error-message">Imagem inválida</div>
-            }
+
             <div class="form-group">
                 <label for="fileNames">Outras imagens</label>
                 <input type="text" id="fileNames" formControlName="otherImagesFileNames">
+                @if(listingForm.get('otherImagesFileNames')?.invalid &&
+                (listingForm.get('otherImagesFileNames')?.dirty || listingForm.get('otherImagesFileNames')?.touched))
+                {
+                <div class="error-message">Imagens inválidas</div>
+                }
             </div>
 
-            @if(listingForm.get('otherImagesFileNames')?.invalid &&
-            (listingForm.get('otherImagesFileNames')?.dirty || listingForm.get('otherImagesFileNames')?.touched))
-            {
-            <div class="error-message">Imagens inválidas</div>
-            }
+
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

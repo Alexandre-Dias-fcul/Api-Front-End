@@ -4,21 +4,23 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email" placeholder="Digite seu email" required>
+            @if(accountForm.get('email')?.invalid &&
+            (accountForm.get('email')?.dirty || accountForm.get('email')?.touched))
+            {
+            <div class="error-message">Email inválido</div>
+            }
         </div>
-        @if(accountForm.get('email')?.invalid &&
-        (accountForm.get('email')?.dirty || accountForm.get('email')?.touched))
-        {
-        <div class="error-message">Email inválido</div>
-        }
+
 
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password" placeholder="Digite sua senha" required>
+            @if(accountForm.get('password')?.invalid && (accountForm.get('password')?.dirty ||
+            accountForm.get('password')?.touched)) {
+            <div class="error-message">Senha inválida</div>
+            }
         </div>
-        @if(accountForm.get('password')?.invalid && (accountForm.get('password')?.dirty ||
-        accountForm.get('password')?.touched)) {
-        <div class="error-message">Senha inválida</div>
-        }
+
 
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

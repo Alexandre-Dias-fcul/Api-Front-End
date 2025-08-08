@@ -58,7 +58,7 @@ export class EditUserProfileComponent {
 
             isActive: data.isActive,
             gender: data.gender,
-            dateOfBirth: data.dateOfBirth,
+            dateOfBirth: this.toDateInputString(data.dateOfBirth),
             photoFileName: data.photoFileName,
 
           });
@@ -121,5 +121,30 @@ export class EditUserProfileComponent {
         }
       })
     }
+  }
+
+  private toDateInputString(date: Date | string | null | undefined): string | null {
+    // Caso seja null, undefined ou string vazia
+    if (!date) return null;
+
+    // Se já estiver no formato YYYY-MM-DD, retorna direto
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+
+    // Tenta converter para Date
+    const d = typeof date === 'string' ? new Date(date) : date;
+
+    // Verifica se a data é válida
+    if (!(d instanceof Date) || isNaN(d.getTime())) {
+      return null;
+    }
+
+    // Formata para YYYY-MM-DD (formato aceito por inputs type="date")
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

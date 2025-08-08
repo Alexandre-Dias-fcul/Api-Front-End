@@ -2,9 +2,13 @@
     <div class="topbar-content">
         <span class="logo-mini">Sintra House</span>
         <div class="topbar-actions">
+            @if(!role || role !=='User')
+            {
             <div>
                 <a [routerLink]="['/front-page','login-user']" class="link-topbar">Login</a>
             </div>
+            }
+
             @if(role === 'User')
             {
             <div class="dropdown">
