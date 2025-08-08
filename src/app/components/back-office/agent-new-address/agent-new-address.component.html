@@ -4,44 +4,48 @@
         <div class="form-group">
             <label for="street">Morada</label>
             <input type="text" id="street" formControlName="street" placeholder="Digite a morada" required>
+            @if(addressForm.get('street')?.invalid &&
+            (addressForm.get('street')?.dirty || addressForm.get('street')?.touched))
+            {
+            <div class="error-message">Morada inválida</div>
+            }
         </div>
-        @if(addressForm.get('street')?.invalid &&
-        (addressForm.get('street')?.dirty || addressForm.get('street')?.touched))
-        {
-        <div class="error-message">Morada inválida</div>
-        }
+
 
         <div class="form-row">
             <div class="form-group">
                 <label for="city">Cidade</label>
                 <input type="text" id="city" formControlName="city" placeholder="Digite a cidade" required>
+                @if(addressForm.get('city')?.invalid &&
+                (addressForm.get('city')?.dirty || addressForm.get('city')?.touched))
+                {
+                <div class="error-message">Cidade Inválida</div>
+                }
             </div>
-            @if(addressForm.get('city')?.invalid &&
-            (addressForm.get('city')?.dirty || addressForm.get('city')?.touched))
-            {
-            <div class="error-message">Cidade Inválida</div>
-            }
+
 
             <div class="form-group">
                 <label for="postalCode">Código Postal</label>
                 <input type="text" id="postalCode" formControlName="postalCode" placeholder="Digite o código postal"
                     required>
+                @if(addressForm.get('postalCode')?.invalid &&
+                (addressForm.get('postalCode')?.dirty || addressForm.get('postalCode')?.touched))
+                {
+                <div class="error-message">Código Postal inválido</div>
+                }
             </div>
-            @if(addressForm.get('postalCode')?.invalid &&
-            (addressForm.get('postalCode')?.dirty || addressForm.get('postalCode')?.touched))
-            {
-            <div class="error-message">Código Postal inválido</div>
-            }
+
 
             <div class="form-group">
                 <label for="country">País</label>
                 <input type="text" id="country" formControlName="country" placeholder="Digite o país" required>
+                @if(addressForm.get('country')?.invalid &&
+                (addressForm.get('country')?.dirty || addressForm.get('country')?.touched))
+                {
+                <div class="error-message">País inválido</div>
+                }
             </div>
-            @if(addressForm.get('country')?.invalid &&
-            (addressForm.get('country')?.dirty || addressForm.get('country')?.touched))
-            {
-            <div class="error-message">País inválido</div>
-            }
+
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

@@ -8,21 +8,23 @@
                     <option value="0">Telefone</option>
                     <option value="1">Email</option>
                 </select>
+                @if(contactForm.get('contactType')?.invalid &&
+                (contactForm.get('contactType')?.dirty || contactForm.get('contactType')?.touched))
+                {
+                <div class="error-message">Contacto inválido</div>
+                }
             </div>
-            @if(contactForm.get('contactType')?.invalid &&
-            (contactForm.get('contactType')?.dirty || contactForm.get('contactType')?.touched))
-            {
-            <div class="error-message">Contacto inválido</div>
-            }
+
             <div class="form-group">
                 <label for="value">Valor</label>
                 <input type="text" id="value" formControlName="value" required />
+                @if(contactForm.get('value')?.invalid &&
+                (contactForm.get('value')?.dirty || contactForm.get('value')?.touched))
+                {
+                <div class="error-message">Valor inválido</div>
+                }
             </div>
-            @if(contactForm.get('value')?.invalid &&
-            (contactForm.get('value')?.dirty || contactForm.get('value')?.touched))
-            {
-            <div class="error-message">Valor inválido</div>
-            }
+
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

@@ -6,12 +6,12 @@
                 <label for="emailAgent">Email</label>
                 <input type="text" id="emailAgent" formControlName="emailAgent" placeholder="Digite o email do Agente"
                     required>
+                @if(reassignForm.get('emailAgent')?.invalid &&
+                (reassignForm.get('emailAgent')?.dirty || reassignForm.get('emailAgent')?.touched))
+                {
+                <div class="error-message">Email inválido</div>
+                }
             </div>
-            @if(reassignForm.get('emailAgent')?.invalid &&
-            (reassignForm.get('emailAgent')?.dirty || reassignForm.get('emailAgent')?.touched))
-            {
-            <div class="error-message">Email inválido</div>
-            }
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

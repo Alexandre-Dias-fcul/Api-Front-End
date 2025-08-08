@@ -28,7 +28,7 @@ export class AgentNewComponent {
       {
         name: this.fb.group({
           firstName: ['', [Validators.required]],
-          middleNames: ['', [Validators.required]], // Campo de nomes do meio
+          middleNames: [''], // Campo de nomes do meio
           lastName: ['', [Validators.required]],
         }),
         isActive: [null, [Validators.required]],
