@@ -8,14 +8,16 @@
                 {
                 <li><a [routerLink]="['/main-page','listing-list']">
                         <i class="fas fa-user"></i><span>Imóveis</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a [routerLink]="['/main-page','appointment-list']"><i
+                            class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 }
                 @else if(role === 'Manager')
                 {
                 <li><a [routerLink]="['/main-page','listing-list']">
                         <i class="fas fa-user"></i><span>Imóveis</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a [routerLink]="['/main-page','appointment-list']">
+                        <i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 <li><a [routerLink]="['/main-page','agent-list']"><i class="fas fa-user"></i>
                         <span>Agentes</span></a></li>
@@ -24,21 +26,24 @@
                 {
                 <li><a [routerLink]="['/main-page','listing-list']">
                         <i class="fas fa-user"></i><span>Imóveis</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a [routerLink]="['/main-page','appointment-list']">
+                        <i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 <li><a [routerLink]="['/main-page','agent-list']"><i class="fas fa-user"></i>
                         <span>Agentes</span></a></li>
                 }
                 @else if(role === 'Staff')
                 {
-                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a [routerLink]="['/main-page','appointment-list']">
+                        <i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
 
                 }@else if(role === 'Admin')
                 {
                 <li><a [routerLink]="['/main-page','listing-list']">
                         <i class="fas fa-user"></i><span>Imóveis</span></a></li>
-                <li><a href="#"><i class="fas fa-user"></i><span>Calendário</span></a></li>
+                <li><a [routerLink]="['/main-page','appointment-list']">
+                        <i class="fas fa-user"></i><span>Calendário</span></a></li>
                 <li><a href="#"><i class="fas fa-user"></i><span>Contactos</span></a></li>
                 <li><a [routerLink]="['/main-page','agent-list']"><i class="fas fa-user"></i>
                         <span>Agentes</span></a></li>

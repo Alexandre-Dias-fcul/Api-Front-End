@@ -58,7 +58,6 @@ export class ListingNewComponent {
 
       this.listingService.addListing(listingData).subscribe({
         next: (response) => {
-          console.log('Listing criada com sucesso:', response);
           this.listingForm.reset();
           this.router.navigate(['/main-page/listing-list']);
         },

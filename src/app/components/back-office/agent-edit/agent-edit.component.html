@@ -94,48 +94,54 @@
 
         </div>
 
-        <div class="form-group">
-            <label for="hiredDate">Data de Contratação</label>
-            <input type="date" id="hiredDate" formControlName="hiredDate" placeholder="Digite a data de contratação">
-            @if(agentForm.get('hiredDate')?.invalid &&
-            (agentForm.get('hiredDate')?.dirty || agentForm.get('hiredDate')?.touched))
-            {
-            <div class="error-message">Data inválida</div>
-            }
+        <div class="form-row">
+            <div class="form-group">
+                <label for="hiredDate">Data de Contratação</label>
+                <input type="date" id="hiredDate" formControlName="hiredDate"
+                    placeholder="Digite a data de contratação">
+                @if(agentForm.get('hiredDate')?.invalid &&
+                (agentForm.get('hiredDate')?.dirty || agentForm.get('hiredDate')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfTermination">Data de rescisão</label>
+                <input type="date" id="dateOfTermination" formControlName="dateOfTermination"
+                    placeholder="Digite a data de rescisão">
+                @if(agentForm.get('dateOfTermination')?.invalid &&
+                (agentForm.get('dateOfTermination')?.dirty || agentForm.get('dateOfTermination')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="dateOfTermination">Data de rescisão</label>
-            <input type="date" id="dateOfTermination" formControlName="dateOfTermination"
-                placeholder="Digite a data de rescisão">
-            @if(agentForm.get('dateOfTermination')?.invalid &&
-            (agentForm.get('dateOfTermination')?.dirty || agentForm.get('dateOfTermination')?.touched))
-            {
-            <div class="error-message">Data inválida</div>
-            }
+        <div class="form-row">
+            <div class="form-group">
+                <label for="photoFileName">Foto</label>
+                <input type="text" id="photoFileName" formControlName="photoFileName"
+                    placeholder="Digite o nome do arquivo da foto">
+                @if(agentForm.get('photoFileName')?.invalid &&
+                (agentForm.get('photoFileName')?.dirty || agentForm.get('photoFileName')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="supervisorEmail">Supervisor Email</label>
+                <input type="text" id="supervisorEmail" formControlName="supervisorEmail"
+                    placeholder="Digite o email do supervisor">
+                @if(agentForm.get('supervisorEmail')?.invalid &&
+                (agentForm.get('supervisorEmail')?.dirty || agentForm.get('supervisorEmail')?.touched))
+                {
+                <div class="error-message">ID inválido</div>
+                }
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="photoFileName">Foto</label>
-            <input type="text" id="photoFileName" formControlName="photoFileName"
-                placeholder="Digite o nome do arquivo da foto">
-            @if(agentForm.get('photoFileName')?.invalid &&
-            (agentForm.get('photoFileName')?.dirty || agentForm.get('photoFileName')?.touched))
-            {
-            <div class="error-message">Nome inválido</div>
-            }
-        </div>
-
-        <div class="form-group">
-            <label for="supervisorEmail">Supervisor Email</label>
-            <input type="text" id="supervisorEmail" formControlName="supervisorEmail"
-                placeholder="Digite o email do supervisor">
-            @if(agentForm.get('supervisorEmail')?.invalid &&
-            (agentForm.get('supervisorEmail')?.dirty || agentForm.get('supervisorEmail')?.touched))
-            {
-            <div class="error-message">ID inválido</div>
-            }
-        </div>
 
 
         <div class="form-actions">

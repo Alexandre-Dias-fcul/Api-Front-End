@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="description">Descrição</label>
                 <textarea type="text" id="description" formControlName="description"
-                    placeholder="Digite a descrição da reunião" required>
+                    placeholder="Digite a descrição da reunião">
                 </textarea>
                 @if(appointmentForm.get('description')?.invalid &&
                 (appointmentForm.get('description')?.dirty || appointmentForm.get('description')?.touched))
@@ -26,21 +26,22 @@
                 }
             </div>
         </div>
-
         <div class="form-row">
             <div class="form-group">
                 <label for="date">Data</label>
-                <input type="text" id="date" formControlName="date" placeholder="Data da reunião" required>
+                <input type="date" id="date" formControlName="date" placeholder="Data da reunião" required>
                 @if(appointmentForm.get('date')?.invalid &&
                 (appointmentForm.get('date')?.dirty || appointmentForm.get('date')?.touched))
                 {
                 <div class="error-message">Data inválida</div>
                 }
             </div>
+        </div>
 
+        <div class="form-row">
             <div class="form-group">
                 <label for="hourStart">Hora de Início</label>
-                <input type="text" id="hourStart" formControlName="hourStart" placeholder="Hora de ínicio" required>
+                <input type="time" id="hourStart" formControlName="hourStart" placeholder="Hora de ínicio" required>
                 @if(appointmentForm.get('hourStart')?.invalid &&
                 (appointmentForm.get('hourStart')?.dirty || appointmentForm.get('hourStart')?.touched))
                 {
@@ -50,14 +51,32 @@
 
             <div class="form-group">
                 <label for="hourEnd">Hora de Fim</label>
-                <input type="text" id="hourEnd" formControlName="hourEnd" placeholder="Hora de Fim" required>
-                @if(appointmentForm.get('hourEnd')?.invalid &&
-                (appointmentForm.get('hourEnd')?.dirty || appointmentForm.get('hourEnd')?.touched))
+                <input type="time" id="hourEnd" formControlName="hourEnd" placeholder="Hora de Fim" required>
+                @if(appointmentForm.get('hourEnd')?.invalid
+                && (appointmentForm.get('hourEnd')?.dirty || appointmentForm.get('hourEnd')?.touched))
                 {
                 <div class="error-message">Hora inválida</div>
                 }
-            </div>
+                @if(appointmentForm.get('hourEnd')?.hasError('hourOrderInvalid') &&
+                (appointmentForm.get('hourEnd')?.dirty || appointmentForm.get('hourEnd')?.touched))
+                {
+                <div class="error-message">Hora de início maior que hora de fim</div>
+                }
 
+            </div>
+            <div class="form-group">
+                <label for="status">Estado da Reunião</label>
+                <select id="status" name="status" formControlName="status" required>
+                    <option value="0">Confirmada</option>
+                    <option value="1">Cancelada</option>
+                    <option value="2">Concluida</option>
+                </select>
+                @if(appointmentForm.get('status')?.invalid &&
+                (appointmentForm.get('status')?.dirty || appointmentForm.get('status')?.touched))
+                {
+                <div class="error-message">Estado inválido</div>
+                }
+            </div>
         </div>
 
         <div class="form-actions">
