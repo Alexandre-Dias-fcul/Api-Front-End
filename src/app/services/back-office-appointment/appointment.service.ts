@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { appointment } from '../../models/appointment';
 import { participant } from '../../models/participant';
+import { appointmentAll } from '../../models/appointmentAll';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class AppointmentService {
 
   getAllAppointments(): Observable<appointment[]> {
     return this.http.get<appointment[]>(this.urlAppointment);
+  }
+
+  getAllAppointmentsWithParticipants(): Observable<appointmentAll[]> {
+    return this.http.get<appointmentAll[]>(`${this.urlAppointment}/GetAllWithParticipants`);
   }
 
   getAppointmentById(id: number): Observable<appointment> {

@@ -72,7 +72,7 @@ export const routes: Routes = [
         { path: 'agent-contact-list/:id', component: AgentContactListComponent },
         { path: 'appointment-list', component: AppointmentListComponent },
         { path: 'appointment-new', component: AppointmentNewComponent },
-        { path: 'paoointment-edit/:id', component: AppointmentEditComponent }
+        { path: 'appointment-edit/:id', component: AppointmentEditComponent }
 
       ]
   }

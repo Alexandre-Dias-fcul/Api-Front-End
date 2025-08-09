@@ -1,6 +1,6 @@
 export interface participant {
     id: number;
-    role: string;
+    role: number;
     appointmentId: number;
     employeeId: number;
 }

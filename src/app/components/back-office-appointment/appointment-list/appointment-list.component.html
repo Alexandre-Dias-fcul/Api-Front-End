@@ -1,1 +1,37 @@
-<p>appointment-list works!</p>
+<div class="table-header">
+    <a [routerLink]="['/main-page','appointment-new']" class="add-user-link">Nova Reunião</a>
+    <input type="text" class="search-bar" placeholder="Pesquisar...">
+</div>
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Tipo de Reunião</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Hora de Início</th>
+            <th>Hora de Fim</th>
+            <th>Status</th>
+            <th>Ações</th> <!-- Coluna para os botões -->
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let appointment of appointments">
+            <tr>
+                <td>{{ appointment.title }}</td>
+                <td>{{ appointment.description }}</td>
+                <td>{{ appointment.date}}</td>
+                <td>{{ appointment.hourStart }}</td>
+                <td>{{ appointment.hourEnd }}</td>
+                <td>{{ appointment.status }}</td>
+                <td></td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+<div class="pagination">
+    <button class="pagination-btn prev-btn" disabled>&laquo; Anterior</button>
+    <button class="pagination-btn">1</button>
+    <button class="pagination-btn">2</button>
+    <button class="pagination-btn">3</button>
+    <button class="pagination-btn next-btn">Próximo &raquo;</button>
+</div>
