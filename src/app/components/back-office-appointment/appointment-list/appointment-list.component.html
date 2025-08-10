@@ -15,17 +15,39 @@
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let appointment of appointments">
-            <tr>
-                <td>{{ appointment.title }}</td>
-                <td>{{ appointment.description }}</td>
-                <td>{{ appointment.date}}</td>
-                <td>{{ appointment.hourStart }}</td>
-                <td>{{ appointment.hourEnd }}</td>
-                <td>{{ appointment.status }}</td>
-                <td></td>
-            </tr>
-        </ng-container>
+        <tr *ngFor="let participant of agentParticipant.participants">
+            <td>{{ participant.appointment.title }}</td>
+            <td>{{ participant.appointment.description }}</td>
+            <td>{{ participant.appointment.date}}</td>
+            <td>{{ participant.appointment.hourStart }}</td>
+            <td>{{ participant.appointment.hourEnd }}</td>
+            @if(participant.appointment.status === 0)
+            {
+            <td>Confirmada</td>
+            }
+            @else if(participant.appointment.status === 1)
+            {
+            <td>Cancelada</td>
+            }
+            @else if(participant.appointment.status === 2)
+            {
+            <td>Concluída</td>
+            }
+            <td>
+                @if(participant.role === 0)
+                {
+                <a [routerLink]="['/main-page','appointment-edit',participant.appointment.id]">
+                    <i class="fas fa-edit edit-icon"></i></a>
+                <a (click)="deleteAppointment(participant.appointment.id)">
+                    <i class="fas fa-trash delete-icon"></i></a>
+
+                }@else if(participant.role === 1)
+                {
+                <a (click)="deleteParticipant(participant.appointment.id, participant.id)">
+                    <i class="fa-solid fa-xmark delete-icon"></i></a>]
+                }
+            </td>
+        </tr>
     </tbody>
 </table>
 <div class="pagination">

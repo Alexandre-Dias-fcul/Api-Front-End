@@ -58,7 +58,7 @@ export class ListingEditComponent {
       }
     );
 
-    const role = authorization.getRole();
+    const role = this.authorization.getRole();
 
     if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
@@ -70,8 +70,7 @@ export class ListingEditComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
-      this.router.navigate(['/front-page', 'login']);
-
+      this.router.navigate(['/main-page/listing-list']);
       return;
     }
 

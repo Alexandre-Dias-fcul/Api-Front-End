@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { Router, RouterLink } from '@angular/router';
-import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
 import { CommonModule } from '@angular/common';
-import { appointmentAll } from '../../../models/appointmentAll';
+import { agentParticipant } from '../../../models/agentParticipant';
+import { AgentService } from '../../../services/back-office/agent.service';
+import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
+
 
 @Component({
   selector: 'app-appointment-list',
@@ -13,12 +15,28 @@ import { appointmentAll } from '../../../models/appointmentAll';
 })
 export class AppointmentListComponent {
 
-  appointments: appointmentAll[] = [];
+  agentParticipant: agentParticipant = {
+    id: 0,
+    name: {
+      firstName: '',
+      middleNames: [],
+      lastName: ''
+    },
+    dateOfBirth: null,
+    gender: '',
+    hiredDate: null,
+    dateOfTermination: null,
+    photoFileName: '',
+    role: 0,
+    supervisorId: null,
+    isActive: true,
+    participants: []
 
-  id: number = 0;
+  }
 
   constructor(private authorization: AuthorizationService,
     private router: Router,
+    private agentService: AgentService,
     private appointmentService: AppointmentService) {
 
     const role = this.authorization.getRole();
@@ -31,48 +49,53 @@ export class AppointmentListComponent {
       return;
     }
 
-    this.id = Number(authorization.getId());
+    const id = Number(authorization.getId());
 
-    if (!this.id) {
+    if (!id) {
+
       this.router.navigate(['/front-page', 'login']);
 
       return;
     }
 
-    this.appointmentService.getAllAppointmentsWithParticipants().subscribe(
+    this.agentService.getByIdWithParticipants(id).subscribe(
       {
         next: (data) => {
-          this.appointments = data;
+          this.agentParticipant = data;
         },
         error: (err) => {
-          console.error('Error fetching appointments:', err);
+          console.error('Error fetching agentWithParticipants:', err);
         }
       }
     );
   }
 
 
-  deleteAppointment(id: number) {
-    this.appointmentService.deleteAppointment(id).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: (err) => {
-        console.error('Error deleting appointment:', err);
-      }
-    });
+  deleteAppointment(idAppointment: number) {
+    if (confirm('Tem a certeza que pretende apagar a reunião?')) {
+      this.appointmentService.deleteAppointment(idAppointment).subscribe({
+        next: () => {
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error('Error deleting appointment:', err);
+        }
+      });
+    }
   }
 
 
-  deleteParticipant(id: number, participantId: number) {
-    this.appointmentService.deleteParticiant(id, participantId).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: (err) => {
-        console.error('Error deleting participant:', err);
-      }
-    });
+  deleteParticipant(idAppointment: number, participantId: number) {
+    if (confirm('Tem a certeza que quer apagar a sua participação na reunião?')) {
+      this.appointmentService.deleteParticiant(idAppointment, participantId).subscribe({
+        next: () => {
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error('Error deleting participant:', err);
+        }
+      });
+    }
   }
 
 }

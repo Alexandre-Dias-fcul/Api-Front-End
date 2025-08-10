@@ -29,8 +29,7 @@ export class AppointmentNewComponent {
       hourStart: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)]],
       hourEnd: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)]],
       status: ['', [Validators.required]]
-    },
-      { Validators: this.hourRangeValidator }
+    }
     );
 
     const role = this.authorization.getRole();
@@ -68,18 +67,5 @@ export class AppointmentNewComponent {
     } else {
       console.log('Formulário inválido:', this.appointmentForm.errors);
     }
-  }
-
-  hourRangeValidator(formGroup: FormGroup) {
-    const start = formGroup.get('hourStart')?.value;
-    const end = formGroup.get('hourEnd')?.value;
-
-    if (!start || !end) return null; // não valida se um dos campos estiver vazio
-
-    // Converte para minutos desde 00:00
-    const startMinutes = parseInt(start.split(':')[0], 10) * 60 + parseInt(start.split(':')[1], 10);
-    const endMinutes = parseInt(end.split(':')[0], 10) * 60 + parseInt(end.split(':')[1], 10);
-
-    return startMinutes < endMinutes ? null : { hourOrderInvalid: true };
   }
 }

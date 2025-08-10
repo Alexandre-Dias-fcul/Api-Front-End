@@ -8,6 +8,7 @@ import { contact } from '../../models/contact';
 import { agentAll } from '../../models/agentAll';
 import { agentListing } from '../../models/agentListing';
 import { agentSupervisor } from '../../models/agentSupervisor';
+import { agentParticipant } from '../../models/agentParticipant';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,6 +39,10 @@ export class AgentService {
 
   getByIdWithAgents(id: number): Observable<agentSupervisor> {
     return this.http.get<agentSupervisor>(`${this.urlAgent}/GetByIdWithAgents/${id}`);
+  }
+
+  getByIdWithParticipants(id: number): Observable<agentParticipant> {
+    return this.http.get<agentParticipant>(`${this.urlAgent}/GetByIdWithParticipants/${id}`);
   }
 
   addAgent(agent: agent): Observable<agent> {
