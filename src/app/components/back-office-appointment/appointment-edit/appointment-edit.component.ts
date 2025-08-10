@@ -1,11 +1,134 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { appointment } from '../../../models/appointment';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
 
 @Component({
   selector: 'app-appointment-edit',
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './appointment-edit.component.html',
   styleUrl: './appointment-edit.component.css'
 })
 export class AppointmentEditComponent {
 
+  appointmentForm: FormGroup;
+
+  id: number = 0;
+
+  appointment: appointment =
+    {
+      id: 0,
+      title: '',
+      description: '',
+      date: new Date(),
+      hourStart: '',
+      hourEnd: '',
+      status: 0
+    }
+
+  constructor(private fb: FormBuilder,
+    private appointmentService: AppointmentService,
+    private router: Router,
+    private authorization: AuthorizationService,
+    private route: ActivatedRoute
+  ) {
+
+    this.appointmentForm = this.fb.group(
+      {
+        title: ['', [Validators.required]],
+        description: [''],
+        date: [null, [Validators.required]],
+        hourStart: ['', [Validators.required]],
+        hourEnd: ['', [Validators.required]],
+        status: ['', [Validators.required]]
+      }
+    );
+
+    const role = this.authorization.getRole();
+
+    if (!role || (role !== 'Staff' && role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
+
+      this.router.navigate(['/front-page', 'login']);
+
+      return;
+    }
+
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!this.id) {
+      this.router.navigate(['/main-page/appointment-list']);
+      return;
+    }
+
+    this.appointmentService.getAppointmentById(this.id).subscribe((data: appointment) => {
+
+      this.appointment = data;
+
+      this.appointmentForm.patchValue({
+
+        title: data.title,
+        description: data.description,
+        date: this.toDateInputString(data.date),
+        hourStart: data.hourStart?.slice(0, 5),
+        hourEnd: data.hourStart?.slice(0, 5),
+        status: String(data.status)
+      });
+
+    });
+  }
+
+
+  onSubmit() {
+
+    if (this.appointmentForm.valid) {
+
+      const appointmentData: appointment = this.appointmentForm.value as appointment;
+
+      appointmentData.date = this.appointmentForm.get('date')?.value;
+      appointmentData.hourStart = this.appointmentForm.get('hourStart')?.value + ':00';
+      appointmentData.hourEnd = this.appointmentForm.get('hourEnd')?.value + ':00';
+      appointmentData.status = Number(this.appointmentForm.get('status')?.value);
+      appointmentData.id = this.id;
+
+      this.appointmentService.updateAppointment(appointmentData).subscribe({
+        next: (response) => {
+          this.appointmentForm.reset();
+          this.router.navigate(['/main-page', 'appointment-list']);
+        },
+        error: (error) => {
+          console.error('Error creating appointment:', error);
+        }
+      });
+
+    } else {
+      console.log('Formulário inválido:', this.appointmentForm.errors);
+    }
+  }
+
+  private toDateInputString(date: Date | string | null | undefined): string | null {
+    // Caso seja null, undefined ou string vazia
+    if (!date) return null;
+
+    // Se já estiver no formato YYYY-MM-DD, retorna direto
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+
+    // Tenta converter para Date
+    const d = typeof date === 'string' ? new Date(date) : date;
+
+    // Verifica se a data é válida
+    if (!(d instanceof Date) || isNaN(d.getTime())) {
+      return null;
+    }
+
+    // Formata para YYYY-MM-DD (formato aceito por inputs type="date")
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
 }
