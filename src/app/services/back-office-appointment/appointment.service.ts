@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { appointment } from '../../models/appointment';
 import { participant } from '../../models/participant';
+import { appointmentWithParticipants } from '../../models/appointmentWithParticipants';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,9 @@ export class AppointmentService {
     return this.http.get<appointment>(`${this.urlAppointment}/${id}`);
   }
 
-  getAppointmentByIdWithParticipants(id: number): Observable<appointment> {
+  getAppointmentByIdWithParticipants(id: number): Observable<appointmentWithParticipants> {
     return this.http
-      .get<appointment>(`${this.urlAppointment}/GetByIdWithParticipants/${id}`);
+      .get<appointmentWithParticipants>(`${this.urlAppointment}/GetByIdWithParticipants/${id}`);
   }
 
   addAppointment(appointment: appointment): Observable<appointment> {
@@ -65,7 +66,7 @@ export class AppointmentService {
       );
   }
 
-  deleteParticiant(idAppointment: number, idParticipant: number): Observable<participant> {
+  deleteParticipant(idAppointment: number, idParticipant: number): Observable<participant> {
     return this.http.delete<participant>(`${this.urlAppointment}/DeleteParticipant/
       ${idAppointment}/${idParticipant}`);
   }

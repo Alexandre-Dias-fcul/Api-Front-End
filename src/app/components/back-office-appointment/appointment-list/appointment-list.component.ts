@@ -87,7 +87,7 @@ export class AppointmentListComponent {
 
   deleteParticipant(idAppointment: number, participantId: number) {
     if (confirm('Tem a certeza que quer apagar a sua participação na reunião?')) {
-      this.appointmentService.deleteParticiant(idAppointment, participantId).subscribe({
+      this.appointmentService.deleteParticipant(idAppointment, participantId).subscribe({
         next: () => {
           window.location.reload();
         },
