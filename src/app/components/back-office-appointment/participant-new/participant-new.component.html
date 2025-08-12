@@ -1,0 +1,34 @@
+<div class="form-container">
+    <h2 class="form-title">Novo Participante</h2>
+    <form [formGroup]="participantForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="type">Tipo de Empregado</label>
+                <select type="text" id="type" formControlName="type" required>
+                    <option value="Agent">Agente</option>
+                    <option value="Staff">Administrativo</option>
+                </select>
+                @if(participantForm.get('type')?.invalid &&
+                (participantForm.get('type')?.dirty || participantForm.get('type')?.touched))
+                {
+                <div class="error-message">Tipo inválido</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" formControlName="email" required />
+                @if(participantForm.get('email')?.invalid &&
+                (participantForm.get('email')?.dirty || participantForm.get('email')?.touched))
+                {
+                <div class="error-message">Email inválido</div>
+                }
+            </div>
+
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page/participant-list',idAppointment]" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>

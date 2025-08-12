@@ -1,0 +1,42 @@
+<div class="table-header">
+    <div class="header-links">
+        <a [routerLink]="['/main-page','appointment-list']" class="return-link">Voltar</a>
+        <a [routerLink]="['/main-page','participant-new',appointment.id]" class="new-participant-link">Novo
+            Participante</a>
+    </div>
+    <input type="text" class="search-bar" placeholder="Pesquisar...">
+</div>
+<table class="participant-table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Tipo de Participante</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let agentParticipant of agentsParticipants">
+            <td>{{ agentParticipant[0].name?.firstName }}
+                {{ agentParticipant[0].name?.lastName }}
+            </td>
+            @if(agentParticipant[1].role === 0)
+            {
+            <td>Organizador</td>
+            }
+            @else if(agentParticipant[1].role === 1)
+            {
+            <td>Participante</td>
+            }
+            <td>{{ agentParticipant[0].entityLink?.account?.email }}</td>
+
+            @if(agentParticipant[1].role === 1)
+            {
+            <td>
+                <a (click)="deleteParticipant(agentParticipant[1].id)">
+                    <i class="fa-solid fa-xmark delete-icon"></i></a>
+            </td>
+            }
+        </tr>
+    </tbody>
+</table>

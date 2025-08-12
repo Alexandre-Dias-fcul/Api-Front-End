@@ -29,6 +29,8 @@ import { AgentContactListComponent } from './components/back-office/agent-contac
 import { AppointmentNewComponent } from './components/back-office-appointment/appointment-new/appointment-new.component';
 import { AppointmentListComponent } from './components/back-office-appointment/appointment-list/appointment-list.component';
 import { AppointmentEditComponent } from './components/back-office-appointment/appointment-edit/appointment-edit.component';
+import { ParticipantListComponent } from './components/back-office-appointment/participant-list/participant-list.component';
+import { ParticipantNewComponent } from './components/back-office-appointment/participant-new/participant-new.component';
 
 export const routes: Routes = [
   {
@@ -72,7 +74,9 @@ export const routes: Routes = [
         { path: 'agent-contact-list/:id', component: AgentContactListComponent },
         { path: 'appointment-list', component: AppointmentListComponent },
         { path: 'appointment-new', component: AppointmentNewComponent },
-        { path: 'appointment-edit/:id', component: AppointmentEditComponent }
+        { path: 'appointment-edit/:id', component: AppointmentEditComponent },
+        { path: 'participant-list/:id', component: ParticipantListComponent },
+        { path: 'participant-new/:id', component: ParticipantNewComponent }
 
       ]
   }
