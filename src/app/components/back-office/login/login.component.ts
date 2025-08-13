@@ -44,12 +44,10 @@ export class LoginComponent {
             this.router.navigate(['/main-page/listing-list']);
           }
           else if (role == 'Staff') {
-
+            this.router.navigate(['/main-page/appointment-list'])
           }
-          else {
 
-          }
-          // Redireciona para a página principal após o login
+
         },
         error: (err) => {
           console.error('Erro no login:', err);

@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { agentParticipant } from '../../../models/agentParticipant';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
+import { staffParticipant } from '../../../models/staffParticipant';
+import { StaffService } from '../../../services/back-office-staff/staff.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { AppointmentService } from '../../../services/back-office-appointment/ap
 })
 export class AppointmentListComponent {
 
-  agentParticipant: agentParticipant = {
+  employeesParticipants: agentParticipant | staffParticipant = {
     id: 0,
     name: {
       firstName: '',
@@ -37,6 +39,7 @@ export class AppointmentListComponent {
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private agentService: AgentService,
+    private staffService: StaffService,
     private appointmentService: AppointmentService) {
 
     const role = this.authorization.getRole();
@@ -61,7 +64,22 @@ export class AppointmentListComponent {
     this.agentService.getByIdWithParticipants(id).subscribe(
       {
         next: (data) => {
-          this.agentParticipant = data;
+          if (data !== null) {
+            this.employeesParticipants = data;
+          }
+          else {
+            this.staffService.getByIdWithParticipants(id).subscribe(
+              {
+                next: (response) => {
+                  this.employeesParticipants = response;
+                }
+                , error: (error) => {
+                  console.error('Error fetching staffParticipants', error);
+                }
+              }
+            )
+          }
+
         },
         error: (err) => {
           console.error('Error fetching agentWithParticipants:', err);

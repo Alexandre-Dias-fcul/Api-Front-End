@@ -6,6 +6,7 @@ import { address } from '../../models/address';
 import { contact } from '../../models/contact';
 import { catchError, Observable, throwError } from 'rxjs';
 import { staffAll } from '../../models/staffAll';
+import { staffParticipant } from '../../models/staffParticipant';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class StaffService {
 
   getByIdWithAll(id: number): Observable<staffAll> {
     return this.http.get<staffAll>(` ${this.urlStaff}/GetByIdWithAll/${id}`);
+  }
+
+  getByIdWithParticipants(id: number): Observable<staffParticipant> {
+    return this.http.get<staffParticipant>(`${this.urlStaff}/GetByIdWithParticipants/${id}`);
   }
 
   addStaff(staff: staff): Observable<staff> {

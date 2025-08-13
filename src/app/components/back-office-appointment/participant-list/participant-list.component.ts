@@ -5,6 +5,8 @@ import { AppointmentService } from '../../../services/back-office-appointment/ap
 import { AgentService } from '../../../services/back-office/agent.service';
 import { appointmentWithParticipants } from '../../../models/appointmentWithParticipants';
 import { CommonModule } from '@angular/common';
+import { StaffService } from '../../../services/back-office-staff/staff.service';
+
 
 @Component({
   selector: 'app-participant-list',
@@ -26,13 +28,14 @@ export class ParticipantListComponent {
       participants: []
     }
 
-  agentsParticipants: any[] = [];
+  employeesParticipants: any = [];
 
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
     private appointmentService: AppointmentService,
     private agentService: AgentService,
+    private staffService: StaffService
   ) {
 
     const role = this.authorization.getRole();
@@ -56,6 +59,8 @@ export class ParticipantListComponent {
       next: (data) => {
         this.appointment = data;
         this.getAgents(this.appointment);
+        this.getStaff(this.appointment);
+        console.log(this.employeesParticipants + "employeesParticipants");
       },
       error: (err) => {
         console.error('Error fetching appointment:', err);
@@ -81,10 +86,29 @@ export class ParticipantListComponent {
     for (const participant of appointment.participants) {
       this.agentService.getByIdWithAll(participant.employeeId).subscribe({
         next: (agent) => {
-          this.agentsParticipants.push([agent, participant]);
+          if (agent !== null) {
+            this.employeesParticipants.push([agent, participant]);
+          }
+
         },
         error: (err) => {
           console.error('Error fetching agent:', err);
+        }
+      });
+    }
+  }
+
+  private getStaff(appointment: appointmentWithParticipants): void {
+    for (const participant of appointment.participants) {
+      this.staffService.getByIdWithAll(participant.employeeId).subscribe({
+        next: (staff) => {
+          if (staff !== null) {
+            this.employeesParticipants.push([staff, participant]);
+          }
+
+        },
+        error: (err) => {
+          console.error('Error fetching staff:', err);
         }
       });
     }
