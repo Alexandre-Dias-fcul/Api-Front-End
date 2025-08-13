@@ -1,0 +1,120 @@
+<div class="form-container">
+    <h2 class="form-title">Novo Administrativo</h2>
+    <form [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="name">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Primeiro Nome</label>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome"
+                        required>
+                    @if(staffForm.get('name.firstName')?.invalid &&
+                    (staffForm.get('name.firstName')?.dirty || staffForm.get('name.firstName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Ultimo Nome</label>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome"
+                        required>
+                    @if(staffForm.get('name.lastName')?.invalid &&
+                    (staffForm.get('name.lastName')?.dirty || staffForm.get('name.lastName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label for="middleNames">Nomes do Meio</label>
+                <input type="text" id="middleNames" formControlName="middleNames" placeholder="Digite os nomes do meio">
+                @if(staffForm.get('name.middleNames')?.invalid &&
+                (staffForm.get('name.middleNames')?.dirty || staffForm.get('name.middleNames')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="isActive">Activo</label>
+                <select id="isActive" name="isActive" formControlName="isActive" required>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                @if(staffForm.get('isActive')?.invalid &&
+                (staffForm.get('isActive')?.dirty || staffForm.get('isActive')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfBirth">Data de Nascimento</label>
+                <input type="date" id="dateOfBirth" formControlName="dateOfBirth"
+                    placeholder="Digite a data de nascimento">
+                @if(staffForm.get('dateOfBirth')?.invalid &&
+                (staffForm.get('dateOfBirth')?.dirty || staffForm.get('dateOfBirth')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Género</label>
+                <select id="gender" name="gender" formControlName="gender" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+                @if(staffForm.get('gender')?.invalid &&
+                (staffForm.get('gender')?.dirty || staffForm.get('gender')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+            <div class="form-group">
+                <label for="hiredDate">Data de Contratação</label>
+                <input type="date" id="hiredDate" formControlName="hiredDate"
+                    placeholder="Digite a data de contratação">
+                @if(staffForm.get('hiredDate')?.invalid &&
+                (staffForm.get('hiredDate')?.dirty ||staffForm.get('hiredDate')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dateOfTermination">Data de rescisão</label>
+                <input type="date" id="dateOfTermination" formControlName="dateOfTermination"
+                    placeholder="Digite a data de rescisão">
+                @if(staffForm.get('dateOfTermination')?.invalid &&
+                (staffForm.get('dateOfTermination')?.dirty ||staffForm.get('dateOfTermination')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+            <div class="form-group">
+                <label for="photoFileName">Foto</label>
+                <input type="text" id="photoFileName" formControlName="photoFileName"
+                    placeholder="Digite o nome do arquivo da foto">
+                @if(staffForm.get('photoFileName')?.invalid &&
+                (staffForm.get('photoFileName')?.dirty || staffForm.get('photoFileName')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page/staff-list']" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>
