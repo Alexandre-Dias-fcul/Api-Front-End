@@ -31,6 +31,9 @@ import { AppointmentListComponent } from './components/back-office-appointment/a
 import { AppointmentEditComponent } from './components/back-office-appointment/appointment-edit/appointment-edit.component';
 import { ParticipantListComponent } from './components/back-office-appointment/participant-list/participant-list.component';
 import { ParticipantNewComponent } from './components/back-office-appointment/participant-new/participant-new.component';
+import { StaffListComponent } from './components/back-office-staff/staff-list/staff-list.component';
+import { StaffNewComponent } from './components/back-office-staff/staff-new/staff-new.component';
+import { StaffNewAccountComponent } from './components/back-office-staff/staff-new-account/staff-new-account.component';
 
 export const routes: Routes = [
   {
@@ -76,7 +79,12 @@ export const routes: Routes = [
         { path: 'appointment-new', component: AppointmentNewComponent },
         { path: 'appointment-edit/:id', component: AppointmentEditComponent },
         { path: 'participant-list/:id', component: ParticipantListComponent },
-        { path: 'participant-new/:id', component: ParticipantNewComponent }
+        { path: 'participant-new/:id', component: ParticipantNewComponent },
+        { path: 'staff-list', component: StaffListComponent },
+        { path: 'staff-new', component: StaffNewComponent },
+        { path: 'staff-new/:id', component: StaffNewComponent },
+        { path: 'staff-new-account/:id', component: StaffNewAccountComponent },
+        { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent }
 
       ]
   }
