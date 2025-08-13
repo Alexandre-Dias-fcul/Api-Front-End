@@ -15,36 +15,36 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let participant of agentParticipant.participants">
-            <td>{{ participant.appointment.title }}</td>
-            <td>{{ participant.appointment.description }}</td>
-            <td>{{ participant.appointment.date}}</td>
-            <td>{{ participant.appointment.hourStart }}</td>
-            <td>{{ participant.appointment.hourEnd }}</td>
-            @if(participant.appointment.status === 0)
+        <tr *ngFor="let employeeParticipant of employeesParticipants.participants">
+            <td>{{employeeParticipant.appointment.title }}</td>
+            <td>{{employeeParticipant.appointment.description }}</td>
+            <td>{{ employeeParticipant.appointment.date}}</td>
+            <td>{{ employeeParticipant.appointment.hourStart }}</td>
+            <td>{{ employeeParticipant.appointment.hourEnd }}</td>
+            @if(employeeParticipant.appointment.status === 0)
             {
             <td>Confirmada</td>
             }
-            @else if(participant.appointment.status === 1)
+            @else if(employeeParticipant.appointment.status === 1)
             {
             <td>Cancelada</td>
             }
-            @else if(participant.appointment.status === 2)
+            @else if(employeeParticipant.appointment.status === 2)
             {
             <td>Concluída</td>
             }
             <td>
-                @if(participant.role === 0)
+                @if(employeeParticipant.role === 0)
                 {
-                <a [routerLink]="['/main-page','appointment-edit',participant.appointment.id]">
+                <a [routerLink]="['/main-page','appointment-edit',employeeParticipant.appointment.id]">
                     <i class="fas fa-edit edit-icon"></i></a>
-                <a (click)="deleteAppointment(participant.appointment.id)">
+                <a (click)="deleteAppointment(employeeParticipant.appointment.id)">
                     <i class="fas fa-trash delete-icon"></i></a>
-                <a [routerLink]="['/main-page','participant-list',participant.appointment.id]">
+                <a [routerLink]="['/main-page','participant-list',employeeParticipant.appointment.id]">
                     <i class="fas fa-users participant-icon"></i></a>
-                }@else if(participant.role === 1)
+                }@else if(employeeParticipant.role === 1)
                 {
-                <a (click)="deleteParticipant(participant.appointment.id, participant.id)">
+                <a (click)="deleteParticipant(employeeParticipant.appointment.id,employeeParticipant.id)">
                     <i class="fa-solid fa-xmark delete-icon"></i></a>
                 }
             </td>

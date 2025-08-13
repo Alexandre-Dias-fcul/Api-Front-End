@@ -41,7 +41,7 @@
                 <li><a [routerLink]="['/main-page','appointment-list']">
                         <i class="fa-solid fa-handshake"></i><span>Reuniões</span></a></li>
                 <li><a>
-                        <<i class="fa-solid fa-id-card"></i><span>Contactos</span>
+                        <i class="fa-solid fa-id-card"></i><span>Contactos</span>
                     </a></li>
 
                 }@else if(role === 'Admin')
@@ -73,7 +73,7 @@
                 <div class="user-info">
                     <a [routerLink]="['/main-page','agent-profile']" class="user-info-link">
                         <i class="fas fa-user-circle"></i>
-                        <span class="user-info-name">{{ agent.name.firstName }}</span>
+                        <span class="user-info-name">{{ employee.name.firstName }}</span>
                     </a>
                 </div>
             </div>
