@@ -71,10 +71,21 @@
                     <h4 (click)="logout()">Logout</h4>
                 </div>
                 <div class="user-info">
-                    <a [routerLink]="['/main-page','agent-profile']" class="user-info-link">
+                    @if(role === 'Agent' || role ==='Manager' || role ==='Broker' || role === 'Admin')
+                    {
+                    <a class="user-info-link">
                         <i class="fas fa-user-circle"></i>
                         <span class="user-info-name">{{ employee.name.firstName }}</span>
                     </a>
+                    }
+                    @else if( role === 'Staff')
+                    {
+                    <a class="user-info-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="user-info-name">{{ employee.name.firstName }}</span>
+                    </a>
+                    }
+
                 </div>
             </div>
         </header>

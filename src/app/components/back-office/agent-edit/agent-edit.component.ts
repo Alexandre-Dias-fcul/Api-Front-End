@@ -89,7 +89,7 @@ export class AgentEditComponent {
       return;
     }
 
-    this.agentService.getByIdWithAll(this.id).subscribe((data: agentAll) => {
+    this.agentService.getByIdWithAll(this.id).subscribe((data) => {
 
       this.agent = data; // Atribui os dados do agente à variável agent
 

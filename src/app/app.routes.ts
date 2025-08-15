@@ -23,7 +23,6 @@ import { LoginUserComponent } from './components/front-office/login-user/login-u
 import { RegisterComponent } from './components/front-office/register/register.component';
 import { UserProfileComponent } from './components/front-office/user-profile/user-profile.component';
 import { EditUserProfileComponent } from './components/front-office/edit-user-profile/edit-user-profile.component';
-import { AgentProfileComponent } from './components/back-office/agent-profile/agent-profile.component';
 import { AgentAddressListComponent } from './components/back-office/agent-address-list/agent-address-list.component';
 import { AgentContactListComponent } from './components/back-office/agent-contact-list/agent-contact-list.component';
 import { AppointmentNewComponent } from './components/back-office-appointment/appointment-new/appointment-new.component';
@@ -34,6 +33,7 @@ import { ParticipantNewComponent } from './components/back-office-appointment/pa
 import { StaffListComponent } from './components/back-office-staff/staff-list/staff-list.component';
 import { StaffNewComponent } from './components/back-office-staff/staff-new/staff-new.component';
 import { StaffNewAccountComponent } from './components/back-office-staff/staff-new-account/staff-new-account.component';
+import { StaffEditComponent } from './components/back-office-staff/staff-edit/staff-edit.component';
 
 export const routes: Routes = [
   {
@@ -72,7 +72,6 @@ export const routes: Routes = [
         { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
         { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent },
         { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent },
-        { path: 'agent-profile', component: AgentProfileComponent },
         { path: 'agent-address-list/:id', component: AgentAddressListComponent },
         { path: 'agent-contact-list/:id', component: AgentContactListComponent },
         { path: 'appointment-list', component: AppointmentListComponent },
@@ -84,7 +83,8 @@ export const routes: Routes = [
         { path: 'staff-new', component: StaffNewComponent },
         { path: 'staff-new/:id', component: StaffNewComponent },
         { path: 'staff-new-account/:id', component: StaffNewAccountComponent },
-        { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent }
+        { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent },
+        { path: 'staff-edit/:id', component: StaffEditComponent }
 
       ]
   }
