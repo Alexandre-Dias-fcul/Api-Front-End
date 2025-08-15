@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { agent } from '../../../models/agent';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { appointment } from '../../../models/appointment';
 import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
+import { StaffService } from '../../../services/back-office-staff/staff.service';
 
 @Component({
   selector: 'app-participant-new',
@@ -24,6 +23,7 @@ export class ParticipantNewComponent {
     private authorization: AuthorizationService,
     private fb: FormBuilder,
     private agentService: AgentService,
+    private staffService: StaffService,
     private appointmentService: AppointmentService
   ) {
 
@@ -61,7 +61,7 @@ export class ParticipantNewComponent {
       if (type === 'Agent') {
         this.agentService.getAgentByEmail(email).subscribe({
 
-          next: (agent: agent) => {
+          next: (agent) => {
             if (agent) {
               this.appointmentService.addParticipant(this.idAppointment, agent.id).subscribe({
                 next: () => {
@@ -79,6 +79,23 @@ export class ParticipantNewComponent {
       }
       else if (type === 'Staff') {
 
+        this.staffService.getStaffByEmail(email).subscribe({
+
+          next: (staff) => {
+            if (staff) {
+              this.appointmentService.addParticipant(this.idAppointment, staff.id).subscribe({
+                next: () => {
+                  this.router.navigate(['/main-page', 'participant-list', this.idAppointment]);
+                },
+                error: (err) => {
+                  console.error('Error adding participant:', err);
+                }
+              });
+            } else {
+              this.participantForm.get('email')?.setErrors({ notFound: true });
+            }
+          }
+        });
       }
     }
     else {

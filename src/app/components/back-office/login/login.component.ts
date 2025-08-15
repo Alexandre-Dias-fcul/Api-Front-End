@@ -16,8 +16,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   responseMessage: string = ''; // Mensagem de resposta da API
 
-  constructor(private fb: FormBuilder, private authorizationService: AuthorizationService,
-    private loginService: LoginService, private router: Router) {
+  constructor(private fb: FormBuilder,
+    private authorizationService: AuthorizationService,
+    private loginService: LoginService,
+    private router: Router) {
     // Inicializa o formulário com campos e validações
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]], // Campo de email com validação
