@@ -53,7 +53,7 @@ export class StaffService {
 
   updateStaff(staff: staff): Observable<staff> {
     return this.http.put<staff>(`${this.urlStaff}/${staff.id}`, staff,
-      { headers: { 'Content-type': 'application/json' } }).pipe(
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
         catchError((error) => {
           console.error('Erro na chamada updateStaff:', error);
           return throwError(() => new Error('Erro ao atualizar staff.'));

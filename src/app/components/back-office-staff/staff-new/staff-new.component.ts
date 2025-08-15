@@ -50,7 +50,7 @@ export class StaffNewComponent {
 
     if (this.id) {
 
-      this.staffService.getStaffById(this.id).subscribe((staff: staff) => {
+      this.staffService.getStaffById(this.id).subscribe((staff) => {
 
         // Ajusta middleNames para string se necessário
         // 1. Copie o objeto staff
