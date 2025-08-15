@@ -54,7 +54,6 @@ export class AgentEditAccountComponent {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
-    const agentId = Number(this.route.snapshot.paramMap.get('id'));
 
     const role = this.authorization.getRole();
 
@@ -64,6 +63,8 @@ export class AgentEditAccountComponent {
 
       return;
     }
+
+    const agentId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.agentService.getByIdWithAll(agentId).subscribe(
       (response: agentAll) => {
@@ -86,7 +87,8 @@ export class AgentEditAccountComponent {
       const accountData = this.accountForm.value;
 
       this.agentService.agentUpdateAccount(accountData, this.agent.id).subscribe(
-        (response) => {
+        () => {
+          this.accountForm.reset();
           this.router.navigate(['/main-page/agent-edit', this.agent.id]);
         },
         (error) => {

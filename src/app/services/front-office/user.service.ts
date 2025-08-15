@@ -4,7 +4,8 @@ import { user } from '../../models/user';
 import { catchError, Observable, throwError } from 'rxjs';
 import { account } from '../../models/account';
 import { userAll } from '../../models/userAll';
-
+import { address } from '../../models/address';
+import { contact } from '../../models/contact';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +23,10 @@ export class UserService {
 
   getUserById(id: number): Observable<user> {
     return this.http.get<user>(`${this.urlUser}/${id}`);
+  }
+
+  getAgentByEmail(email: string): Observable<user> {
+    return this.http.get<user>(`${this.urlUser}/GetByEmail?email=${email}`);
   }
 
   getByIdWithAll(id: number): Observable<userAll> {
@@ -54,8 +59,8 @@ export class UserService {
     return this.http.delete<user>(`${this.urlUser}/${id}`);
   }
 
-  userAddAccount(account: account, userId: number): Observable<user> {
-    return this.http.post<user>(`${this.urlUser}/AddAccount/${userId}`, account, {
+  userAddAccount(account: account, userId: number): Observable<account> {
+    return this.http.post<account>(`${this.urlUser}/AddAccount/${userId}`, account, {
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
       catchError((error) => {
@@ -63,5 +68,86 @@ export class UserService {
         return throwError(() => new Error('Erro ao adicionar conta ao usuário.'));
       })
     );
+  }
+
+  userAddAddress(address: address, userId: number): Observable<address> {
+    return this.http.post<address>(`${this.urlUser}/AddAddress/${userId}`, address,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
+        catchError((error) => {
+
+          console.error('Erro na chamada userAddAddress:', error);
+          return throwError(() => new Error('Erro ao adicionar endereço do usuário.'));
+        })
+      )
+  }
+
+  userAddContact(contact: contact, userId: number): Observable<contact> {
+    return this.http.post<contact>(`${this.urlUser}/AddCountact/${userId}`, contact,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
+        catchError((error) => {
+          console.error('Erro na chamada userAddContact:', error);
+          return throwError(() => new Error('Erro ao adicionar contacto do usuário.'));
+        })
+      )
+  }
+
+  userUpdateAccount(account: account, userId: number): Observable<account> {
+    return this.http.put<account>(`${this.urlUser}/UpdateAccount/${userId}`, account,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
+        catchError((error) => {
+          console.error('Erro na chamada userUpdateAccount', error);
+          return throwError(() => new Error('Erro ao atualizar conta do usuário.'));
+        })
+      )
+  }
+
+  userUpdateContact(contact: contact, userId: number, contactId: number): Observable<contact> {
+
+    return this.http.put<contact>(`${this.urlUser}/UpdateContact/${userId}/${contactId}`, contact,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
+        catchError((error) => {
+          console.error('Erro na chamada userUpdateContact', error);
+          return throwError(() => new Error('Erro ao atualizar contacto do usuário.'));
+        })
+      )
+  }
+
+  userUpdateAddress(address: address, userId: number, addressId: number): Observable<address> {
+
+    return this.http.put<address>(`${this.urlUser}/UpdateAddress/${userId}/${addressId}`, address,
+      { headers: { 'Content-Type': 'application/json' } }).pipe(
+        catchError((error) => {
+          console.error('Erro na chamada userUpdateAddress', error);
+          return throwError(() => new Error('Erro ao atualizar endereço do usuário.'));
+        })
+      )
+  }
+
+  userDeleteAccount(userId: number): Observable<account> {
+    return this.http.delete<account>(`${this.urlUser}/DeleteAccount/${userId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada userDeleteAccount', error);
+        return throwError(() => new Error('Erro ao apagar conta do usuário.'));
+      })
+    )
+  }
+
+  userDeleteAddress(userId: number, addressId: number): Observable<address> {
+    return this.http.delete<address>(`${this.urlUser}/DeleteAddress/${userId}/${addressId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada de userDeleteAddress', error);
+        return throwError(() => new Error('Erro ao apagar endereço do usuário'));
+      })
+    );
+  }
+
+  userDeleteContact(userId: number, contactId: number): Observable<contact> {
+    return this.http.delete<contact>(`${this.urlUser}/DeleteContact/${userId}/${contactId}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada de userDeleteContact', error);
+        return throwError(() => new Error('Erro ao apagar contacto do usuário'));
+      })
+    )
   }
 }

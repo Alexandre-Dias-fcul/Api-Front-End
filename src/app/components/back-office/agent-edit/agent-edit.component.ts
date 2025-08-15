@@ -197,8 +197,7 @@ export class AgentEditComponent {
   private saveAgent(agentData: agent) {
     this.agentService.updateAgent(agentData).subscribe({
       next: (response) => {
-        console.log('Agente atualizado com sucesso:', response);
-
+        this.agentForm.reset();
         this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após a atualizaçã
       },
       error: (err) => {
