@@ -36,8 +36,6 @@ export class StaffNewAccountComponent {
       this.router.navigate(['/front-page', 'login']);
       return;
     }
-
-
   }
 
 
@@ -47,6 +45,7 @@ export class StaffNewAccountComponent {
 
       this.staffService.staffAddAccount(accountData, this.staffId).subscribe({
         next: (response) => {
+          this.accountForm.reset();
           this.router.navigate(['/main-page', 'staff-list']);
 
         },

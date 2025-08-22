@@ -31,7 +31,7 @@
             <td>{{ staff.dateOfTermination}}</td>
             <td>
                 <a [routerLink]="['/main-page','staff-edit',staff.id]"><i class="fas fa-edit edit-icon"></i></a>
-                <a><i class="fas fa-trash delete-icon"></i></a>
+                <a (click)="deleteStaff(staff.id)"><i class="fas fa-trash delete-icon"></i></a>
             </td>
         </tr>
     </tbody>

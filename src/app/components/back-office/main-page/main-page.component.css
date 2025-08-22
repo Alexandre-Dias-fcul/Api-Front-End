@@ -128,7 +128,7 @@ header {
     padding: 1rem;
     text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     position: fixed;
     /* Fixa a barra no topo */
@@ -148,21 +148,6 @@ header {
     align-items: center;
     gap: 10px;
     /* Espaço entre logout e user-info */
-}
-
-.logo-hamburger {
-    display: flex;
-    cursor: pointer;
-    /* Mostra o cursor de clique */
-    transition: color 0.3s ease, transform 0.2s ease;
-    /* Transição suave */
-}
-
-.logo-hamburger:hover {
-    color: white;
-    /* Azul claro ao passar o mouse */
-    transform: scale(1.1);
-    /* Leve aumento ao passar o mouse */
 }
 
 /* LOGOUT */

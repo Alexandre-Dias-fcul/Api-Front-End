@@ -51,4 +51,16 @@ export class AgentListComponent {
     ); // Fetch all agents on component initialization
   }
 
+  deleteAgent(id: number) {
+    if (confirm("Tem a certeza que quer apagar este agent ?")) {
+      this.agentService.deleteAgent(id).subscribe({
+        next: () => {
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error("Erro deleting agent.");
+        }
+      });
+    }
+  }
 }

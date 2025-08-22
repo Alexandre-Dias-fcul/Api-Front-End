@@ -1,0 +1,36 @@
+<div class="form-container">
+    <h2 class="form-title">Nova Conta</h2>
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" placeholder="Digite seu email" required>
+            @if(accountForm.get('email')?.invalid &&
+            (accountForm.get('email')?.dirty || accountForm.get('email')?.touched))
+            {
+            <div class="error-message">Email inválido</div>
+            }
+        </div>
+
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" placeholder="Digite sua senha" required>
+            @if(accountForm.get('password')?.invalid && (accountForm.get('password')?.dirty ||
+            accountForm.get('password')?.touched)) {
+            <div class="error-message">Senha inválida</div>
+            }
+        </div>
+
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            @if(continue === 1) {
+            <a [routerLink]="['/main-page/user-new',userId]" class="btn-reset">Cancelar</a>
+            }
+            @else
+            {
+            <a [routerLink]="['/main-page/user-edit',userId]" class="btn-reset">Cancelar</a>
+            }
+        </div>
+    </form>
+</div>
