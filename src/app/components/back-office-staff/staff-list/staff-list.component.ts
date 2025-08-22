@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { staff } from '../../../models/staff';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
 
@@ -17,7 +17,6 @@ export class StaffListComponent {
   constructor(
     private authorization: AuthorizationService,
     private router: Router,
-    private route: ActivatedRoute,
     private staffService: StaffService
   ) {
     const role = this.authorization.getRole();
@@ -37,5 +36,18 @@ export class StaffListComponent {
         console.error('Error fetching staffs:', error);
       }
     })
+  }
+
+  deleteStaff(id: number) {
+    if (confirm("Tem a certeza que pretende apagar este administrativo ?")) {
+      this.staffService.deleteStaff(id).subscribe({
+        next: () => {
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error("Error deleting staff.");
+        }
+      })
+    }
   }
 }

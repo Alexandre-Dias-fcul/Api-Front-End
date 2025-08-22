@@ -14,7 +14,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class StaffNewComponent {
 
   staffForm: FormGroup;
-  id: number | null = null;
+  id: number;
 
   constructor(private fb: FormBuilder,
     private staffService: StaffService,
@@ -41,12 +41,12 @@ export class StaffNewComponent {
 
     const role = this.authorization.getRole();
 
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
       this.router.navigate(['/front-page', 'login']);
       return;
     }
-
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.id) {
 
@@ -86,7 +86,8 @@ export class StaffNewComponent {
         id: 0,
         name: {
           firstName: this.staffForm.get('name.firstName')?.value,
-          middleNames: this.staffForm.get('name.middleNames')?.value ? this.staffForm.get('name.middleNames')?.value.split(' ') : [],
+          middleNames: this.staffForm.get('name.middleNames')?.value ?
+            this.staffForm.get('name.middleNames')?.value.split(' ') : [],
           lastName: this.staffForm.get('name.lastName')?.value
         },
         isActive: this.staffForm.get('isActive')?.value === 'true',

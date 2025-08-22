@@ -1,1 +1,97 @@
-<p>user-new works!</p>
+<div class="form-container">
+    <h2 class="form-title">Novo Utilizador</h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="name">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Primeiro Nome</label>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome"
+                        required>
+                    @if(userForm.get('name.firstName')?.invalid &&
+                    (userForm.get('name.firstName')?.dirty || userForm.get('name.firstName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Ultimo Nome</label>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome"
+                        required>
+                    @if(userForm.get('name.lastName')?.invalid &&
+                    (userForm.get('name.lastName')?.dirty || userForm.get('name.lastName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label for="middleNames">Nomes do Meio</label>
+                <input type="text" id="middleNames" formControlName="middleNames" placeholder="Digite os nomes do meio">
+                @if(userForm.get('name.middleNames')?.invalid &&
+                (userForm.get('name.middleNames')?.dirty || userForm.get('name.middleNames')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="isActive">Activo</label>
+                <select id="isActive" name="isActive" formControlName="isActive" required>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                @if(userForm.get('isActive')?.invalid &&
+                (userForm.get('isActive')?.dirty || userForm.get('isActive')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfBirth">Data de Nascimento</label>
+                <input type="date" id="dateOfBirth" formControlName="dateOfBirth"
+                    placeholder="Digite a data de nascimento">
+                @if(userForm.get('dateOfBirth')?.invalid &&
+                (userForm.get('dateOfBirth')?.dirty || userForm.get('dateOfBirth')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Género</label>
+                <select id="gender" name="gender" formControlName="gender" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+                @if(userForm.get('gender')?.invalid &&
+                (userForm.get('gender')?.dirty || userForm.get('gender')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="photoFileName">Foto</label>
+                <input type="text" id="photoFileName" formControlName="photoFileName"
+                    placeholder="Digite o nome do arquivo da foto">
+                @if(userForm.get('photoFileName')?.invalid &&
+                (userForm.get('photoFileName')?.dirty || userForm.get('photoFileName')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page/user-list']" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>

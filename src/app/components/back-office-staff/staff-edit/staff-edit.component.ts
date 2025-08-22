@@ -17,7 +17,7 @@ export class StaffEditComponent {
 
   staffForm: FormGroup;
 
-  id: number = 0;
+  id: number;
 
   staff: staffAll =
     {
@@ -68,14 +68,14 @@ export class StaffEditComponent {
 
     const role = this.authorization.getRole();
 
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
       this.router.navigate(['/front-page', 'login']);
 
       return;
 
     }
-
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
       this.router.navigate(['/front-page', 'login']);

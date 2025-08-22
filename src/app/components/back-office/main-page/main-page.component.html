@@ -55,7 +55,8 @@
                         <i class="fa-solid fa-user-secret"></i><span>Agentes</span></a></li>
                 <li><a [routerLink]="['/main-page','staff-list']">
                         <i class="fa-solid fa-user-tie"></i><span>Administrativos</span></a></li>
-                <li><a><i class="fa-solid fa-users"></i><span>Utilizadores</span></a></li>
+                <li><a [routerLink]="['/main-page','user-list']">
+                        <i class="fa-solid fa-users"></i><span>Utilizadores</span></a></li>
                 }
 
             </ul>
@@ -63,9 +64,6 @@
     </aside>
     <div class="secondary-container">
         <header>
-            <div class="logo-hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
             <div class="header-actions">
                 <div class="logout">
                     <h4 (click)="logout()">Logout</h4>

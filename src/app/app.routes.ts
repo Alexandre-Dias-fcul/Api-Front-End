@@ -34,6 +34,11 @@ import { StaffListComponent } from './components/back-office-staff/staff-list/st
 import { StaffNewComponent } from './components/back-office-staff/staff-new/staff-new.component';
 import { StaffNewAccountComponent } from './components/back-office-staff/staff-new-account/staff-new-account.component';
 import { StaffEditComponent } from './components/back-office-staff/staff-edit/staff-edit.component';
+import { UserNewComponent } from './components/back-office-user/user-new/user-new.component';
+import { UserListComponent } from './components/back-office-user/user-list/user-list.component';
+import { UserEditComponent } from './components/back-office-user/user-edit/user-edit.component';
+import { UserNewAccountComponent } from './components/back-office-user/user-new-account/user-new-account.component';
+import { UserEditAccountComponent } from './components/back-office-user/user-edit-account/user-edit-account.component';
 
 export const routes: Routes = [
   {
@@ -84,8 +89,13 @@ export const routes: Routes = [
         { path: 'staff-new/:id', component: StaffNewComponent },
         { path: 'staff-new-account/:id', component: StaffNewAccountComponent },
         { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent },
-        { path: 'staff-edit/:id', component: StaffEditComponent }
-
+        { path: 'staff-edit/:id', component: StaffEditComponent },
+        { path: 'user-list', component: UserListComponent },
+        { path: 'user-new', component: UserNewComponent },
+        { path: 'user-new/:id', component: UserNewComponent },
+        { path: 'user-edit/:id', component: UserEditComponent },
+        { path: 'user-new-account/:id', component: UserNewAccountComponent },
+        { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent }
       ]
   }
 ];

@@ -26,7 +26,7 @@
             }
             <td>
                 <a [routerLink]="['/main-page','agent-edit',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
-                <a><i class="fas fa-trash delete-icon"></i></a>
+                <a (click)="deleteAgent(agent.id)"><i class="fas fa-trash delete-icon"></i></a>
                 @if(agent.supervisorId == id){
 
                 <a [routerLink]="['/main-page','agent-reassign',agent.id]"><i
