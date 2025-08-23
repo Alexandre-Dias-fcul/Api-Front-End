@@ -71,8 +71,8 @@ export class StaffService {
       );
   }
 
-  staffAddAccount(account: account, staffId: number): Observable<staff> {
-    return this.http.post<staff>(`${this.urlStaff}/AddAccount/${staffId}`, account,
+  staffAddAccount(account: account, staffId: number): Observable<account> {
+    return this.http.post<account>(`${this.urlStaff}/AddAccount/${staffId}`, account,
       { headers: { 'Content-Type': 'application/json' } }
     ).pipe(
       catchError((error) => {
@@ -82,8 +82,8 @@ export class StaffService {
     );
   }
 
-  staffAddAddress(address: address, staffId: number): Observable<staff> {
-    return this.http.post<staff>(`${this.urlStaff}/AddAddress/${staffId}`, address,
+  staffAddAddress(address: address, staffId: number): Observable<address> {
+    return this.http.post<address>(`${this.urlStaff}/AddAddress/${staffId}`, address,
       { headers: { 'Content-Type': 'application/json' } }
     ).pipe(
       catchError((error) => {
@@ -93,8 +93,8 @@ export class StaffService {
     );
   }
 
-  staffAddContact(contact: contact, staffId: number): Observable<staff> {
-    return this.http.post<staff>(`${this.urlStaff}/AddContact/${staffId}`, contact,
+  staffAddContact(contact: contact, staffId: number): Observable<contact> {
+    return this.http.post<contact>(`${this.urlStaff}/AddContact/${staffId}`, contact,
       { headers: { 'Content-Type': 'application/json' } }
     ).pipe(
       catchError((error) => {
@@ -104,8 +104,8 @@ export class StaffService {
     );
   }
 
-  staffUpdateAccount(account: account, staffId: number): Observable<staff> {
-    return this.http.put<staff>(`${this.urlStaff}/UpadateAccount/${staffId}`,
+  staffUpdateAccount(account: account, staffId: number): Observable<account> {
+    return this.http.put<account>(`${this.urlStaff}/UpdateAccount/${staffId}`,
       account, { headers: { 'Content-Type': 'application/json' } })
       .pipe(
         catchError((error) => {
@@ -115,9 +115,9 @@ export class StaffService {
       );
   }
 
-  staffUpdateAddress(address: address, staffId: number): Observable<staff> {
+  staffUpdateAddress(address: address, staffId: number): Observable<address> {
 
-    return this.http.put<staff>(` ${this.urlStaff}/UpdateAddress/${staffId}`,
+    return this.http.put<address>(` ${this.urlStaff}/UpdateAddress/${staffId}`,
       address, { headers: { 'Content-Type': 'application/json' } }
     ).pipe
       (
@@ -128,9 +128,9 @@ export class StaffService {
       )
   }
 
-  staffUpdateContact(contact: contact, staffId: number): Observable<staff> {
+  staffUpdateContact(contact: contact, staffId: number): Observable<contact> {
 
-    return this.http.put<staff>(`${this.urlStaff}/UpdateContact/${staffId}`,
+    return this.http.put<contact>(`${this.urlStaff}/UpdateContact/${staffId}`,
       contact, { headers: { 'Content-Type': 'application/json' } })
       .pipe(
         catchError((error) => {
@@ -140,8 +140,8 @@ export class StaffService {
       )
   }
 
-  staffDeleteAccount(staffId: number): Observable<staff> {
-    return this.http.delete<staff>(`${this.urlStaff}/DeleteAccount/${staffId}`)
+  staffDeleteAccount(staffId: number): Observable<account> {
+    return this.http.delete<account>(`${this.urlStaff}/DeleteAccount/${staffId}`)
       .pipe(
         catchError((error) => {
           console.error('Erro na chamada staffDeleteAccount:', error);
@@ -150,8 +150,8 @@ export class StaffService {
       );
   }
 
-  satffDeleteAddress(staffId: number, addressId: number): Observable<staff> {
-    return this.http.delete<staff>(`${this.urlStaff}/DeleteAddress/${staffId}/${addressId}`)
+  satffDeleteAddress(staffId: number, addressId: number): Observable<address> {
+    return this.http.delete<address>(`${this.urlStaff}/DeleteAddress/${staffId}/${addressId}`)
       .pipe(
         catchError((error) => {
           console.error('Erro na chamada satffDeleteAddress:', error);
@@ -160,8 +160,8 @@ export class StaffService {
       );
   }
 
-  staffDeleteContact(staffId: number, contactId: number): Observable<staff> {
-    return this.http.delete<staff>(`${this.urlStaff}/DeleteContact/${staffId}/${contactId}`)
+  staffDeleteContact(staffId: number, contactId: number): Observable<contact> {
+    return this.http.delete<contact>(`${this.urlStaff}/DeleteContact/${staffId}/${contactId}`)
       .pipe(
         catchError((error) => {
           console.error('Erro na chamada staffDeleteContact:', error);

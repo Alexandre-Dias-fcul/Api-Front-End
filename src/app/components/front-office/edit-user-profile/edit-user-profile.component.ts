@@ -15,6 +15,7 @@ import { user } from '../../../models/user';
 export class EditUserProfileComponent {
 
   userForm: FormGroup;
+  id: number;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
@@ -36,15 +37,17 @@ export class EditUserProfileComponent {
 
     const role = this.authorization.getRole();
 
-    const id = this.authorization.getId();
+    this.id = Number(this.authorization.getId());
 
-    if (!role || (role !== 'User') || !id) {
+    if (!role || (role !== 'User') || !this.id) {
 
+      this.router.navigate(['/front-page', 'login-user']);
       return;
 
     }
 
-    this.userService.getUserById(Number(id)).subscribe(
+
+    this.userService.getUserById(this.id).subscribe(
       {
         next: (data) => {
 
@@ -105,7 +108,7 @@ export class EditUserProfileComponent {
       userData.isActive = this.userForm.get('isActive')?.value === 'true';
       userData.photoFileName = this.userForm.get('photoFileName')?.value;
 
-      userData.id = Number(this.authorization.getId());
+      userData.id = this.id;
 
       this.userService.updateUser(userData).subscribe({
 

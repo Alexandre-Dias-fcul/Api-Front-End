@@ -91,7 +91,8 @@ export class StaffEditComponent {
         name:
         {
           firstName: data.name.firstName,
-          middleNames: Array.isArray(data.name.middleNames) && data.name.middleNames.length > 0 ? data.name.middleNames.join(' ') : '',
+          middleNames: Array.isArray(data.name.middleNames) &&
+            data.name.middleNames.length > 0 ? data.name.middleNames.join(' ') : '',
           lastName: data.name.lastName
         },
         isActive: data.isActive,
