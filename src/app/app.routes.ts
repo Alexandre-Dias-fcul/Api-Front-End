@@ -39,6 +39,8 @@ import { UserListComponent } from './components/back-office-user/user-list/user-
 import { UserEditComponent } from './components/back-office-user/user-edit/user-edit.component';
 import { UserNewAccountComponent } from './components/back-office-user/user-new-account/user-new-account.component';
 import { UserEditAccountComponent } from './components/back-office-user/user-edit-account/user-edit-account.component';
+import { StaffEditAccountComponent } from './components/back-office-staff/staff-edit-account/staff-edit-account.component';
+import { DetailListingComponent } from './components/front-office/detail-listing/detail-listing.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +50,7 @@ export const routes: Routes = [
     path: 'front-page', component: FrontPageComponent, children: [
       { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
       { path: 'view-listings', component: ViewListingsComponent },
+      { path: 'detail-listing/:id', component: DetailListingComponent },
       { path: 'login', component: LoginComponent },
       { path: 'login-user', component: LoginUserComponent },
       { path: 'register', component: RegisterComponent },
@@ -90,12 +93,15 @@ export const routes: Routes = [
         { path: 'staff-new-account/:id', component: StaffNewAccountComponent },
         { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent },
         { path: 'staff-edit/:id', component: StaffEditComponent },
+        { path: 'staff-edit-account/:id', component: StaffEditAccountComponent },
         { path: 'user-list', component: UserListComponent },
         { path: 'user-new', component: UserNewComponent },
         { path: 'user-new/:id', component: UserNewComponent },
         { path: 'user-edit/:id', component: UserEditComponent },
         { path: 'user-new-account/:id', component: UserNewAccountComponent },
-        { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent }
+        { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent },
+        { path: 'user-edit-account/:id', component: UserEditAccountComponent }
+
       ]
   }
 ];

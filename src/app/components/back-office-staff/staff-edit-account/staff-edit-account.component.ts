@@ -66,6 +66,14 @@ export class StaffEditAccountComponent {
 
     const staffId = Number(this.route.snapshot.paramMap.get('id'));
 
+    if (!staffId) {
+      this.router.navigate(['/front-page', 'login']);
+
+      return;
+    }
+
+
+
     this.staffService.getByIdWithAll(staffId).subscribe({
       next: (response) => {
         this.staff = response;

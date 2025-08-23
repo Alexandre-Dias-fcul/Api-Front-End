@@ -1,0 +1,29 @@
+<div class="inside-container">
+    <!-- Detalhes do Imóvel -->
+    <div class="detail-card">
+        <img src="https://picsum.photos/1200/600?random=1" alt="Foto do imóvel">
+        <div class="detail-info">
+            <h2>{{ listing.type }}</h2>
+            <p class="price">{{ listing.price }}</p>
+            <a href="#" class="favorite-btn">★ Adicionar aos Favoritos</a>
+            <div class="details">
+                <span>{{listing.numberOfRooms}} Quartos</span>
+                <span>{{ listing.numberOfBathrooms}} Banheiros</span>
+                <span>{{ listing.area }} m²</span>
+                <span>{{ listing.numberOfKitchens}} Cozinhas</span>
+            </div>
+            <p class="description">
+                {{ listing.description }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Barra lateral -->
+    <div class="contact-bar">
+        <div class="contact-bar-card contact">
+            <h3>Fale com o Corretor</h3>
+            <p>Corretor: {{agent.name.firstName}} {{agent.name.lastName}}</p>
+            <p>Telefone: (11) 99999-9999</p>
+        </div>
+    </div>
+</div>
