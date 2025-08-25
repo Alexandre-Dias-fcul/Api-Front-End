@@ -155,6 +155,7 @@ body {
     background: #f8f9fa;
     display: flex;
     flex-direction: column;
+    padding: 20px;
 }
 
 .footer {

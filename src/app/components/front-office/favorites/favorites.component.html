@@ -1,0 +1,13 @@
+<h1 class="page-title">Meus Favoritos</h1>
+<div class="favorites-list">
+    <div class="favorite-item" *ngFor='let favoriteListing of favoriteListings'>
+        <img src="https://picsum.photos/300/200">
+        <div class="item-info">
+            <h2>{{ favoriteListing[0].type }}</h2>
+            <p>{{favoriteListing[0].numberOfRooms}} Quartos •
+                {{favoriteListing[0].numberOfBathrooms}} Banheiros • {{favoriteListing[0].area}}m²</p>
+            <span class="price">€ {{favoriteListing[0].price}}</span>
+        </div>
+        <button (click)='deleteFavorite(favoriteListing[1].id)' class="btn-remove">Remover</button>
+    </div>
+</div>

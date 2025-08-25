@@ -4,7 +4,7 @@
     margin: 40px auto;
     padding: 40px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
 
     /* Fundo sofisticado */
@@ -46,6 +46,7 @@
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    min-width: 400px;
 }
 
 .detail-card:hover {
@@ -90,6 +91,7 @@
 }
 
 .favorite-btn:hover {
+    cursor: pointer;
     background: #274c77;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(71, 102, 255, 0.4);
@@ -125,6 +127,7 @@
     padding: 25px;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    width: 400px;
 }
 
 .contact-bar-card h3 {
@@ -138,22 +141,200 @@
     font-size: 15px;
 }
 
+/*formulário*/
 
-/* Responsividade */
-@media (max-width: 950px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
+.side-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
 
-    .detail-card img {
-        height: 280px;
-    }
+.form-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
 
-    .detail-info h2 {
-        font-size: 22px;
-    }
+.form-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+}
 
-    .price {
-        font-size: 20px;
-    }
+.rating {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating input:checked~label,
+.rating label:hover,
+.rating label:hover~label {
+    color: #f5a623;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group textarea {
+    width: 100%;
+    height: 100px;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #357abd;
+}
+
+/*Comentarios*/
+
+/* Container dos comentários */
+.comments-container {
+    background: #fff;
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    margin: 40px auto;
+    border: 1px solid #f0f0f0;
+}
+
+/* Título */
+.comments-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: #1b3055;
+    font-weight: 600;
+    border-bottom: 2px solid #eef2f7;
+    padding-bottom: 0.8rem;
+}
+
+/* Cada comentário */
+.comment {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background 0.2s ease;
+}
+
+.comment:hover {
+    background: #fafafa;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+}
+
+/* Avatar */
+.avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Corpo do comentário */
+.comment-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+
+.comment-header strong {
+    color: #1b3055;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.comment-header span {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* Texto */
+.comment-text {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+}
+
+/* Ações */
+.comment-actions {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.comment-actions button:hover {
+    background: #eef4ff;
+    color: #357abd;
 }

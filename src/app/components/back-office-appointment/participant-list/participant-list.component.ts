@@ -6,6 +6,7 @@ import { AgentService } from '../../../services/back-office/agent.service';
 import { appointmentWithParticipants } from '../../../models/appointmentWithParticipants';
 import { CommonModule } from '@angular/common';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
+import { participant } from '../../../models/participant';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class ParticipantListComponent {
       participants: []
     }
 
-  employeesParticipants: any = [];
+  employeesParticipants: Array<any>[] = [];
 
   constructor(private authorization: AuthorizationService,
     private router: Router,

@@ -5,7 +5,11 @@
         <div class="detail-info">
             <h2>{{ listing.type }}</h2>
             <p class="price">{{ listing.price }}</p>
-            <a href="#" class="favorite-btn">★ Adicionar aos Favoritos</a>
+            @if(role === 'User')
+            {
+            <a (click)="addFavorite()" class="favorite-btn">★ Adicionar aos Favoritos</a>
+            }
+
             <div class="details">
                 <span>{{listing.numberOfRooms}} Quartos</span>
                 <span>{{ listing.numberOfBathrooms}} Banheiros</span>
@@ -18,12 +22,67 @@
         </div>
     </div>
 
-    <!-- Barra lateral -->
-    <div class="contact-bar">
-        <div class="contact-bar-card contact">
-            <h3>Fale com o Corretor</h3>
-            <p>Corretor: {{agent.name.firstName}} {{agent.name.lastName}}</p>
-            <p>Telefone: (11) 99999-9999</p>
+    <div class="side-container">
+        <div class="contact-bar">
+            <div class="contact-bar-card contact">
+                <h3>Fale com o Corretor</h3>
+                @if(agent.role != 3)
+                {
+                <p>Corretor: {{agent.name.firstName}} {{agent.name.lastName}}</p>
+                }
+                @else
+                {
+                <p>Corretor: Administração.</p>
+                }
+                <p>Telefone: (11) 99999-9999</p>
+            </div>
+        </div>
+        @if(role === 'User')
+        {
+        <div class="form-container">
+            <h2>Avalie o Serviço</h2>
+            <form [formGroup]="feedBackForm" (ngSubmit)="onSubmit()">
+                <!-- Rating -->
+                <div class="rating">
+                    <input type="radio" formControlName="rate" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" formControlName="rate" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" formControlName="rate" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" formControlName="rate" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" formControlName="rate" id="star1" value="1"><label for="star1">★</label>
+                    <input type="radio" formControlName="rate" id="star0" value="0" checked hidden>
+                </div>
+                <!-- Comentário -->
+                <div class="form-group">
+                    <textarea formControlName="comment" placeholder="Escreva o seu comentário..." required></textarea>
+                </div>
+                @if(feedBackForm.get('comment')?.invalid &&
+                (feedBackForm.get('comment')?.dirty || feedBackForm.get('comment')?.touched))
+                {
+                <div class="error-message">Comentário inválido</div>
+                }
+                <button type="submit">Enviar Avaliação</button>
+            </form>
+        </div>
+        }
+    </div>
+</div>
+<div class="comments-container">
+    <h2>Comentários</h2>
+
+    <div class="comment" *ngFor="let feedBackUser of feedBackUsers">
+        <div class="avatar"></div>
+        <div class="comment-body">
+            <div class="comment-header">
+                <strong>{{ feedBackUser[1].name.firstName }} {{feedBackUser[1].name.lastName}}</strong>
+                <span>{{ feedBackUser[0].commentDate }}</span>
+            </div>
+            <div class="comment-text">
+                {{ feedBackUser[0].comment }}
+            </div>
+            <div class="comment-actions">
+                <button>Responder</button>
+                <button>Gostei</button>
+            </div>
         </div>
     </div>
 </div>

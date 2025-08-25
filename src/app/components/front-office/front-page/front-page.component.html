@@ -29,7 +29,11 @@
         <nav>
             <ul>
                 <li><a [routerLink]="['/front-page','view-listings']">Início</a></li>
-                <li><a>Imóveis</a></li>
+                @if(role === 'User')
+                {
+                <li><a [routerLink]="['/front-page','favorites']">Favoritos</a></li>
+                }
+
                 <li><a>Sobre</a></li>
                 <li><a>Contato</a></li>
             </ul>
