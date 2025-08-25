@@ -41,6 +41,7 @@ import { UserNewAccountComponent } from './components/back-office-user/user-new-
 import { UserEditAccountComponent } from './components/back-office-user/user-edit-account/user-edit-account.component';
 import { StaffEditAccountComponent } from './components/back-office-staff/staff-edit-account/staff-edit-account.component';
 import { DetailListingComponent } from './components/front-office/detail-listing/detail-listing.component';
+import { FavoritesComponent } from './components/front-office/favorites/favorites.component';
 
 export const routes: Routes = [
   {
@@ -55,7 +56,8 @@ export const routes: Routes = [
       { path: 'login-user', component: LoginUserComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'user-profile', component: UserProfileComponent },
-      { path: 'edit-user-profile', component: EditUserProfileComponent }
+      { path: 'edit-user-profile', component: EditUserProfileComponent },
+      { path: 'favorites', component: FavoritesComponent }
     ]
   },
   {

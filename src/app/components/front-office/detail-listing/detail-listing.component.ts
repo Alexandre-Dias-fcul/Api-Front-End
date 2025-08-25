@@ -4,10 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
 import { agent } from '../../../models/agent';
 import { AgentService } from '../../../services/back-office/agent.service';
+import { AuthorizationService } from '../../../services/back-office/authorization.service';
+import { FavoriteService } from '../../../services/front-office/favorite.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FeedBackService } from '../../../services/front-office/feed-back.service';
+import { feedBack } from '../../../models/feedBack';
+import { UserService } from '../../../services/front-office/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-detail-listing',
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './detail-listing.component.html',
   styleUrl: './detail-listing.component.css'
 })
@@ -49,12 +56,30 @@ export class DetailListingComponent {
       isActive: true
     }
 
+  feedBackUsers: Array<any>[] = [];
+
+  role: string | null;
+
+  feedBackForm: FormGroup;
+
   constructor(private route: ActivatedRoute,
     private listingService: ListingService,
-    private agentService: AgentService
+    private agentService: AgentService,
+    private authorization: AuthorizationService,
+    private favoriteService: FavoriteService,
+    private fb: FormBuilder,
+    private feedBackService: FeedBackService,
+    private userService: UserService
   ) {
 
+    this.feedBackForm = this.fb.group({
+      rate: [0],
+      comment: ['', [Validators.required]]
+    });
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.role = this.authorization.getRole();
 
     if (id) {
       this.listingService.getListingById(id).subscribe((response) => {
@@ -65,12 +90,75 @@ export class DetailListingComponent {
 
           this.agent = data;
 
-        })
+        });
+
+        this.feedBackService.getFeedBackByListingId(this.listing.id).subscribe({
+
+          next: (data) => {
+
+            const feedBacks = data;
+
+            console.log(feedBacks);
+            feedBacks.forEach((feedBack) => {
+
+              this.userService.getUserById(feedBack.userId).subscribe({
+
+                next: (response) => {
+
+                  this.feedBackUsers.push([feedBack, response]);
+
+                }
+                , error: (error) => {
+                  console.error("Erro ao buscar usuário.", error);
+                }
+
+              });
+            });
+          }, error: (error) => {
+            console.error("Erro ao listar feedBacks.", error);
+          }
+        });
+
+
       });
 
     }
+  }
+
+  addFavorite() {
+
+    this.favoriteService.addFavorite(this.listing.id).subscribe();
+
+  }
 
 
+  onSubmit() {
 
+    if (this.feedBackForm.valid) {
+
+      const feedBackData: feedBack =
+      {
+        id: 0,
+        rate: Number(this.feedBackForm.get('rate')?.value),
+        comment: this.feedBackForm.get('comment')?.value,
+        commentDate: new Date(),
+        listingId: this.listing.id,
+        userId: 0
+      }
+
+      this.feedBackService.addFeedBack(feedBackData).subscribe({
+        next: () => {
+
+        },
+        error: (error) => {
+
+          console.error('Erro ao adicionar FeedBack.', error);
+        }
+      }
+      );
+    }
+    else {
+      console.error('Formulário inválido.');
+    }
   }
 }
