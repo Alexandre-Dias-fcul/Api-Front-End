@@ -3,10 +3,11 @@ import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { user } from '../../../models/user';
 import { UserService } from '../../../services/front-office/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -37,9 +38,10 @@ export class RegisterComponent {
       const userData: user = {
         id: 0,
         name: {
-          firstName: this.registerForm.value.name.firstName,
-          middleNames: this.registerForm.value.name.middleNames.split(',').map((name: string) => name.trim()),
-          lastName: this.registerForm.value.name.lastName
+          firstName: this.registerForm.get('name.firstName')?.value,
+          middleNames: this.registerForm.get('name.middleNames')?.value ?
+            this.registerForm.get('name.middleNames')?.value.split(' ') : [],
+          lastName: this.registerForm.get('name.lastName')?.value
         },
 
         gender: '',

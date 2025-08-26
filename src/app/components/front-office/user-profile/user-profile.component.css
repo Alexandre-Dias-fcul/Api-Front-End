@@ -50,12 +50,12 @@
     display: flex;
     margin-bottom: 8px;
     font-size: 1rem;
+    gap: 5px;
 }
 
 .profile-details span:first-child {
     color: #888;
     font-weight: 500;
-    min-width: 120px;
 }
 
 .profile-edit-link {

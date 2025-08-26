@@ -62,7 +62,10 @@ export class DetailListingComponent {
 
   feedBackForm: FormGroup;
 
+  isSubmited = false;
+
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private listingService: ListingService,
     private agentService: AgentService,
     private authorization: AuthorizationService,
@@ -79,7 +82,15 @@ export class DetailListingComponent {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
+    const userId = Number(this.authorization.getId());
+
     this.role = this.authorization.getRole();
+
+    if (!this.role || !userId || this.role !== 'User') {
+      this.router.navigate(['/front-page', 'login-user']);
+
+      return;
+    }
 
     if (id) {
       this.listingService.getListingById(id).subscribe((response) => {
@@ -98,14 +109,26 @@ export class DetailListingComponent {
 
             const feedBacks = data;
 
-            console.log(feedBacks);
             feedBacks.forEach((feedBack) => {
+
+              if (feedBack.listingId == this.listing.id && feedBack.userId == userId) {
+                this.isSubmited = true;
+              }
 
               this.userService.getUserById(feedBack.userId).subscribe({
 
                 next: (response) => {
 
-                  this.feedBackUsers.push([feedBack, response]);
+                  const feedBackData = {
+                    id: feedBack.id,
+                    rate: feedBack.rate,
+                    comment: feedBack.comment,
+                    commentDate: this.toDateInputString(feedBack.commentDate),
+                    listingId: feedBack.listingId,
+                    userId: feedBack.userId
+                  }
+
+                  this.feedBackUsers.push([feedBackData, response]);
 
                 }
                 , error: (error) => {
@@ -149,6 +172,8 @@ export class DetailListingComponent {
       this.feedBackService.addFeedBack(feedBackData).subscribe({
         next: () => {
 
+          this.isSubmited = true;
+          window.location.reload();
         },
         error: (error) => {
 
@@ -160,5 +185,30 @@ export class DetailListingComponent {
     else {
       console.error('Formulário inválido.');
     }
+  }
+
+  private toDateInputString(date: Date | string | null | undefined): string | null {
+    // Caso seja null, undefined ou string vazia
+    if (!date) return null;
+
+    // Se já estiver no formato YYYY-MM-DD, retorna direto
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+
+    // Tenta converter para Date
+    const d = typeof date === 'string' ? new Date(date) : date;
+
+    // Verifica se a data é válida
+    if (!(d instanceof Date) || isNaN(d.getTime())) {
+      return null;
+    }
+
+    // Formata para YYYY-MM-DD (formato aceito por inputs type="date")
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

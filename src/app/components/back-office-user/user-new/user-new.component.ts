@@ -64,7 +64,6 @@ export class UserNewComponent {
           photoFileName: user.photoFileName
         })
       });
-
     }
   }
 
