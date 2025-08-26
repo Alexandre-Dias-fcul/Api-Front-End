@@ -228,6 +228,17 @@ button:hover {
     background: #357abd;
 }
 
+.is-submited {
+    width: 80%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    background: rgb(59, 142, 59);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 /*Comentarios*/
 
 /* Container dos comentários */
@@ -297,15 +308,28 @@ button:hover {
     margin-bottom: 0.4rem;
 }
 
-.comment-header strong {
+.display-name {
     color: #1b3055;
     font-size: 1rem;
     font-weight: 600;
 }
 
-.comment-header span {
-    font-size: 0.85rem;
+.display-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.display-date {
+    font-size: 1rem;
     color: #999;
+}
+
+.display-rating {
+    font-size: 2rem;
+    color: #f5a623;
 }
 
 /* Texto */
@@ -314,27 +338,4 @@ button:hover {
     color: #444;
     line-height: 1.5;
     margin-bottom: 0.6rem;
-}
-
-/* Ações */
-.comment-actions {
-    display: flex;
-    gap: 1.2rem;
-}
-
-.comment-actions button {
-    background: none;
-    border: none;
-    color: #4a90e2;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 2px 6px;
-    border-radius: 6px;
-}
-
-.comment-actions button:hover {
-    background: #eef4ff;
-    color: #357abd;
 }

@@ -26,12 +26,11 @@ export class EditUserProfileComponent {
     this.userForm = this.fb.group({
       name: this.fb.group({
         firstName: ['', [Validators.required]],
-        middleNames: ['', [Validators.required]],
+        middleNames: [''],
         lastName: ['', [Validators.required]],
       }),
-      dateOfBirth: [null],
-      gender: [''],
-      isActive: [null, [Validators.required]],
+      dateOfBirth: [Validators.required],
+      gender: ['', [Validators.required]],
       photoFileName: ['']
     });
 
@@ -39,7 +38,7 @@ export class EditUserProfileComponent {
 
     this.id = Number(this.authorization.getId());
 
-    if (!role || (role !== 'User') || !this.id) {
+    if (!role || role !== 'User' || !this.id) {
 
       this.router.navigate(['/front-page', 'login-user']);
       return;
@@ -55,11 +54,10 @@ export class EditUserProfileComponent {
 
             name: {
               firstName: data.name.firstName,
-              middleNames: data.name.middleNames ? data.name.middleNames.join(' ') : '',
+              middleNames: Array.isArray(data.name.middleNames) && data.name.middleNames.length > 0 ?
+                data.name.middleNames.join(' ') : '',
               lastName: data.name.lastName
             },
-
-            isActive: data.isActive,
             gender: data.gender,
             dateOfBirth: this.toDateInputString(data.dateOfBirth),
             photoFileName: data.photoFileName,
@@ -91,30 +89,21 @@ export class EditUserProfileComponent {
       };
 
       userData.name.firstName = this.userForm.get('name.firstName')?.value;
-      const middleNamesValue = this.userForm.get('name.middleNames')?.value;
-
-      if (middleNamesValue) {
-        userData.name.middleNames = middleNamesValue
-          .split(' ')
-          .map((name: string) => name.trim());
-      }
-      else {
-        userData.name.middleNames = [];
-      }
-
+      userData.name.middleNames = this.userForm.get('name.middleNames')?.value ?
+        this.userForm.get('name.middleNames')?.value.split(' ') : [];
       userData.name.lastName = this.userForm.get('name.lastName')?.value;
       userData.dateOfBirth = this.userForm.get('dateOfBirth')?.value;
       userData.gender = this.userForm.get('gender')?.value;
-      userData.isActive = this.userForm.get('isActive')?.value === 'true';
+      userData.isActive = true;
       userData.photoFileName = this.userForm.get('photoFileName')?.value;
 
       userData.id = this.id;
 
       this.userService.updateUser(userData).subscribe({
 
-        next: (response) => {
-          console.log('User atualizado com sucesso:', response);
+        next: () => {
 
+          this.userForm.reset();
           this.router.navigate(['/front-page', 'user-profile']);
         }
         ,

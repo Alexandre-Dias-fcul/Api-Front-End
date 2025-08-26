@@ -4,7 +4,7 @@
         <img src="https://picsum.photos/1200/600?random=1" alt="Foto do imóvel">
         <div class="detail-info">
             <h2>{{ listing.type }}</h2>
-            <p class="price">{{ listing.price }}</p>
+            <p class="price">{{ listing.price }} €</p>
             @if(role === 'User')
             {
             <a (click)="addFavorite()" class="favorite-btn">★ Adicionar aos Favoritos</a>
@@ -37,7 +37,7 @@
                 <p>Telefone: (11) 99999-9999</p>
             </div>
         </div>
-        @if(role === 'User')
+        @if(role === 'User' && !isSubmited)
         {
         <div class="form-container">
             <h2>Avalie o Serviço</h2>
@@ -64,6 +64,10 @@
             </form>
         </div>
         }
+        @else if (role === 'User' && isSubmited)
+        {
+        <div class="is-submited">Avaliação Submetida</div>
+        }
     </div>
 </div>
 <div class="comments-container">
@@ -73,15 +77,54 @@
         <div class="avatar"></div>
         <div class="comment-body">
             <div class="comment-header">
-                <strong>{{ feedBackUser[1].name.firstName }} {{feedBackUser[1].name.lastName}}</strong>
-                <span>{{ feedBackUser[0].commentDate }}</span>
+                <div class="display-name">
+                    {{ feedBackUser[1].name.firstName }} {{feedBackUser[1].name.lastName}}
+                </div>
+                @if(feedBackUser[1].rate === 0)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                </div>
+
+                }
+                @else if(feedBackUser[0].rate === 1)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                    <span class="display-rating">★</span>
+                </div>
+
+                }@else if (feedBackUser[0].rate ===2)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                    <span class="display-rating">★★</span>
+                </div>
+
+                }@else if (feedBackUser[0].rate ===3)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                    <span class="display-rating">★★★</span>
+                </div>
+
+                }@else if (feedBackUser[0].rate === 4)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                    <span class="display-rating">★★★★</span>
+                </div>
+
+                }@else if (feedBackUser[0].rate === 5)
+                {
+                <div class="display-container">
+                    <span class="display-date">{{ feedBackUser[0].commentDate }}</span>
+                    <span class="display-rating">★★★★★</span>
+                </div>
+                }
             </div>
             <div class="comment-text">
                 {{ feedBackUser[0].comment }}
-            </div>
-            <div class="comment-actions">
-                <button>Responder</button>
-                <button>Gostei</button>
             </div>
         </div>
     </div>

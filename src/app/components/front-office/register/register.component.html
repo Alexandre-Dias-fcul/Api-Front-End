@@ -7,27 +7,51 @@
                 <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome"
                     required>
             </div>
+            <div *ngIf="registerForm.get('name.firstName')?.invalid && 
+                         (registerForm.get('name.firstName')?.dirty || registerForm.get('name.firstName')?.touched) ">
+                Nome inválido
+            </div>
             <div class="input-group">
                 <label for="middleNames">Nomes do Meio</label>
                 <input type="text" id="middleNames" formControlName="middleNames" placeholder="Digite os nomes de meio">
             </div>
+            <div *ngIf="registerForm.get('name.middleNames')?.invalid && (registerForm.get('name.middleNames')?.dirty 
+             || registerForm.get('name.middleNames')?.touched)">Nome inválido
+
+            </div>
             <div class="input-group">
                 <label for="lastName">Último Nome</label>
                 <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome" required>
+            </div>
+            <div *ngIf="registerForm.get('name.lastName')?.invalid && (registerForm.get('name.lastName')?.dirty || 
+                  registerForm.get('name.lastName')?.touched)">Nome inválido
+
             </div>
         </div>
         <div class="input-group">
             <label for="email">E-mail</label>
             <input type="email" id="email" formControlName="email" placeholder="Digite o seu email" required>
         </div>
+        <div
+            *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+            Email inválido
+        </div>
         <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password" placeholder="Digite uma password" required>
+        </div>
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || 
+                    registerForm.get('password')?.touched)">
+            Password inválida
         </div>
         <div class="input-group">
             <label for="confirmPassword">Confirmar Password</label>
             <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Repita a passord"
                 required>
+        </div>
+        <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty ||
+                            registerForm.get('confirmPassword')?.touched)">
+            Password inválida
         </div>
         <button type="submit" class="btn-register">Criar Conta</button>
         <div class="register-links">
