@@ -18,6 +18,8 @@ export class UserNewAccountComponent {
 
   continue: number;
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -60,6 +62,7 @@ export class UserNewAccountComponent {
           },
           error: (error) => {
             console.error('Erro ao criar conta:', error);
+            this.errorMessage = error;
           }
         });
     }

@@ -11,7 +11,7 @@
                     <input id="firstName" type="text" formControlName="firstName" placeholder="Digite o primeiro nome"
                         required>
                 </div>
-                <div
+                <div class="error-message"
                     *ngIf="userForm.get('name.firstName')?.invalid &&
                                     (userForm.get('name.firstName')?.dirty || userForm.get('name.firstName')?.touched)">
                     Nome
@@ -22,7 +22,7 @@
                     <input id="middleNames" type="text" formControlName="middleNames"
                         placeholder="Digite os nomes de meio">
                 </div>
-                <div
+                <div class="error-message"
                     *ngIf="userForm.get('name.middleNames')?.invalid &&
                                             (userForm.get('name.middleNames')?.dirty || userForm.get('name.middleNames')?.touched)">
                     Nome inválido
@@ -32,7 +32,7 @@
                     <input id="lastname" type="text" formControlName="lastName" placeholder="Digite o último nome"
                         required>
                 </div>
-                <div
+                <div class="error-message"
                     *ngIf="userForm.get('name.lastName')?.invalid &&
                                             (userForm.get('name.lastName')?.dirty || userForm.get('name.lastName')?.touched)">
                     Nome inválido
@@ -42,7 +42,7 @@
                 <label for="dateOfBirth">Data de Nascimento</label>
                 <input id="dateOfBirth" type="date" formControlName="dateOfBirth" required="">
             </div>
-            <div *ngIf="userForm.get('dateOfBirth')?.invalid &&
+            <div class="error-message" *ngIf="userForm.get('dateOfBirth')?.invalid &&
                         (userForm.get('dateOfBirth')?.dirty || userForm.get('dateOfBirth')?.touched)">Data inválida
             </div>
             <div class="profile-edit-group">
@@ -52,15 +52,18 @@
                     <option value="Feminino">Feminino</option>
                 </select>
             </div>
-            <div *ngIf="userForm.get('gender')?.invalid &&
+            <div class="error-message" *ngIf="userForm.get('gender')?.invalid &&
                         (userForm.get('gender')?.dirty || userForm.get('gender')?.touched)">Género inválido
             </div>
             <div class="profile-edit-group">
                 <label for="photoFileName">Foto</label>
                 <input id="photoFileName" type="text" formControlName="photoFileName">
             </div>
-            <div *ngIf="userForm.get('photoFileName')?.invalid &&
+            <div class="error-message" *ngIf="userForm.get('photoFileName')?.invalid &&
                         (userForm.get('photoFileName')?.dirty || userForm.get('photoFileName')?.touched)">Foto inválida
+            </div>
+            <div class="error-message" *ngIf="errorMessage != null">
+                {{ errorMessage }}
             </div>
             <div class="profile-edit-actions">
                 <button type="submit" class="profile-edit-btn">Salvar</button>

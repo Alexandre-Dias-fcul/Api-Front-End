@@ -18,19 +18,39 @@ export class UserService {
   }
 
   getAllUsers(): Observable<user[]> {
-    return this.http.get<user[]>(this.urlUser);
+    return this.http.get<user[]>(this.urlUser).pipe(
+      catchError((error) => {
+        console.error('Erro em getAllUsers:', error);
+        return throwError(() => new Error('Erro ao listar users.'));
+      })
+    );
   }
 
   getUserById(id: number): Observable<user> {
-    return this.http.get<user>(`${this.urlUser}/${id}`);
+    return this.http.get<user>(`${this.urlUser}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro em getUserById:', error);
+        return throwError(() => new Error('Erro ao ler user.'));
+      })
+    );
   }
 
-  getAgentByEmail(email: string): Observable<user> {
-    return this.http.get<user>(`${this.urlUser}/GetByEmail?email=${email}`);
+  getUserByEmail(email: string): Observable<user> {
+    return this.http.get<user>(`${this.urlUser}/GetByEmail?email=${email}`).pipe(
+      catchError((error) => {
+        console.error('Erro em getUserByEmail', error);
+        return throwError(() => new Error('Erro ao obter user por email.'));
+      })
+    );
   }
 
   getByIdWithAll(id: number): Observable<userAll> {
-    return this.http.get<userAll>(`${this.urlUser}/GetByIdWithAll/${id}`);
+    return this.http.get<userAll>(`${this.urlUser}/GetByIdWithAll/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro em getByIdWithAll:', error);
+        return throwError(() => new Error('Erro ao listar users.'));
+      })
+    );
   }
 
   addUser(user: user): Observable<user> {
