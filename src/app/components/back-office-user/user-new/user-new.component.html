@@ -5,8 +5,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">Primeiro Nome</label>
-                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome"
-                        required>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome">
                     @if(userForm.get('name.firstName')?.invalid &&
                     (userForm.get('name.firstName')?.dirty || userForm.get('name.firstName')?.touched))
                     {
@@ -16,8 +15,7 @@
 
                 <div class="form-group">
                     <label for="lastName">Ultimo Nome</label>
-                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome"
-                        required>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome">
                     @if(userForm.get('name.lastName')?.invalid &&
                     (userForm.get('name.lastName')?.dirty || userForm.get('name.lastName')?.touched))
                     {
@@ -41,7 +39,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="isActive">Activo</label>
-                <select id="isActive" name="isActive" formControlName="isActive" required>
+                <select id="isActive" name="isActive" formControlName="isActive">
                     <option value="true">Sim</option>
                     <option value="false">Não</option>
                 </select>
@@ -66,7 +64,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="gender">Género</label>
-                <select id="gender" name="gender" formControlName="gender" required>
+                <select id="gender" name="gender" formControlName="gender">
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                 </select>
@@ -88,7 +86,12 @@
                 }
             </div>
         </div>
-
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             <a [routerLink]="['/main-page/user-list']" class="btn-reset">Cancelar</a>

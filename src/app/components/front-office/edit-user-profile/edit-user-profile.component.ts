@@ -16,6 +16,7 @@ export class EditUserProfileComponent {
 
   userForm: FormGroup;
   id: number;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
@@ -67,6 +68,7 @@ export class EditUserProfileComponent {
         },
         error: (err) => {
           console.error('Error fetching users:', err);
+          this.errorMessage = err;
         }
       });
   }
@@ -109,6 +111,7 @@ export class EditUserProfileComponent {
         ,
         error: (err) => {
           console.error('Erro ao atualizar user:', err);
+          this.errorMessage = err;
 
         }
       })

@@ -16,6 +16,8 @@ export class UserNewComponent {
 
   id: number;
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -46,23 +48,29 @@ export class UserNewComponent {
     }
 
     if (this.id) {
-      this.userService.getUserById(this.id).subscribe((user) => {
+      this.userService.getUserById(this.id).subscribe({
+        next: (user) => {
 
-        const middleNamesString = Array.isArray(user.name.middleNames) && user.name.middleNames.length > 0
-          ? user.name.middleNames.join(' ') : '';
+          const middleNamesString = Array.isArray(user.name.middleNames) && user.name.middleNames.length > 0
+            ? user.name.middleNames.join(' ') : '';
 
-        this.userForm.patchValue({
+          this.userForm.patchValue({
 
-          name: {
-            firstName: user.name.firstName,
-            middleNames: middleNamesString,
-            lastName: user.name.lastName,
-          },
-          isActive: user.isActive,
-          gender: user.gender,
-          dateOfBirth: this.toDateInputString(user.dateOfBirth),
-          photoFileName: user.photoFileName
-        })
+            name: {
+              firstName: user.name.firstName,
+              middleNames: middleNamesString,
+              lastName: user.name.lastName,
+            },
+            isActive: user.isActive,
+            gender: user.gender,
+            dateOfBirth: this.toDateInputString(user.dateOfBirth),
+            photoFileName: user.photoFileName
+          })
+        },
+        error: (error) => {
+          console.error('Erro ao obter user.');
+          this.errorMessage = error;
+        }
       });
     }
   }
@@ -94,6 +102,7 @@ export class UserNewComponent {
           },
           error: (error) => {
             console.error('Erro ao atualizar utilizador.');
+            this.errorMessage = error;
           }
         })
       }
@@ -106,6 +115,7 @@ export class UserNewComponent {
           },
           error: (error) => {
             console.error('Erro ao adicionar utilizador.');
+            this.errorMessage = error;
           }
         })
       }

@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class UserListComponent {
 
   users: user[] = [];
+  errorMessage: string | null = null;
 
   constructor(private authorization: AuthorizationService,
     private router: Router,
@@ -34,6 +35,7 @@ export class UserListComponent {
       },
       error: (error) => {
         console.error('Error fetching staffs:', error);
+        this
       }
     });
   }

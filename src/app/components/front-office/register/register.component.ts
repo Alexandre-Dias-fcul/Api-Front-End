@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { user } from '../../../models/user';
 import { UserService } from '../../../services/front-office/user.service';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
 
   registerForm: FormGroup;
-  passwordMatchValidator: any;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
@@ -28,7 +28,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator });
+    }, { validators: this.passwordMatchValidator('password', 'confirmPassword') });
   }
 
   onSubmit() {
@@ -67,16 +67,33 @@ export class RegisterComponent {
             },
             error: (error) => {
               console.error('Erro ao adicionar conta ao usuário:', error);
+              this.errorMessage = error;
             }
           });
         },
         error: (error) => {
           console.error('Erro ao registrar usuário:', error);
+          this.errorMessage = error;
         }
       });
 
     } else {
       console.log('Formulário de registro inválido');
     }
+  }
+
+  private passwordMatchValidator(passwordField: string, confirmPasswordField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const password = formGroup.get(passwordField)?.value;
+      const confirmPassword = formGroup.get(confirmPasswordField)?.value;
+
+      if (password && confirmPassword && password !== confirmPassword) {
+        formGroup.get(confirmPasswordField)?.setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true };
+      } else {
+        formGroup.get(confirmPasswordField)?.setErrors(null);
+        return null;
+      }
+    };
   }
 }

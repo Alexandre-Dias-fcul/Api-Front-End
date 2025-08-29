@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class LoginUserComponent {
 
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private loginService: LoginService,
@@ -36,7 +37,6 @@ export class LoginUserComponent {
 
         next: (response) => {
 
-          console.log('Login bem-sucedido:', response);
           this.authorizationService.setToken(response);
           this.loginForm.reset();
           this.router.navigate(['/front-page', 'view-listings']);
@@ -44,6 +44,7 @@ export class LoginUserComponent {
         },
         error: (err) => {
           console.error('Erro no login:', err);
+          this.errorMessage = err;
         }
       });
 

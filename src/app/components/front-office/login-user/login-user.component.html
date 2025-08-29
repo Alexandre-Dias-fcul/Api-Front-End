@@ -18,6 +18,9 @@
         (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="error-message">
             Password inválida
         </div>
+        <div class="error-message" *ngIf="errorMessage != null">
+            {{ errorMessage }}
+        </div>
         <button type="submit" class="btn-login">Entrar</button>
         <div class="login-links">
             <a href="#">Esqueceu a senha?</a>
