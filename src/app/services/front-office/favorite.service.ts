@@ -16,15 +16,33 @@ export class FavoriteService {
   }
 
   getAllFavorites(): Observable<favorite[]> {
-    return this.http.get<favorite[]>(this.urlFavorite);
+    return this.http.get<favorite[]>(this.urlFavorite).pipe
+      (
+        catchError((error) => {
+          console.error('Erro na chamada getAllFavorites', error);
+          return throwError(() => new Error('Erro ao listar favoritos.'));
+        })
+      );
   }
 
   getFavoriteById(id: number): Observable<favorite> {
-    return this.http.get<favorite>(`${this.urlFavorite}/${id}`);
+    return this.http.get<favorite>(`${this.urlFavorite}/${id}`).pipe
+      (
+        catchError((error) => {
+          console.error('Erro na chamada dgetFavoriteById:', error);
+          return throwError(() => new Error('Erro ao obter favorito.'));
+        })
+      );
   }
 
   deleteFavorite(id: number): Observable<favorite> {
-    return this.http.delete<favorite>(`${this.urlFavorite}/${id}`);
+    return this.http.delete<favorite>(`${this.urlFavorite}/${id}`).pipe
+      (
+        catchError((error) => {
+          console.error('Erro na chamada deleteFavorite:', error);
+          return throwError(() => new Error('Erro ao apagar favorito.'));
+        })
+      );
   }
 
   addFavorite(idListing: number): Observable<favorite> {

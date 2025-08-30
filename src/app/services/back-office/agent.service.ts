@@ -18,31 +18,77 @@ export class AgentService {
   constructor(private http: HttpClient) { }
 
   getAllAgents(): Observable<agent[]> {
-    return this.http.get<agent[]>(this.urlAgent);
+    return this.http.get<agent[]>(this.urlAgent).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllAgents', error);
+        return throwError(() => Error('Erro ao listar agents.'));
+      }
+      )
+    );
   }
 
   getAgentById(id: number): Observable<agent> {
-    return this.http.get<agent>(`${this.urlAgent}/${id}`);
+    return this.http.get<agent>(`${this.urlAgent}/${id}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada getAgentById:', error);
+
+        return throwError(() => Error('Erro ao obter agent.'));
+      })
+    );
   }
 
   getAgentByEmail(email: string): Observable<agent> {
-    return this.http.get<agent>(`${this.urlAgent}/GetByEmail?email=${email}`);
+    return this.http.get<agent>(`${this.urlAgent}/GetByEmail?email=${email}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada getAgentByEmail:', error);
+
+        return throwError(() => Error('Erro ao obter agent.'));
+      })
+    );
   }
 
   getByIdWithAll(id: number): Observable<agentAll> {
-    return this.http.get<agentAll>(`${this.urlAgent}/GetByIdWithAll/${id}`);
+    return this.http.get<agentAll>(`${this.urlAgent}/GetByIdWithAll/${id}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada getByIdWithAll:', error);
+
+        return throwError(() => Error('Erro ao obter agent.'));
+      })
+    );
   }
 
   getByIdWithListings(id: number): Observable<agentListing> {
-    return this.http.get<agentListing>(`${this.urlAgent}/GetByIdWithListings/${id}`);
+    return this.http.get<agentListing>(`${this.urlAgent}/GetByIdWithListings/${id}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada getByIdWithListings:', error);
+
+        return throwError(() => Error('Erro ao obter agent com listings.'));
+      })
+    );
   }
 
   getByIdWithAgents(id: number): Observable<agentSupervisor> {
-    return this.http.get<agentSupervisor>(`${this.urlAgent}/GetByIdWithAgents/${id}`);
+    return this.http.get<agentSupervisor>(`${this.urlAgent}/GetByIdWithAgents/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getByIdWithAgents', error);
+        return throwError(() => Error('Erro ao obter agent com agents.'));
+      })
+    );
   }
 
   getByIdWithParticipants(id: number): Observable<agentParticipant> {
-    return this.http.get<agentParticipant>(`${this.urlAgent}/GetByIdWithParticipants/${id}`);
+    return this.http.get<agentParticipant>(`${this.urlAgent}/GetByIdWithParticipants/${id}`).pipe(
+      catchError((error) => {
+
+        console.error('Erro na chamada getByIdWithParticipants:', error);
+
+        return throwError(() => Error('Erro ao obter agente com participantes.'));
+      })
+    );
   }
 
   addAgent(agent: agent): Observable<agent> {
@@ -68,7 +114,13 @@ export class AgentService {
   }
 
   deleteAgent(id: number): Observable<agent> {
-    return this.http.delete<agent>(`${this.urlAgent}/${id}`);
+    return this.http.delete<agent>(`${this.urlAgent}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada deleteAgent:', error);
+
+        return throwError(() => new Error('Erro ao apagar agente.'));
+      })
+    );
   }
 
   agentAddAccount(account: account, agentId: number): Observable<account> {
@@ -138,14 +190,29 @@ export class AgentService {
   }
 
   agentDeleteAccount(agentId: number): Observable<account> {
-    return this.http.delete<account>(`${this.urlAgent}/DeleteAccount/${agentId}`);
+    return this.http.delete<account>(`${this.urlAgent}/DeleteAccount/${agentId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada agentDeleteAccount:', error);
+        return throwError(() => new Error('Erro ao apagar account do agente.'));
+      })
+    );
   }
 
   agentDeleteAddress(agentId: number, addressId: number): Observable<address> {
-    return this.http.delete<address>(`${this.urlAgent}/DeleteAddress/${agentId}/${addressId}`);
+    return this.http.delete<address>(`${this.urlAgent}/DeleteAddress/${agentId}/${addressId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada agentDeleteAddress:', error);
+        return throwError(() => new Error('Erro ao apagar address do agente.'));
+      })
+    );
   }
 
   agentDeleteContact(agentId: number, contactId: number): Observable<contact> {
-    return this.http.delete<contact>(`${this.urlAgent}/DeleteContact/${agentId}/${contactId}`);
+    return this.http.delete<contact>(`${this.urlAgent}/DeleteContact/${agentId}/${contactId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada agentDeleteContact:', error);
+        return throwError(() => new Error('Erro ao apagar contato do agente.'));
+      })
+    );
   }
 }

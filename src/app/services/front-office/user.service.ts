@@ -76,7 +76,12 @@ export class UserService {
   }
 
   deleteUser(id: number): Observable<user> {
-    return this.http.delete<user>(`${this.urlUser}/${id}`);
+    return this.http.delete<user>(`${this.urlUser}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada deleteUser.', error)
+        return throwError(() => new Error('Erro ao apagar user.'))
+      })
+    );
   }
 
   userAddAccount(account: account, userId: number): Observable<account> {

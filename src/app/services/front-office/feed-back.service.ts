@@ -15,15 +15,30 @@ export class FeedBackService {
   }
 
   getAllFeedBacks(): Observable<feedBack[]> {
-    return this.http.get<feedBack[]>(this.urlFeedBack);
+    return this.http.get<feedBack[]>(this.urlFeedBack).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllFeedBacks.', error);
+        return throwError(() => Error('Erro ao listar FeedBacks.'));
+      })
+    );
   }
 
   getFeedBackById(id: number): Observable<feedBack> {
-    return this.http.get<feedBack>(`${this.urlFeedBack}/${id}`);
+    return this.http.get<feedBack>(`${this.urlFeedBack}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getFeedBackById', error);
+        return throwError(() => Error('Erro ao obter FeedBack.'));
+      })
+    );
   }
 
   getFeedBackByListingId(idListing: number): Observable<feedBack[]> {
-    return this.http.get<feedBack[]>(`${this.urlFeedBack}/GetByListingId/${idListing}`);
+    return this.http.get<feedBack[]>(`${this.urlFeedBack}/GetByListingId/${idListing}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getFeedBackByListingId.', error);
+        return throwError(() => Error('Erro ao obter FeedBack.'));
+      })
+    );
   }
 
   addFeedBack(feedBack: feedBack): Observable<feedBack> {
@@ -39,6 +54,11 @@ export class FeedBackService {
   }
 
   deleteFeedBack(id: number): Observable<feedBack> {
-    return this.http.delete<feedBack>(`${this.urlFeedBack}/${id}`);
+    return this.http.delete<feedBack>(`${this.urlFeedBack}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada deleteFeedBack', error);
+        return throwError(() => new Error('Erro ao apagar Feedback.'));
+      })
+    );
   }
 }

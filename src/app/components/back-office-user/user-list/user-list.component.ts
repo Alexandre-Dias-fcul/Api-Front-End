@@ -35,7 +35,7 @@ export class UserListComponent {
       },
       error: (error) => {
         console.error('Error fetching staffs:', error);
-        this
+        this.errorMessage = error;
       }
     });
   }
@@ -46,8 +46,9 @@ export class UserListComponent {
         next: () => {
           window.location.reload();
         },
-        error: () => {
-          console.error("Error deleting user");
+        error: (error) => {
+          console.error("Error deleting user", error);
+          this.errorMessage = error;
         }
       });
     }

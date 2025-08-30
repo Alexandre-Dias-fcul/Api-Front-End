@@ -14,16 +14,31 @@ export class AppointmentService {
   constructor(private http: HttpClient) { }
 
   getAllAppointments(): Observable<appointment[]> {
-    return this.http.get<appointment[]>(this.urlAppointment);
+    return this.http.get<appointment[]>(this.urlAppointment).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllAppointments', error);
+        return throwError(() => new Error('Erro ao listar appointments.'));
+      })
+    );
   }
 
   getAppointmentById(id: number): Observable<appointment> {
-    return this.http.get<appointment>(`${this.urlAppointment}/${id}`);
+    return this.http.get<appointment>(`${this.urlAppointment}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAppointmentById', error);
+        return throwError(() => new Error('Erro ao obter appointment'));
+      })
+    );
   }
 
   getAppointmentByIdWithParticipants(id: number): Observable<appointmentWithParticipants> {
     return this.http
-      .get<appointmentWithParticipants>(`${this.urlAppointment}/GetByIdWithParticipants/${id}`);
+      .get<appointmentWithParticipants>(`${this.urlAppointment}/GetByIdWithParticipants/${id}`).pipe(
+        catchError((error) => {
+          console.error('Erro na chamada getAppointmentByIdWithParticipants', error);
+          return throwError(() => new Error('Erro ao obter appointment.'));
+        })
+      );
   }
 
   addAppointment(appointment: appointment): Observable<appointment> {
@@ -50,7 +65,12 @@ export class AppointmentService {
   }
 
   deleteAppointment(id: number): Observable<appointment> {
-    return this.http.delete<appointment>(`${this.urlAppointment}/${id}`);
+    return this.http.delete<appointment>(`${this.urlAppointment}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada deleteAppointment', error);
+        return throwError(() => new Error('Erro ao apagar appointment.'));
+      })
+    )
   }
 
   addParticipant(idAppointment: number, idEmployee: number): Observable<participant> {
@@ -61,13 +81,18 @@ export class AppointmentService {
       }).pipe(
         catchError((error) => {
           console.error('Erro na chamada addParticipant', error);
-          return throwError(() => new Error('Erro ao adicionar appointment'))
+          return throwError(() => new Error('Erro ao adicionar appointment.'))
         })
       );
   }
 
   deleteParticipant(idAppointment: number, idParticipant: number): Observable<participant> {
     return this.http.delete<participant>(`${this.urlAppointment}/DeleteParticipant/
-      ${idAppointment}/${idParticipant}`);
+      ${idAppointment}/${idParticipant}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada  deleteParticipant', error);
+        return throwError(() => new Error('Erro ao apagar participant.'))
+      })
+    );;
   }
 }
