@@ -41,6 +41,8 @@ export class UserEditAccountComponent {
     }
   }
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -69,12 +71,21 @@ export class UserEditAccountComponent {
       return;
     }
 
-    this.userService.getByIdWithAll(userId).subscribe((response) => {
-      this.userAll = response;
-      this.accountForm.patchValue({
-        email: response.entityLink?.account?.email
-      })
-    });
+    this.userService.getByIdWithAll(userId).subscribe(
+      {
+        next: (response) => {
+          this.userAll = response;
+          this.accountForm.patchValue({
+            email: response.entityLink?.account?.email
+          })
+        },
+        error: (error) => {
+          console.error('Erro ao obter user.');
+          this.errorMessage = error;
+        }
+      }
+
+    );
   }
 
   onSubmit() {
@@ -91,6 +102,7 @@ export class UserEditAccountComponent {
         },
         error: (error) => {
           console.error('Erro ao atualizar account:', error);
+          this.errorMessage = error;
         }
       });
     }

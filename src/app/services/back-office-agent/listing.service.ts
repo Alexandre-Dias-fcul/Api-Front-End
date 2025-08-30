@@ -14,11 +14,21 @@ export class ListingService {
   constructor(private http: HttpClient) { }
 
   getAllListings(): Observable<listing[]> {
-    return this.http.get<listing[]>(this.urlListing);
+    return this.http.get<listing[]>(this.urlListing).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllListings:', error);
+        return throwError(() => new Error('Erro ao listar listings.'));
+      })
+    );
   }
 
   getListingById(id: number): Observable<listing> {
-    return this.http.get<listing>(`${this.urlListing}/${id}`);
+    return this.http.get<listing>(`${this.urlListing}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getListingById:', error);
+        return throwError(() => new Error('Erro ao obter listing.'));
+      })
+    );
   }
 
   addListing(listing: listing): Observable<listing> {
@@ -44,7 +54,12 @@ export class ListingService {
   }
 
   deleteListing(id: number): Observable<listing> {
-    return this.http.delete<listing>(`${this.urlListing}/${id}`);
+    return this.http.delete<listing>(`${this.urlListing}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada de deleteListing', error);
+        return throwError(() => new Error('Erro ao apagar Listing.'));
+      })
+    );;
   }
 
   selfReassign(id: number) {
