@@ -42,6 +42,8 @@ export class UserEditComponent {
     }
   };
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
     private router: Router,
@@ -76,24 +78,29 @@ export class UserEditComponent {
       return;
     }
 
-    this.userService.getByIdWithAll(this.id).subscribe((response) => {
+    this.userService.getByIdWithAll(this.id).subscribe(
+      {
+        next: (response) => {
+          this.userAll = response;
 
+          this.userForm.patchValue({
+            name: {
+              firstName: response.name.firstName,
+              middleNames: Array.isArray(response.name.middleNames) && response.name.middleNames.length > 0
+                ? response.name.middleNames.join(' ') : '',
+              lastName: response.name.lastName
+            },
+            isActive: response.isActive,
+            gender: response.gender,
+            dateOfBirth: this.toDateInputString(response.dateOfBirth),
+            photoFileName: response.photoFileName
+          });
+        }, error: (error) => {
+          console.error('Erro ao obter user', error);
+          this.errorMessage = error;
 
-      this.userAll = response;
-
-      this.userForm.patchValue({
-        name: {
-          firstName: response.name.firstName,
-          middleNames: Array.isArray(response.name.middleNames) && response.name.middleNames.length > 0
-            ? response.name.middleNames.join(' ') : '',
-          lastName: response.name.lastName
-        },
-        isActive: response.isActive,
-        gender: response.gender,
-        dateOfBirth: this.toDateInputString(response.dateOfBirth),
-        photoFileName: response.photoFileName
+        }
       });
-    });
   }
 
   onSubmit() {
@@ -120,6 +127,7 @@ export class UserEditComponent {
         },
         error: (error) => {
           console.error('Erro ao alterar utilizador:', error);
+          this.errorMessage = error;
         }
       });
     }

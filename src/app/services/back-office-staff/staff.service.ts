@@ -21,24 +21,49 @@ export class StaffService {
   }
 
   getAllStaff(): Observable<staff[]> {
-    return this.http.get<staff[]>(this.urlStaff);
+    return this.http.get<staff[]>(this.urlStaff).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllStaff:', error);
+        return throwError(() => new Error('Erro ao listar staff.'));
+      })
+    );
   }
 
   getStaffById(id: number): Observable<staff> {
-    return this.http.get<staff>(`${this.urlStaff}/${id}`);
+    return this.http.get<staff>(`${this.urlStaff}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getStaffById:', error);
+        return throwError(() => new Error('Erro ao obter staff.'));
+      })
+    );
 
   }
 
   getStaffByEmail(email: string): Observable<staff> {
-    return this.http.get<staff>(`${this.urlStaff}/GetByEmail?email=${email}`);
+    return this.http.get<staff>(`${this.urlStaff}/GetByEmail?email=${email}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getStaffByEmail:', error);
+        return throwError(() => new Error('Erro ao obter staff.'));
+      })
+    );
   }
 
   getByIdWithAll(id: number): Observable<staffAll> {
-    return this.http.get<staffAll>(` ${this.urlStaff}/GetByIdWithAll/${id}`);
+    return this.http.get<staffAll>(` ${this.urlStaff}/GetByIdWithAll/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getByIdWithAll:', error);
+        return throwError(() => new Error('Erro ao obter staff.'));
+      })
+    );
   }
 
   getByIdWithParticipants(id: number): Observable<staffParticipant> {
-    return this.http.get<staffParticipant>(`${this.urlStaff}/GetByIdWithParticipants/${id}`);
+    return this.http.get<staffParticipant>(`${this.urlStaff}/GetByIdWithParticipants/${id}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada  getByIdWithParticipants:', error);
+        return throwError(() => new Error('Erro ao obter staff.'));
+      })
+    );
   }
 
   addStaff(staff: staff): Observable<staff> {
