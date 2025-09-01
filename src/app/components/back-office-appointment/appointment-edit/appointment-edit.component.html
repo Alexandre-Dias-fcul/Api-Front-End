@@ -74,7 +74,12 @@
                 }
             </div>
         </div>
-
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             <a [routerLink]="['/main-page/appointment-list']" class="btn-reset">Cancelar</a>

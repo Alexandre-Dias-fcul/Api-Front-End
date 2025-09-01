@@ -20,6 +20,12 @@
             <div class="error-message">Senha inválida</div>
             }
         </div>
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
 
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>

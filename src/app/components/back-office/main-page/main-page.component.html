@@ -112,6 +112,13 @@
                 <router-outlet></router-outlet>
             </div>
         </main>
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
+
         <footer class="footer">
             <div class="footer-content">
                 <p>&copy; 2025 Layout Profissional. Todos os direitos reservados.</p>

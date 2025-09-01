@@ -96,7 +96,7 @@ export class UserEditComponent {
             photoFileName: response.photoFileName
           });
         }, error: (error) => {
-          console.error('Erro ao obter user', error);
+          console.error('Erro ao obter user:', error);
           this.errorMessage = error;
 
         }

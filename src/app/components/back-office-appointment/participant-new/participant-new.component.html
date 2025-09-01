@@ -24,8 +24,14 @@
                 <div class="error-message">Email inválido</div>
                 }
             </div>
-
         </div>
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
+
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             <a [routerLink]="['/main-page/participant-list',idAppointment]" class="btn-reset">Cancelar</a>

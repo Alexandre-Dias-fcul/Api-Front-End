@@ -15,6 +15,7 @@ export class StaffNewComponent {
 
   staffForm: FormGroup;
   id: number;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private staffService: StaffService,
@@ -50,31 +51,39 @@ export class StaffNewComponent {
 
     if (this.id) {
 
-      this.staffService.getStaffById(this.id).subscribe((staff) => {
+      this.staffService.getStaffById(this.id).subscribe(
+        {
+          next: (staff) => {
 
-        // Ajusta middleNames para string se necessário
-        // 1. Copie o objeto staff
-        const staffData = { ...staff };
-        // 2. Verifique se middleNames é um array e converta para string
-        const middleNamesString = Array.isArray(staff.name.middleNames) && staff.name.middleNames.length > 0
-          ? staff.name.middleNames.join(' ')
-          : '';
+            // Ajusta middleNames para string se necessário
+            // 1. Copie o objeto staff
+            const staffData = { ...staff };
+            // 2. Verifique se middleNames é um array e converta para string
+            const middleNamesString = Array.isArray(staff.name.middleNames) && staff.name.middleNames.length > 0
+              ? staff.name.middleNames.join(' ')
+              : '';
 
 
-        this.staffForm.patchValue({
-          name: {
-            firstName: staffData.name.firstName,
-            middleNames: middleNamesString,
-            lastName: staffData.name.lastName
+            this.staffForm.patchValue({
+              name: {
+                firstName: staffData.name.firstName,
+                middleNames: middleNamesString,
+                lastName: staffData.name.lastName
+              },
+              isActive: staffData.isActive,
+              gender: staffData.gender,
+              dateOfBirth: this.toDateInputString(staffData.dateOfBirth),
+              hiredDate: this.toDateInputString(staffData.hiredDate),
+              dateOfTermination: this.toDateInputString(staffData.dateOfTermination),
+              photoFileName: staffData.photoFileName
+            });
           },
-          isActive: staffData.isActive,
-          gender: staffData.gender,
-          dateOfBirth: this.toDateInputString(staffData.dateOfBirth),
-          hiredDate: this.toDateInputString(staffData.hiredDate),
-          dateOfTermination: this.toDateInputString(staffData.dateOfTermination),
-          photoFileName: staffData.photoFileName
+          error: (error) => {
+            console.error('Erro ao obter staff:', error);
+            this.errorMessage = error;
+
+          }
         });
-      });
     }
   }
 
@@ -110,6 +119,7 @@ export class StaffNewComponent {
           },
           error: (error) => {
             console.error('Erro ao atualizar o administrativo:', error);
+            this.errorMessage = error;
           }
         });
       }
@@ -121,6 +131,7 @@ export class StaffNewComponent {
           },
           error: (error) => {
             console.error('Erro ao adicionar o administrativo:', error);
+            this.errorMessage = error;
           }
         });
       }

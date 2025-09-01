@@ -20,6 +20,14 @@
                 loginForm.get('password')?.touched)) {
                 <div class="error-message">Senha inválida</div>
                 }
+
+                @if(errorMessage != null)
+                {
+                <div class="error-message">
+                    {{ errorMessage }}
+                </div>
+                }
+
                 <div class="form-actions">
                     <button type="submit" class="btn-login">Entrar</button>
                 </div>

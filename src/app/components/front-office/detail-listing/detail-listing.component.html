@@ -68,8 +68,17 @@
         {
         <div class="is-submited">Avaliação Submetida</div>
         }
+
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
     </div>
 </div>
+
+
 <div class="comments-container">
     <h2>Comentários</h2>
 

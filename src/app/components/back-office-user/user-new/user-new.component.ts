@@ -114,7 +114,7 @@ export class UserNewComponent {
             this.router.navigate(['/main-page', 'user-new-account', response.id, 1]);
           },
           error: (error) => {
-            console.error('Erro ao adicionar utilizador.');
+            console.error('Erro ao adicionar utilizador:', error);
             this.errorMessage = error;
           }
         })

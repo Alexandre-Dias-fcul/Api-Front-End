@@ -18,6 +18,8 @@ export class ParticipantNewComponent {
 
   idAppointment: number = 0;
 
+  errorMessage: string | null = null;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private authorization: AuthorizationService,
@@ -59,23 +61,29 @@ export class ParticipantNewComponent {
       const email = this.participantForm.get('email')?.value;
 
       if (type === 'Agent') {
-        this.agentService.getAgentByEmail(email).subscribe({
+        this.agentService.getAgentByEmail(email).subscribe(
+          {
 
-          next: (agent) => {
-            if (agent) {
-              this.appointmentService.addParticipant(this.idAppointment, agent.id).subscribe({
-                next: () => {
-                  this.router.navigate(['/main-page', 'participant-list', this.idAppointment]);
-                },
-                error: (err) => {
-                  console.error('Error adding participant:', err);
-                }
-              });
-            } else {
-              this.participantForm.get('email')?.setErrors({ notFound: true });
+            next: (agent) => {
+              if (agent) {
+                this.appointmentService.addParticipant(this.idAppointment, agent.id).subscribe({
+                  next: () => {
+                    this.router.navigate(['/main-page', 'participant-list', this.idAppointment]);
+                  },
+                  error: (error) => {
+                    console.error('Error adding participant:', error);
+                    this.errorMessage = error;
+                  }
+                });
+              } else {
+                this.participantForm.get('email')?.setErrors({ notFound: true });
+              }
+            },
+            error: (error) => {
+              console.error('Erro ao obter agent por email', error);
+              this.errorMessage = error;
             }
-          }
-        });
+          });
       }
       else if (type === 'Staff') {
 
@@ -87,13 +95,17 @@ export class ParticipantNewComponent {
                 next: () => {
                   this.router.navigate(['/main-page', 'participant-list', this.idAppointment]);
                 },
-                error: (err) => {
-                  console.error('Error adding participant:', err);
+                error: (error) => {
+                  console.error('Error adding participant:', error);
+                  this.errorMessage = error;
                 }
               });
             } else {
               this.participantForm.get('email')?.setErrors({ notFound: true });
             }
+          }, error: (error) => {
+            console.error("Erro ao obter staff por email:", error);
+            this.errorMessage = error;
           }
         });
       }
