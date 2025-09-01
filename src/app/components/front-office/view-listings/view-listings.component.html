@@ -12,4 +12,7 @@
             <span>{{list.price}} €</span>
         </div>
     </section>
+    <div class="error-message" *ngIf="errorMessage != null">
+        {{ errorMessage }}
+    </div>
 </div>

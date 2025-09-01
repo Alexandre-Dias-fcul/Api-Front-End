@@ -11,3 +11,6 @@
         <button (click)='deleteFavorite(favoriteListing[1].id)' class="btn-remove">Remover</button>
     </div>
 </div>
+<div class="error-message" *ngIf="errorMessage != null">
+    {{ errorMessage }}
+</div>

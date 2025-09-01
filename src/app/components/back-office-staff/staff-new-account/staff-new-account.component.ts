@@ -15,6 +15,7 @@ export class StaffNewAccountComponent {
   accountForm: FormGroup;
   staffId: number;
   continue: number;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -51,6 +52,7 @@ export class StaffNewAccountComponent {
         },
         error: (error) => {
           console.error('Erro ao criar conta:', error);
+          this.errorMessage = error;
         }
       });
 

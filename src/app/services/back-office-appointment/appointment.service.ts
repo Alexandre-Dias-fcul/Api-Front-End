@@ -93,6 +93,6 @@ export class AppointmentService {
         console.error('Erro na chamada  deleteParticipant', error);
         return throwError(() => new Error('Erro ao apagar participant.'))
       })
-    );;
+    );
   }
 }

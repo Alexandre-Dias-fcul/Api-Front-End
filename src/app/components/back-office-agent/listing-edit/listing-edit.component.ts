@@ -35,6 +35,8 @@ export class ListingEditComponent {
       agentId: 0
     }
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
     private router: Router,
@@ -74,26 +76,32 @@ export class ListingEditComponent {
       return;
     }
 
-    this.listingService.getListingById(this.id).subscribe((data: listing) => {
+    this.listingService.getListingById(this.id).subscribe({
+      next: (data: listing) => {
 
-      this.listing = data;
+        this.listing = data;
 
-      this.listingForm.patchValue({
+        this.listingForm.patchValue({
 
-        type: data.type,
-        status: data.status,
-        numberOfRooms: data.numberOfRooms,
-        numberOfBathrooms: data.numberOfKitchens,
-        numberOfKitchens: data.numberOfKitchens,
-        price: data.price,
-        location: data.location,
-        area: data.area,
-        parking: data.parking,
-        description: data.description,
-        mainImageFileName: data.mainImageFileName,
-        otherImagesFileNames: data.otherImagesFileNames
-      });
+          type: data.type,
+          status: data.status,
+          numberOfRooms: data.numberOfRooms,
+          numberOfBathrooms: data.numberOfKitchens,
+          numberOfKitchens: data.numberOfKitchens,
+          price: data.price,
+          location: data.location,
+          area: data.area,
+          parking: data.parking,
+          description: data.description,
+          mainImageFileName: data.mainImageFileName,
+          otherImagesFileNames: data.otherImagesFileNames
+        });
 
+      },
+      error: (error) => {
+        console.error('Erro ao obter Listing:', error);
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -111,9 +119,9 @@ export class ListingEditComponent {
 
           this.router.navigate(['/main-page/listing-list']); // Redireciona para a lista de agentes após a atualizaçã
         },
-        error: (err) => {
-          console.error('Erro ao atualizar listing:', err);
-
+        error: (error) => {
+          console.error('Erro ao atualizar listing:', error);
+          this.errorMessage = error;
         }
       });
     }

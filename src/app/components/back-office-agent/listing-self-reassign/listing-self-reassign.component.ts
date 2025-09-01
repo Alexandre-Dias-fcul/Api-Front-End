@@ -15,6 +15,8 @@ export class ListingSelfReassignComponent {
 
   idListing: number;
 
+  errorMessage: string | null = null;
+
   constructor(private route: ActivatedRoute,
     private authorization: AuthorizationService,
     private router: Router,
@@ -38,10 +40,18 @@ export class ListingSelfReassignComponent {
 
   reassign() {
 
-    this.listingService.selfReassign(this.idListing).subscribe();
+    this.listingService.selfReassign(this.idListing).subscribe({
+      next: () => {
 
-    this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
-      window.location.reload();
+        this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
+          window.location.reload();
+        });
+      },
+      error: (error) => {
+        console.error('Erro no SelfReassign:', error);
+        this.errorMessage = error;
+
+      }
     });
   }
 }

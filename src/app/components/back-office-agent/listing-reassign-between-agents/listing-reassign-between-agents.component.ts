@@ -17,6 +17,7 @@ export class ListingReassignBetweenAgentsComponent {
   reassignForm: FormGroup;
   idListing: number;
   idAgent: number;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -51,24 +52,39 @@ export class ListingReassignBetweenAgentsComponent {
 
       const emailAgent = this.reassignForm.get('emailAgent')?.value; // Obtém o email do agente do formulário
 
-      this.agentService.getAgentByEmail(emailAgent).subscribe((agent) => {
+      this.agentService.getAgentByEmail(emailAgent).subscribe({
+        next: (agent) => {
 
-        if (!agent) {
-          console.error(`Agente com email ${emailAgent} não encontrado.`);
-          return;
+          if (!agent) {
+            console.error(`Agente com email ${emailAgent} não encontrado.`);
+            return;
+          }
+
+          this.reassign(agent.id);
+        },
+        error: (error) => {
+          console.error('Erro ao obter agent por email', error);
+          this.errorMessage = error;
         }
-
-        this.reassign(agent.id);
       });
     }
   }
 
   reassign(idAgent: number) {
 
-    this.listingService.reassignBetween(this.idListing, idAgent).subscribe();
+    this.listingService.reassignBetween(this.idListing, idAgent).subscribe({
+      next: () => {
 
-    this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
-      window.location.reload();
+        this.router.navigate(['/main-page/agent-reassign/', this.idAgent]).then(() => {
+          window.location.reload();
+        });
+
+      }, error: (error) => {
+        console.error('Erro no ReassignBetween', error);
+        this.errorMessage = error;
+      }
     });
+
+
   }
 }

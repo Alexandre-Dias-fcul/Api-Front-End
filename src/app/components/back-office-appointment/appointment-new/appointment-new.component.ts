@@ -15,6 +15,8 @@ export class AppointmentNewComponent {
 
   appointmentForm: FormGroup;
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
     private router: Router,
@@ -60,6 +62,7 @@ export class AppointmentNewComponent {
         },
         error: (error) => {
           console.error('Error creating appointment:', error);
+          this.errorMessage = error;
         }
       });
 

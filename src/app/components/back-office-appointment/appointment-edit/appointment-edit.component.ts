@@ -28,6 +28,8 @@ export class AppointmentEditComponent {
       status: 0
     }
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private appointmentService: AppointmentService,
     private router: Router,
@@ -62,20 +64,26 @@ export class AppointmentEditComponent {
       return;
     }
 
-    this.appointmentService.getAppointmentById(this.id).subscribe((data: appointment) => {
+    this.appointmentService.getAppointmentById(this.id).subscribe({
+      next: (data) => {
 
-      this.appointment = data;
+        this.appointment = data;
 
-      this.appointmentForm.patchValue({
+        this.appointmentForm.patchValue({
 
-        title: data.title,
-        description: data.description,
-        date: this.toDateInputString(data.date),
-        hourStart: data.hourStart?.slice(0, 5),
-        hourEnd: data.hourStart?.slice(0, 5),
-        status: String(data.status)
-      });
+          title: data.title,
+          description: data.description,
+          date: this.toDateInputString(data.date),
+          hourStart: data.hourStart?.slice(0, 5),
+          hourEnd: data.hourStart?.slice(0, 5),
+          status: String(data.status)
+        });
 
+      },
+      error: (error) => {
+        console.error('Erro ao obter appointment:', error);
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -93,12 +101,13 @@ export class AppointmentEditComponent {
       appointmentData.id = this.id;
 
       this.appointmentService.updateAppointment(appointmentData).subscribe({
-        next: (response) => {
+        next: () => {
           this.appointmentForm.reset();
           this.router.navigate(['/main-page', 'appointment-list']);
         },
         error: (error) => {
           console.error('Error creating appointment:', error);
+          this.errorMessage = error;
         }
       });
 
