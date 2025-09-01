@@ -16,6 +16,7 @@ export class ListingReassignToAgentComponent {
 
   reassignForm: FormGroup;
   idListing: number;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -60,6 +61,7 @@ export class ListingReassignToAgentComponent {
       }
         , error => {
           console.error('Erro ao buscar agente por email:', error);
+          this.errorMessage = error;
         });
     }
     else {
@@ -72,6 +74,7 @@ export class ListingReassignToAgentComponent {
       this.router.navigate(['/main-page/listing-list']);
     }, error => {
       console.error('Erro ao reatribuir o listing:', error);
+      this.errorMessage = error;
     });
   }
 }

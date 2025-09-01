@@ -31,6 +31,8 @@ export class ParticipantListComponent {
 
   employeesParticipants: Array<any>[] = [];
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -63,8 +65,9 @@ export class ParticipantListComponent {
         this.getStaff(this.appointment);
         console.log(this.employeesParticipants + "employeesParticipants");
       },
-      error: (err) => {
-        console.error('Error fetching appointment:', err);
+      error: (error) => {
+        console.error('Error fetching appointment:', error);
+        this.errorMessage = error;
       }
     });
   }
@@ -75,8 +78,9 @@ export class ParticipantListComponent {
         next: () => {
           window.location.reload();
         },
-        error: (err) => {
-          console.error('Error deleting participant:', err);
+        error: (error) => {
+          console.error('Error deleting participant:', error);
+          this.errorMessage = error;
         }
       });
     }
@@ -92,8 +96,9 @@ export class ParticipantListComponent {
           }
 
         },
-        error: (err) => {
-          console.error('Error fetching agent:', err);
+        error: (error) => {
+          console.error('Error fetching agent:', error);
+          this.errorMessage = error;
         }
       });
     }
@@ -108,8 +113,9 @@ export class ParticipantListComponent {
           }
 
         },
-        error: (err) => {
-          console.error('Error fetching staff:', err);
+        error: (error) => {
+          console.error('Error fetching staff:', error);
+          this.errorMessage = error;
         }
       });
     }

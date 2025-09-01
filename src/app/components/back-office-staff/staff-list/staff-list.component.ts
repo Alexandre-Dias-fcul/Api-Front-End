@@ -13,6 +13,7 @@ import { StaffService } from '../../../services/back-office-staff/staff.service'
 })
 export class StaffListComponent {
   staffs: staff[] = [];
+  errorMessage: string | null = null;
 
   constructor(
     private authorization: AuthorizationService,
@@ -34,6 +35,7 @@ export class StaffListComponent {
       },
       error: (error) => {
         console.error('Error fetching staffs:', error);
+        this.errorMessage = error;
       }
     })
   }
@@ -44,8 +46,9 @@ export class StaffListComponent {
         next: () => {
           window.location.reload();
         },
-        error: (err) => {
-          console.error("Error deleting staff.");
+        error: (error) => {
+          console.error("Error deleting staff:", error);
+          this.errorMessage = error;
         }
       })
     }

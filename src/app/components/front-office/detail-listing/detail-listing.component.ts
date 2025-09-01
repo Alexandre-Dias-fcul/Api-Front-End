@@ -64,6 +64,8 @@ export class DetailListingComponent {
 
   isSubmited = false;
 
+  errorMessage: string | null = null;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private listingService: ListingService,
@@ -86,71 +88,89 @@ export class DetailListingComponent {
 
     this.role = this.authorization.getRole();
 
-    if (!this.role || !userId || this.role !== 'User') {
-      this.router.navigate(['/front-page', 'login-user']);
-
-      return;
-    }
-
     if (id) {
-      this.listingService.getListingById(id).subscribe((response) => {
+      this.listingService.getListingById(id).subscribe(
+        {
+          next: (response) => {
 
-        this.listing = response;
+            this.listing = response;
 
-        this.agentService.getAgentById(response.agentId).subscribe((data) => {
+            this.agentService.getAgentById(response.agentId).subscribe(
+              {
+                next: (data) => {
 
-          this.agent = data;
+                  this.agent = data;
 
-        });
-
-        this.feedBackService.getFeedBackByListingId(this.listing.id).subscribe({
-
-          next: (data) => {
-
-            const feedBacks = data;
-
-            feedBacks.forEach((feedBack) => {
-
-              if (feedBack.listingId == this.listing.id && feedBack.userId == userId) {
-                this.isSubmited = true;
-              }
-
-              this.userService.getUserById(feedBack.userId).subscribe({
-
-                next: (response) => {
-
-                  const feedBackData = {
-                    id: feedBack.id,
-                    rate: feedBack.rate,
-                    comment: feedBack.comment,
-                    commentDate: this.toDateInputString(feedBack.commentDate),
-                    listingId: feedBack.listingId,
-                    userId: feedBack.userId
-                  }
-
-                  this.feedBackUsers.push([feedBackData, response]);
-
-                }
-                , error: (error) => {
-                  console.error("Erro ao buscar usuário.", error);
+                }, error: (error) => {
+                  console.error('Erro ao obter agent:', error);
+                  this.errorMessage = error;
                 }
 
               });
+
+            this.feedBackService.getFeedBackByListingId(this.listing.id).subscribe({
+
+              next: (data) => {
+
+                const feedBacks = data;
+
+                feedBacks.forEach((feedBack) => {
+
+                  if (feedBack.listingId == this.listing.id && feedBack.userId == userId) {
+                    this.isSubmited = true;
+                  }
+
+                  this.userService.getUserById(feedBack.userId).subscribe({
+
+                    next: (response) => {
+
+                      const feedBackData = {
+                        id: feedBack.id,
+                        rate: feedBack.rate,
+                        comment: feedBack.comment,
+                        commentDate: this.toDateInputString(feedBack.commentDate),
+                        listingId: feedBack.listingId,
+                        userId: feedBack.userId
+                      }
+
+                      this.feedBackUsers.push([feedBackData, response]);
+
+                    }
+                    , error: (error) => {
+                      console.error("Erro ao buscar usuário:", error);
+                      this.errorMessage = error;
+                    }
+
+                  });
+                });
+              }, error: (error) => {
+                console.error("Erro ao listar feedBacks:", error);
+                this.errorMessage = error;
+              }
             });
+
+
           }, error: (error) => {
-            console.error("Erro ao listar feedBacks.", error);
+            console.error('Erro ao obter listing:', error);
+            this.errorMessage = error;
           }
         });
-
-
-      });
 
     }
   }
 
   addFavorite() {
 
-    this.favoriteService.addFavorite(this.listing.id).subscribe();
+    this.favoriteService.addFavorite(this.listing.id).subscribe({
+      next: () => {
+
+      },
+      error: (error) => {
+
+        console.error('Erro ao acicionar aos favoritos:', error);
+        this.errorMessage = error;
+      }
+    });
 
   }
 
@@ -177,7 +197,8 @@ export class DetailListingComponent {
         },
         error: (error) => {
 
-          console.error('Erro ao adicionar FeedBack.', error);
+          console.error('Erro ao adicionar FeedBack:', error);
+          this.errorMessage = error;
         }
       }
       );

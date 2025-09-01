@@ -46,6 +46,8 @@ export class StaffEditComponent {
       }
     };
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -83,27 +85,34 @@ export class StaffEditComponent {
       return;
     }
 
-    this.staffService.getByIdWithAll(this.id).subscribe((data) => {
+    this.staffService.getByIdWithAll(this.id).subscribe(
+      {
+        next: (data) => {
 
-      this.staff = data;
+          this.staff = data;
 
-      this.staffForm.patchValue({
-        name:
-        {
-          firstName: data.name.firstName,
-          middleNames: Array.isArray(data.name.middleNames) &&
-            data.name.middleNames.length > 0 ? data.name.middleNames.join(' ') : '',
-          lastName: data.name.lastName
+          this.staffForm.patchValue({
+            name:
+            {
+              firstName: data.name.firstName,
+              middleNames: Array.isArray(data.name.middleNames) &&
+                data.name.middleNames.length > 0 ? data.name.middleNames.join(' ') : '',
+              lastName: data.name.lastName
+            },
+            isActive: data.isActive,
+            gender: data.gender,
+            dateOfBirth: this.toDateInputString(data.dateOfBirth),
+            hiredDate: this.toDateInputString(data.hiredDate),
+            dateOfTermination: this.toDateInputString(data.dateOfTermination),
+            photoFileName: data.photoFileName
+
+          })
         },
-        isActive: data.isActive,
-        gender: data.gender,
-        dateOfBirth: this.toDateInputString(data.dateOfBirth),
-        hiredDate: this.toDateInputString(data.hiredDate),
-        dateOfTermination: this.toDateInputString(data.dateOfTermination),
-        photoFileName: data.photoFileName
-
+        error: (error) => {
+          console.error('Erro ao obter staff:', error);
+          this.errorMessage = error;
+        }
       })
-    })
   }
 
   onSubmit() {
@@ -133,6 +142,7 @@ export class StaffEditComponent {
         },
         error: (error) => {
           console.error('Erro ao alterar Administrativo:', error);
+          this.errorMessage = error;
         }
       })
     }

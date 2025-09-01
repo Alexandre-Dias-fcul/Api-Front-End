@@ -80,7 +80,7 @@ export class UserEditAccountComponent {
           })
         },
         error: (error) => {
-          console.error('Erro ao obter user.');
+          console.error('Erro ao obter user:', error);
           this.errorMessage = error;
         }
       }

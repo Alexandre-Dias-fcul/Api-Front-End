@@ -47,7 +47,7 @@ export class UserListComponent {
           window.location.reload();
         },
         error: (error) => {
-          console.error("Error deleting user", error);
+          console.error("Error deleting user:", error);
           this.errorMessage = error;
         }
       });

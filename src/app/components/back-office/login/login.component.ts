@@ -14,7 +14,7 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 export class LoginComponent {
 
   loginForm: FormGroup;
-  responseMessage: string = ''; // Mensagem de resposta da API
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorizationService: AuthorizationService,
@@ -32,8 +32,7 @@ export class LoginComponent {
       const loginData: login = this.loginForm.value as login; // Obtém os valores do formulário
       this.loginService.loginEmployee(loginData).subscribe({
         next: (response) => {
-          this.responseMessage = response; // Exibe a resposta da API
-          console.log('Login bem-sucedido:', response);
+
           this.authorizationService.setToken(response); // Armazena o token de autenticação
           this.loginForm.reset(); // Reseta o formulário após o login
 
@@ -51,9 +50,9 @@ export class LoginComponent {
 
 
         },
-        error: (err) => {
-          console.error('Erro no login:', err);
-          this.responseMessage = 'Erro ao realizar login. Tente novamente.';
+        error: (error) => {
+          console.error('Erro no login:', error);
+          this.errorMessage = error;
         }
       });
 

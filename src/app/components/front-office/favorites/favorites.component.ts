@@ -3,7 +3,6 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 import { Router } from '@angular/router';
 import { FavoriteService } from '../../../services/front-office/favorite.service';
 import { CommonModule } from '@angular/common';
-import { listing } from '../../../models/listing';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
 
 @Component({
@@ -15,6 +14,8 @@ import { ListingService } from '../../../services/back-office-agent/listing.serv
 export class FavoritesComponent {
 
   favoriteListings: Array<any>[] = [];
+
+  errorMessage: string | null = null;
 
   constructor(private authorization: AuthorizationService,
     private router: Router,
@@ -29,26 +30,45 @@ export class FavoritesComponent {
       return;
     }
 
-    this.favorite.getAllFavorites().subscribe((response) => {
+    this.favorite.getAllFavorites().subscribe({
+      next: (response) => {
 
-      const favorites = response;
+        const favorites = response;
 
-      favorites.forEach(favorite => {
+        favorites.forEach(favorite => {
 
-        this.listingService.getListingById(favorite.listingId).subscribe((data) => {
-          this.favoriteListings.push([data, favorite]);
+          this.listingService.getListingById(favorite.listingId).subscribe(
+            {
+              next: (data) => {
+                this.favoriteListings.push([data, favorite]);
+              }, error: (error) => {
+                console.error('Erro ao obter listing:', error);
+
+                this.errorMessage = error;
+              }
+            });
+
         });
-      })
 
-
-
+      }, error: (error) => {
+        console.error('Erro ao listar favoritos:', error);
+        this.errorMessage = error;
+      }
     });
   }
 
   deleteFavorite(id: number) {
-    this.favorite.deleteFavorite(id).subscribe(() => {
+    this.favorite.deleteFavorite(id).subscribe(
+      {
+        next: () => {
 
-      window.location.reload();
-    });
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Erro ao apagar favorito:', error);
+          this.errorMessage = error;
+        }
+
+      });
   }
 }

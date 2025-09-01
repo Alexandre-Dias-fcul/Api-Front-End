@@ -15,6 +15,7 @@ import { listing } from '../../../models/listing';
 export class ListingNewComponent {
 
   listingForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -61,9 +62,9 @@ export class ListingNewComponent {
           this.listingForm.reset();
           this.router.navigate(['/main-page/listing-list']);
         },
-        error: (err) => {
-          console.error('Erro ao criar listing:', err);
-
+        error: (error) => {
+          console.error('Erro ao criar listing:', error);
+          this.errorMessage = error;
         }
       });
     } else {

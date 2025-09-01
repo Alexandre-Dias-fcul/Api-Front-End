@@ -32,6 +32,7 @@ export class MainPageComponent {
     supervisorId: null,
     isActive: true,
   };
+  errorMessage: string | null = null;
 
   constructor(private authorization: AuthorizationService,
     private agentService: AgentService,
@@ -67,13 +68,15 @@ export class MainPageComponent {
             },
             error: (error) => {
               console.error('Error fetching staff Data:', error);
+              this.errorMessage = error;
             }
           })
 
         }
       },
-      error: (err) => {
-        console.error('Error fetching agent data:', err); // Log any errors that occur during the fetch
+      error: (error) => {
+        console.error('Error fetching agent data:', error); // Log any errors that occur during the fetch
+        this.errorMessage = error;
       }
     });
 

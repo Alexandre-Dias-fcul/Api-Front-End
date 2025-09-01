@@ -36,6 +36,8 @@ export class AppointmentListComponent {
 
   }
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private router: Router,
     private agentService: AgentService,
@@ -75,14 +77,16 @@ export class AppointmentListComponent {
                 }
                 , error: (error) => {
                   console.error('Error fetching staffParticipants', error);
+                  this.errorMessage = error;
                 }
               }
             )
           }
 
         },
-        error: (err) => {
-          console.error('Error fetching agentWithParticipants:', err);
+        error: (error) => {
+          console.error('Error fetching agentWithParticipants:', error);
+          this.errorMessage = error;
         }
       }
     );
@@ -95,8 +99,9 @@ export class AppointmentListComponent {
         next: () => {
           window.location.reload();
         },
-        error: (err) => {
-          console.error('Error deleting appointment:', err);
+        error: (error) => {
+          console.error('Error deleting appointment:', error);
+          this.errorMessage = error
         }
       });
     }
@@ -109,8 +114,9 @@ export class AppointmentListComponent {
         next: () => {
           window.location.reload();
         },
-        error: (err) => {
-          console.error('Error deleting participant:', err);
+        error: (error) => {
+          console.error('Error deleting participant:', error);
+          this.errorMessage = error;
         }
       });
     }

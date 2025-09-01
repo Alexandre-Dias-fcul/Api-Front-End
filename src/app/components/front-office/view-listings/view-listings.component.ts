@@ -15,14 +15,17 @@ export class ViewListingsComponent {
 
   listings: listing[] = [];
 
+  errorMessage: string | null = null;
+
   constructor(private listingService: ListingService) {
     this.listingService.getAllListings().subscribe(
       {
         next: (data) => {
           this.listings = data;
         },
-        error: (err) => {
-          console.error('Error fetching listings:', err);
+        error: (error) => {
+          console.error('Error fetching listings:', error);
+          this.errorMessage = error;
         }
       }
     );

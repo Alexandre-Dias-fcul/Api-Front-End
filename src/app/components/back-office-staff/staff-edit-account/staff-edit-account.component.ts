@@ -45,6 +45,8 @@ export class StaffEditAccountComponent {
 
     }
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private staffService: StaffService,
     private router: Router,
@@ -85,6 +87,7 @@ export class StaffEditAccountComponent {
       },
       error: (error) => {
         console.error('Erro ao obter staff:', error);
+        this.errorMessage = error;
       }
     });
 
@@ -105,6 +108,7 @@ export class StaffEditAccountComponent {
         error: (error) => {
 
           console.error("Erro ao atualizar account:", error);
+          this.errorMessage = error;
         }
       })
     }

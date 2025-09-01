@@ -20,6 +20,8 @@ export class ListingListComponent {
 
   role: string | null = null;
 
+  errorMessage: string | null = null;
+
   constructor(private listingService: ListingService,
     private authorization: AuthorizationService,
     private router: Router) {
@@ -48,8 +50,9 @@ export class ListingListComponent {
         next: (data) => {
           this.listings = data;
         },
-        error: (err) => {
-          console.error('Error fetching listings:', err);
+        error: (error) => {
+          console.error('Error fetching listings:', error);
+          this.errorMessage = error;
         }
       }
     );
@@ -61,10 +64,10 @@ export class ListingListComponent {
       this.listingService.deleteListing(id).subscribe({
         next: () => {
           window.location.reload();
-          console.log('Listing deleted successfully');
         },
-        error: (err) => {
-          console.error('Error deleting listing:', err);
+        error: (error) => {
+          console.error('Error deleting listing:', error);
+          this.errorMessage = error;
         }
       });
     }
