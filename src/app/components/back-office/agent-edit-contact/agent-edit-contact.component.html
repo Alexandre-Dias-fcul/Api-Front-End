@@ -24,8 +24,13 @@
                 <div class="error-message">Valor inválido</div>
                 }
             </div>
-
         </div>
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             <a [routerLink]="['/main-page/agent-contact-list',this.agent.id]" class="btn-reset">Cancelar</a>

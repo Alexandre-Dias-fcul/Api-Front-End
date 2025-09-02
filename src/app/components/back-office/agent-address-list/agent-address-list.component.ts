@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { address } from '../../../models/address';
 
 @Component({
   selector: 'app-agent-address-list',
@@ -41,6 +40,7 @@ export class AgentAddressListComponent {
       }
     }
   };
+  errorMessage: string | null = null;
 
   constructor(
     private agentService: AgentService,
@@ -59,27 +59,29 @@ export class AgentAddressListComponent {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.agentService.getByIdWithAll(id).subscribe(
-      (response: agentAll) => {
+    this.agentService.getByIdWithAll(id).subscribe({
+      next: (response: agentAll) => {
         this.agent = response;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao obter agente:', error);
+        this.errorMessage = error;
       }
-    );
+    });
   }
 
 
   deleteAddress(idAddress: number) {
     if (confirm('Tem a certeza que pretende apagar o endereço?')) {
-      this.agentService.agentDeleteAddress(this.agent.id, idAddress).subscribe(
-        (response) => {
+      this.agentService.agentDeleteAddress(this.agent.id, idAddress).subscribe({
+        next: () => {
           window.location.reload();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error deleting address:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 }

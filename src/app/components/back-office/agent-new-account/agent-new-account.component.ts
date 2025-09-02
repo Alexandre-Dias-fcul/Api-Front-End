@@ -15,6 +15,7 @@ export class AgentNewAccountComponent {
   agentId: number; // Obtém o ID do agente da rota
   accountForm: FormGroup;
   continue: number; // Variável para controlar o fluxo de criação de conta
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -54,6 +55,7 @@ export class AgentNewAccountComponent {
         },
         (error) => {
           console.error('Erro ao criar conta:', error);
+          this.errorMessage = error;
         }
       );
     }

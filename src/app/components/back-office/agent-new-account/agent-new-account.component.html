@@ -21,7 +21,13 @@
             }
         </div>
 
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
 
+        }
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             @if(continue === 1) {

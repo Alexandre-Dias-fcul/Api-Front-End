@@ -15,8 +15,8 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 export class AgentNewComponent {
 
   agentForm: FormGroup;
-  responseMessage: string = ''; // Mensagem de resposta da API
   id: number | null = null; // ID do agente, usado para determinar se é uma criação ou atualização
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -67,26 +67,32 @@ export class AgentNewComponent {
           : '';
 
         if (agent.supervisorId != null) {
-          this.agentService.getByIdWithAll(agent.supervisorId).subscribe((supervisor) => {
+          this.agentService.getByIdWithAll(agent.supervisorId).subscribe(
+            {
+              next: (supervisor) => {
 
-            this.agentForm.patchValue({
-              name: {
-                firstName: agentData.name.firstName,
-                lastName: agentData.name.lastName,
-                // middleNames já foi transformado em string acima
-                middleNames: middleNamesString
-              },
-              isActive: agentData.isActive,
-              gender: agentData.gender,
-              dateOfBirth: this.toDateInputString(agentData.dateOfBirth),
-              hiredDate: this.toDateInputString(agentData.hiredDate),
-              dateOfTermination: this.toDateInputString(agentData.dateOfTermination),
-              photoFileName: agentData.photoFileName,
-              role: agentData.role,
-              supervisorEmail: supervisor.entityLink?.account?.email || null,
+                this.agentForm.patchValue({
+                  name: {
+                    firstName: agentData.name.firstName,
+                    lastName: agentData.name.lastName,
+                    // middleNames já foi transformado em string acima
+                    middleNames: middleNamesString
+                  },
+                  isActive: agentData.isActive,
+                  gender: agentData.gender,
+                  dateOfBirth: this.toDateInputString(agentData.dateOfBirth),
+                  hiredDate: this.toDateInputString(agentData.hiredDate),
+                  dateOfTermination: this.toDateInputString(agentData.dateOfTermination),
+                  photoFileName: agentData.photoFileName,
+                  role: agentData.role,
+                  supervisorEmail: supervisor.entityLink?.account?.email || null,
 
+                });
+              }, error: (error) => {
+                console.error('Erro ao obter agent:', error);
+                this.errorMessage = error;
+              }
             });
-          });
         } else {
 
           this.agentForm.patchValue({
@@ -171,8 +177,9 @@ export class AgentNewComponent {
 
               this.saveAgent(agentData);
             },
-            error: (err) => {
-              console.error('Erro ao buscar agent:', err);
+            error: (error) => {
+              console.error('Erro ao buscar agent:', error);
+              this.errorMessage = error;
             }
           }
         )
@@ -191,26 +198,24 @@ export class AgentNewComponent {
       // UPDATE
       this.agentService.updateAgent(agentData).subscribe({
         next: (response) => {
-          console.log('Agente atualizado com sucesso:', response);
-          this.responseMessage = 'Agente atualizado com sucesso!';
           this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
         },
-        error: (err) => {
-          console.error('Erro ao atualizar agente:', err);
-          this.responseMessage = 'Erro ao atualizar agente. Tente novamente.';
+        error: (error) => {
+          console.error('Erro ao atualizar agente:', error);
+          this.errorMessage = error;
         }
       });
     } else {
       // CREATE
       this.agentService.addAgent(agentData).subscribe({
         next: (response) => {
-          console.log('Agente criado com sucesso:', response);
+
           this.agentForm.reset();
           this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
         },
-        error: (err) => {
-          console.error('Erro ao criar agente:', err);
-          this.responseMessage = 'Erro ao criar agente. Tente novamente.';
+        error: (error) => {
+          console.error('Erro ao criar agente:', error);
+          this.errorMessage = error;
         }
       });
     }

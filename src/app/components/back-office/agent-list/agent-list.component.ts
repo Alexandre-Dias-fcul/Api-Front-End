@@ -15,6 +15,7 @@ export class AgentListComponent {
 
   agents: agent[] = []; // Array to hold agent data
   id: number;
+  errorMessage: string | null = null;
 
   constructor(private agentService: AgentService,
     private authorization: AuthorizationService,
@@ -43,8 +44,9 @@ export class AgentListComponent {
       next: (data) => {
         this.agents = data; // Assign the fetched data to the agents array// Log the agents data to the console
       },
-      error: (err) => {
-        console.error('Error fetching agents:', err); // Log any errors that occur during the fetch
+      error: (error) => {
+        console.error('Error fetching agents:', error); // Log any errors that occur during the fetch
+        this.errorMessage = error;
       }
     }
 
@@ -57,8 +59,9 @@ export class AgentListComponent {
         next: () => {
           window.location.reload();
         },
-        error: (err) => {
+        error: (error) => {
           console.error("Erro deleting agent.");
+          this.errorMessage = error;
         }
       });
     }
