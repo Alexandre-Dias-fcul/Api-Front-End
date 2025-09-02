@@ -14,6 +14,7 @@ export class AgentNewAddressComponent {
 
   agentId: number;
   addressForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -45,14 +46,15 @@ export class AgentNewAddressComponent {
     if (this.addressForm.valid) {
       const addressData = this.addressForm.value;
 
-      this.agentService.agentAddAddress(addressData, this.agentId).subscribe(
-        (response) => {
+      this.agentService.agentAddAddress(addressData, this.agentId).subscribe({
+        next: () => {
           this.router.navigate(['/main-page/agent-address-list', this.agentId]); // Redireciona para a lista de agentes após adicionar o endereço
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao adicionar endereço:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 }

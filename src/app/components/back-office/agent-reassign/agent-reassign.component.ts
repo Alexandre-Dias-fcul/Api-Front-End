@@ -33,6 +33,8 @@ export class AgentReassignComponent {
 
   id: number;
 
+  errorMessage: string | null = null;
+
   constructor(private authorization: AuthorizationService,
     private agentService: AgentService,
     private route: ActivatedRoute,
@@ -62,8 +64,9 @@ export class AgentReassignComponent {
       next: (data) => {
         this.agent = data;
       },
-      error: (err) => {
-        console.error('Error fetching agent:', err);
+      error: (error) => {
+        console.error('Error fetching agent:', error);
+        this.errorMessage = error;
 
       }
     })

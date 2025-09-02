@@ -43,6 +43,8 @@ export class AgentEditAccountComponent {
     }
   };
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -76,6 +78,7 @@ export class AgentEditAccountComponent {
       },
       (error) => {
         console.error('Erro ao obter agente:', error);
+        this.errorMessage = error;
       }
     );
   }
@@ -86,15 +89,16 @@ export class AgentEditAccountComponent {
 
       const accountData = this.accountForm.value;
 
-      this.agentService.agentUpdateAccount(accountData, this.agent.id).subscribe(
-        () => {
+      this.agentService.agentUpdateAccount(accountData, this.agent.id).subscribe({
+        next: () => {
           this.accountForm.reset();
           this.router.navigate(['/main-page/agent-edit', this.agent.id]);
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao editar conta:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 

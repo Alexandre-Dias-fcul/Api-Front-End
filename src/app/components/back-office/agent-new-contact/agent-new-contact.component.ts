@@ -15,6 +15,7 @@ export class AgentNewContactComponent {
 
   agentId: number;
   contactForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -61,14 +62,15 @@ export class AgentNewContactComponent {
         value: value,
       };
 
-      this.agentService.agentAddContact(contactData, this.agentId).subscribe(
-        (response) => {
+      this.agentService.agentAddContact(contactData, this.agentId).subscribe({
+        next: () => {
           this.router.navigate(['/main-page/agent-contact-list', this.agentId]);
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao adicionar contacto:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 
