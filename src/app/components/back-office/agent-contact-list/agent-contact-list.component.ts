@@ -42,6 +42,8 @@ export class AgentContactListComponent {
     }
   };
 
+  errorMessage: string | null = null;
+
   constructor(
     private agentService: AgentService,
     private authorization: AuthorizationService,
@@ -59,26 +61,28 @@ export class AgentContactListComponent {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.agentService.getByIdWithAll(id).subscribe(
-      (response: agentAll) => {
+    this.agentService.getByIdWithAll(id).subscribe({
+      next: (response: agentAll) => {
         this.agent = response;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao obter agente:', error);
+        this.errorMessage = error;
       }
-    );
+    });
   }
 
   deleteContact(idContact: number) {
     if (confirm('Tem a certeza que pretende apagar o contacto?')) {
-      this.agentService.agentDeleteContact(this.agent.id, idContact).subscribe(
-        (response) => {
+      this.agentService.agentDeleteContact(this.agent.id, idContact).subscribe({
+        next: () => {
           window.location.reload();
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao apagar contacto:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 }

@@ -48,6 +48,8 @@ export class AgentEditComponent {
     }
   };
 
+  errorMessage: string | null = null;
+
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -89,37 +91,47 @@ export class AgentEditComponent {
       return;
     }
 
-    this.agentService.getByIdWithAll(this.id).subscribe((data) => {
+    this.agentService.getByIdWithAll(this.id).subscribe({
+      next: (data) => {
 
-      this.agent = data; // Atribui os dados do agente à variável agent
+        this.agent = data; // Atribui os dados do agente à variável agent
 
-      this.isLoaded = true; // Define isLoaded como true após obter os dados
+        this.isLoaded = true; // Define isLoaded como true após obter os dados
 
-      const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
+        const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
 
-      if (this.agent.supervisorId != null) {
-        this.agentService.getByIdWithAll(this.agent.supervisorId).subscribe((supervisor: agentAll) => {
-          const supervisorEmail = supervisor.entityLink?.account?.email || '';
-          this.agentForm.patchValue({ supervisorEmail });
+        if (this.agent.supervisorId != null) {
+          this.agentService.getByIdWithAll(this.agent.supervisorId).subscribe({
+            next: (supervisor: agentAll) => {
+              const supervisorEmail = supervisor.entityLink?.account?.email || '';
+              this.agentForm.patchValue({ supervisorEmail });
+            }, error: (error) => {
+              console.error('Erro ao obter supervisor', error);
+              this.errorMessage = error;
+            }
+          });
+        } else {
+          this.agentForm.patchValue({ supervisorEmail: '' });
+        }
+
+        this.agentForm.patchValue({
+          name: {
+            firstName: data.name.firstName,
+            middleNames: middleNames,
+            lastName: data.name.lastName
+          },
+          isActive: data.isActive,
+          gender: data.gender,
+          dateOfBirth: this.toDateInputString(data.dateOfBirth),
+          hiredDate: this.toDateInputString(data.hiredDate),
+          dateOfTermination: this.toDateInputString(data.dateOfTermination),
+          photoFileName: data.photoFileName,
+          role: data.role
         });
-      } else {
-        this.agentForm.patchValue({ supervisorEmail: '' });
+      }, error: (error) => {
+        console.error('Erro ao obter Agent', error);
+        this.errorMessage = error;
       }
-
-      this.agentForm.patchValue({
-        name: {
-          firstName: data.name.firstName,
-          middleNames: middleNames,
-          lastName: data.name.lastName
-        },
-        isActive: data.isActive,
-        gender: data.gender,
-        dateOfBirth: this.toDateInputString(data.dateOfBirth),
-        hiredDate: this.toDateInputString(data.hiredDate),
-        dateOfTermination: this.toDateInputString(data.dateOfTermination),
-        photoFileName: data.photoFileName,
-        role: data.role
-      });
     });
 
   }
@@ -185,8 +197,9 @@ export class AgentEditComponent {
 
               this.saveAgent(agentData);
             },
-            error: (err) => {
-              console.error('Erro ao buscar agent:', err);
+            error: (error) => {
+              console.error('Erro ao buscar agent:', error);
+              this.errorMessage = error;
             }
           }
         )
@@ -200,8 +213,9 @@ export class AgentEditComponent {
         this.agentForm.reset();
         this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após a atualizaçã
       },
-      error: (err) => {
-        console.error('Erro ao atualizar agente:', err);
+      error: (error) => {
+        console.error('Erro ao atualizar agente:', error);
+        this.errorMessage = error
 
       }
     });

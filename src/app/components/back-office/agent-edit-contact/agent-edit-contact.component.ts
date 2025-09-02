@@ -45,6 +45,8 @@ export class AgentEditContactComponent {
     }
   };
 
+  errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -71,20 +73,23 @@ export class AgentEditContactComponent {
     }
 
     this.agentService.getByIdWithAll(agentId).subscribe(
-      (response: agentAll) => {
-        this.agent = response;
-        const contact = this.agent.entityLink?.contacts?.find(a => a.id === this.contactId);
-        if (contact) {
-          this.contactForm.patchValue({
-            contactType: contact.contactType,
-            value: contact.value
-          });
+      {
+        next:
+          (response: agentAll) => {
+            this.agent = response;
+            const contact = this.agent.entityLink?.contacts?.find(a => a.id === this.contactId);
+            if (contact) {
+              this.contactForm.patchValue({
+                contactType: contact.contactType,
+                value: contact.value
+              });
+            }
+          },
+        error: (error) => {
+          console.error('Erro ao obter agente:', error);
+          this.errorMessage = error;
         }
-      },
-      (error) => {
-        console.error('Erro ao obter agente:', error);
-      }
-    );
+      });
   }
 
 
@@ -110,15 +115,15 @@ export class AgentEditContactComponent {
         value: value,
       };
 
-      this.agentService.agentUpdateContact(contactData, this.agent.id, this.contactId).subscribe(
-        (response) => {
+      this.agentService.agentUpdateContact(contactData, this.agent.id, this.contactId).subscribe({
+        next: () => {
           this.router.navigate(['/main-page/agent-contact-list', this.agent.id]);
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao adicionar contacto:', error);
+          this.errorMessage = error;
         }
-      );
-
+      });
 
     }
   }

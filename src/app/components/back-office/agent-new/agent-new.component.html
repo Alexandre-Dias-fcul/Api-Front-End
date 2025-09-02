@@ -5,8 +5,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">Primeiro Nome</label>
-                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome"
-                        required>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome">
                     @if(agentForm.get('name.firstName')?.invalid &&
                     (agentForm.get('name.firstName')?.dirty || agentForm.get('name.firstName')?.touched))
                     {
@@ -16,8 +15,7 @@
 
                 <div class="form-group">
                     <label for="lastName">Ultimo Nome</label>
-                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome"
-                        required>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome">
                     @if(agentForm.get('name.lastName')?.invalid &&
                     (agentForm.get('name.lastName')?.dirty || agentForm.get('name.lastName')?.touched))
                     {
@@ -41,7 +39,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="isActive">Activo</label>
-                <select id="isActive" name="isActive" formControlName="isActive" required>
+                <select id="isActive" name="isActive" formControlName="isActive">
                     <option value="true">Sim</option>
                     <option value="false">Não</option>
                 </select>
@@ -54,7 +52,7 @@
 
             <div class="form-group">
                 <label for="role">Função</label>
-                <select id="role" name="role" formControlName="role" required>
+                <select id="role" name="role" formControlName="role">
                     <option value='0'>Agente</option>
                     <option value='1'>Gestor</option>
                     <option value='2'>Corretor</option>
@@ -80,7 +78,7 @@
 
             <div class="form-group">
                 <label for="gender">Género</label>
-                <select id="gender" name="gender" formControlName="gender" required>
+                <select id="gender" name="gender" formControlName="gender">
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                 </select>
@@ -141,7 +139,12 @@
             </div>
         </div>
 
-
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
         <div class="form-actions">
             <button type="submit" class="btn-submit">Salvar</button>
             <a [routerLink]="['/main-page/agent-list']" class="btn-reset">Cancelar</a>

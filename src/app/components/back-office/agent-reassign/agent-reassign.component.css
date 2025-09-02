@@ -210,3 +210,32 @@
     cursor: not-allowed;
     /* Cursor de não permitido */
 }
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 16px;
+    margin: 10px 0;
+
+    color: #b71c1c;
+    /* vermelho forte */
+    background-color: #fdecea;
+    /* vermelho bem clarinho */
+    border: 1px solid #f5c2c2;
+    /* borda suave */
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* leve sombra */
+}
+
+.error-message::before {
+    content: "⚠️";
+    /* Ícone de alerta */
+    font-size: 18px;
+}

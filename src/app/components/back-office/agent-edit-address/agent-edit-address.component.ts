@@ -46,6 +46,7 @@ export class AgentEditAddressComponent {
     }
   };
 
+  errorMessage: string | null = null;
 
 
   constructor(private fb: FormBuilder,
@@ -74,8 +75,8 @@ export class AgentEditAddressComponent {
       return;
     }
 
-    this.agentService.getByIdWithAll(agentId).subscribe(
-      (response: agentAll) => {
+    this.agentService.getByIdWithAll(agentId).subscribe({
+      next: (response: agentAll) => {
         this.agent = response;
         const address = this.agent.entityLink?.addresses?.find(a => a.id === this.addressId);
         if (address) {
@@ -87,10 +88,11 @@ export class AgentEditAddressComponent {
           });
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao obter agente:', error);
+        this.errorMessage = error;
       }
-    );
+    });
 
   }
 
@@ -100,14 +102,15 @@ export class AgentEditAddressComponent {
       const addressData = this.addressForm.value;
       addressData.id = this.addressId;
 
-      this.agentService.agentUpdateAddress(addressData, this.agent.id, this.addressId).subscribe(
-        (response) => {
+      this.agentService.agentUpdateAddress(addressData, this.agent.id, this.addressId).subscribe({
+        next: () => {
           this.router.navigate(['/main-page/agent-address-list', this.agent.id]);
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao editar endereço:', error);
+          this.errorMessage = error;
         }
-      );
+      });
     }
   }
 
