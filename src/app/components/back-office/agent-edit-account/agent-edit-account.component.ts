@@ -100,6 +100,10 @@ export class AgentEditAccountComponent {
         }
       });
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+    }
   }
 
 }

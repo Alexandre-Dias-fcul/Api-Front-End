@@ -59,5 +59,9 @@ export class AgentNewAccountComponent {
         }
       );
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+    }
   }
 }

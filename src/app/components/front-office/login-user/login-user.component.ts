@@ -49,7 +49,8 @@ export class LoginUserComponent {
       });
 
     } else {
-      console.log('Formulário inválido');
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 

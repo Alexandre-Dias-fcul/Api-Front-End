@@ -68,6 +68,10 @@ export class ListingReassignBetweenAgentsComponent {
         }
       });
     }
+    else {
+      console.log('Formulário invárido.');
+      this.errorMessage = 'Formulário inválido';
+    }
   }
 
   reassign(idAgent: number) {

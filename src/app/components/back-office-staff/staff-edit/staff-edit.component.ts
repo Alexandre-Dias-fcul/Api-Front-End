@@ -147,7 +147,8 @@ export class StaffEditComponent {
       })
     }
     else {
-      console.error("Formulário inválido");
+      console.error("Formulário inválido.");
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 

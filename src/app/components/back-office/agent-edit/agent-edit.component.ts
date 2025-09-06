@@ -205,6 +205,10 @@ export class AgentEditComponent {
         )
       }
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+    }
   }
 
   private saveAgent(agentData: agent) {
