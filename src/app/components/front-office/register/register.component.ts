@@ -78,7 +78,8 @@ export class RegisterComponent {
       });
 
     } else {
-      console.log('Formulário de registro inválido');
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 

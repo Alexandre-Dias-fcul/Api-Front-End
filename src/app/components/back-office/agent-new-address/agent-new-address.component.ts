@@ -56,5 +56,9 @@ export class AgentNewAddressComponent {
         }
       });
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulario inválido';
+    }
   }
 }

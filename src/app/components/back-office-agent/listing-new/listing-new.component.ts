@@ -68,7 +68,8 @@ export class ListingNewComponent {
         }
       });
     } else {
-      console.log('Formulário inválido'); // Mensagem de erro se o formulário for inválido
+      console.log('Formulário inválido.'); // Mensagem de erro se o formulário for inválido
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 }

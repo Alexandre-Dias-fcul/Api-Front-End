@@ -106,6 +106,10 @@ export class UserEditAccountComponent {
         }
       });
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+    }
 
   }
 }
