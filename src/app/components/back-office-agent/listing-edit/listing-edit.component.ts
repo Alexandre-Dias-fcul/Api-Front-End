@@ -125,5 +125,9 @@ export class ListingEditComponent {
         }
       });
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+    }
   }
 }

@@ -66,6 +66,7 @@ export class ListingReassignToAgentComponent {
     }
     else {
       console.log('Formulário inválido'); // Mensagem de erro se o formulário for inválido
+      this.errorMessage = 'Formulário inválido';
     }
   }
 

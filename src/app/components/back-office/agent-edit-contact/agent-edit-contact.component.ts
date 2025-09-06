@@ -126,5 +126,10 @@ export class AgentEditContactComponent {
       });
 
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
+
+    }
   }
 }

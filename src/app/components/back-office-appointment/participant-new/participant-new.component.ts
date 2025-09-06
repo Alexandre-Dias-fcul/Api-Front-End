@@ -111,7 +111,8 @@ export class ParticipantNewComponent {
       }
     }
     else {
-      console.error('Form is invalid');
+      console.error('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 

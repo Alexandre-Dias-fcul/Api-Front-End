@@ -116,6 +116,10 @@ export class EditUserProfileComponent {
         }
       })
     }
+    else {
+      console.log('Formulário inválido.');
+      this.errorMessage = 'Formulario inválido.';
+    }
   }
 
   private toDateInputString(date: Date | string | null | undefined): string | null {

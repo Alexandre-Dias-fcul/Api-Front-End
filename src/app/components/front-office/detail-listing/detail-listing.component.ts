@@ -205,6 +205,7 @@ export class DetailListingComponent {
     }
     else {
       console.error('Formulário inválido.');
+      this.errorMessage = 'Formulário inválido.';
     }
   }
 
