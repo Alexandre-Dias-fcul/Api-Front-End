@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { appointment } from '../../../models/appointment';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
@@ -42,10 +42,10 @@ export class AppointmentEditComponent {
         title: ['', [Validators.required]],
         description: [''],
         date: [null, [Validators.required]],
-        hourStart: ['', [Validators.required]],
-        hourEnd: ['', [Validators.required]],
+        hourStart: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)]],
+        hourEnd: ['', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)]],
         status: ['', [Validators.required]]
-      }
+      }, { validators: this.hoursValidator('hourStart', 'hourEnd') }
     );
 
     const role = this.authorization.getRole();
@@ -116,6 +116,21 @@ export class AppointmentEditComponent {
       this.errorMessage = 'Formulário inválido.';
 
     }
+  }
+
+  private hoursValidator(hourStartField: string, hourEndField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const hourStart = formGroup.get(hourStartField)?.value;
+      const hourEnd = formGroup.get(hourEndField)?.value;
+
+      if (hourStart > hourEnd) {
+        formGroup.get(hourEndField)?.setErrors({ invalidHours: true });
+        return { invalidHours: true };
+      } else {
+        formGroup.get(hourEndField)?.setErrors(null);
+        return null;
+      }
+    };
   }
 
   private toDateInputString(date: Date | string | null | undefined): string | null {
