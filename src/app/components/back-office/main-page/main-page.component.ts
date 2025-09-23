@@ -46,13 +46,13 @@ export class MainPageComponent {
     if (!this.role || (this.role !== 'Agent' && this.role !== 'Manager' && this.role !== 'Broker'
       && this.role !== 'Staff' && this.role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for válido
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
 
     if (!this.id) {
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o ID não for válido
+      this.router.navigate(['/front-page', 'login']);
     }
 
     this.agentService.getAgentById(this.id).subscribe({
@@ -75,7 +75,7 @@ export class MainPageComponent {
         }
       },
       error: (error) => {
-        console.error('Error fetching agent data:', error); // Log any errors that occur during the fetch
+        console.error('Error fetching agent data:', error);
         this.errorMessage = error;
       }
     });
@@ -84,6 +84,6 @@ export class MainPageComponent {
 
   logout() {
     this.authorization.clearToken();
-    this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login ao fazer logout
+    this.router.navigate(['/front-page', 'login']);
   }
 }
