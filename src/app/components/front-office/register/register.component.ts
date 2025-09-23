@@ -62,8 +62,8 @@ export class RegisterComponent {
             next: (accountResponse) => {
               console.log('Usuário registrado com sucesso:', accountResponse);
 
-              this.router.navigate(['/front-page', 'login-user']);  // Redireciona para a página de login após o registro
-              // Redirecionar ou exibir mensagem de sucesso
+              this.router.navigate(['/front-page', 'login-user']);
+
             },
             error: (error) => {
               console.error('Erro ao adicionar conta ao usuário:', error);

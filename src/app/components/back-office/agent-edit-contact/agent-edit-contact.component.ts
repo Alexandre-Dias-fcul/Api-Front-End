@@ -67,7 +67,7 @@ export class AgentEditContactComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -100,7 +100,7 @@ export class AgentEditContactComponent {
       const type = this.contactForm.value.contactType;
       const value = this.contactForm.value.value;
 
-      // Validação simples de email
+
       if (type == 1) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {

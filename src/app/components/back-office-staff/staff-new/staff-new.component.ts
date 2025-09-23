@@ -55,10 +55,8 @@ export class StaffNewComponent {
         {
           next: (staff) => {
 
-            // Ajusta middleNames para string se necessário
-            // 1. Copie o objeto staff
             const staffData = { ...staff };
-            // 2. Verifique se middleNames é um array e converta para string
+
             const middleNamesString = Array.isArray(staff.name.middleNames) && staff.name.middleNames.length > 0
               ? staff.name.middleNames.join(' ')
               : '';

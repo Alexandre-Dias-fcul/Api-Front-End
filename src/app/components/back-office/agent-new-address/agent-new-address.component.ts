@@ -35,7 +35,7 @@ export class AgentNewAddressComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -48,7 +48,7 @@ export class AgentNewAddressComponent {
 
       this.agentService.agentAddAddress(addressData, this.agentId).subscribe({
         next: () => {
-          this.router.navigate(['/main-page/agent-address-list', this.agentId]); // Redireciona para a lista de agentes após adicionar o endereço
+          this.router.navigate(['/main-page/agent-address-list', this.agentId]);
         },
         error: (error) => {
           console.error('Erro ao adicionar endereço:', error);

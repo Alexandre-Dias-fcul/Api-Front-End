@@ -13,7 +13,7 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 })
 export class AgentListComponent {
 
-  agents: agent[] = []; // Array to hold agent data
+  agents: agent[] = [];
   id: number;
   errorMessage: string | null = null;
 
@@ -42,15 +42,15 @@ export class AgentListComponent {
     this.agentService.getAllAgents().subscribe({
 
       next: (data) => {
-        this.agents = data; // Assign the fetched data to the agents array// Log the agents data to the console
+        this.agents = data;
       },
       error: (error) => {
-        console.error('Error fetching agents:', error); // Log any errors that occur during the fetch
+        console.error('Error fetching agents:', error);
         this.errorMessage = error;
       }
     }
 
-    ); // Fetch all agents on component initialization
+    );
   }
 
   deleteAgent(id: number) {

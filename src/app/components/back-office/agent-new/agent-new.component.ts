@@ -51,17 +51,16 @@ export class AgentNewComponent {
     }
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    // Inicializa o formulário com campos e validações
+
     if (this.id) {
       this.agentService.getAgentById(this.id).subscribe(agent => {
-        // Ajusta middleNames para string se necessário
-        // 1. Copie o objeto agent
+
         const agentData = { ...agent };
 
-        // 2. Copie o objeto name
+
         agentData.name = { ...agent.name };
 
-        // 3. Transforme middleNames de array para string (ou vazio se não existir)
+
         const middleNamesString = Array.isArray(agent.name.middleNames) && agent.name.middleNames.length > 0
           ? agent.name.middleNames.join(' ')
           : '';
@@ -75,7 +74,7 @@ export class AgentNewComponent {
                   name: {
                     firstName: agentData.name.firstName,
                     lastName: agentData.name.lastName,
-                    // middleNames já foi transformado em string acima
+
                     middleNames: middleNamesString
                   },
                   isActive: agentData.isActive,
@@ -99,7 +98,7 @@ export class AgentNewComponent {
             name: {
               firstName: agentData.name.firstName,
               lastName: agentData.name.lastName,
-              // middleNames já foi transformado em string acima
+
               middleNames: middleNamesString
             },
             isActive: agentData.isActive,

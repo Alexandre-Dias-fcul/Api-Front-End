@@ -50,7 +50,7 @@ export class ListingReassignBetweenAgentsComponent {
   onSubmit() {
     if (this.reassignForm.valid) {
 
-      const emailAgent = this.reassignForm.get('emailAgent')?.value; // Obtém o email do agente do formulário
+      const emailAgent = this.reassignForm.get('emailAgent')?.value;
 
       this.agentService.getAgentByEmail(emailAgent).subscribe({
         next: (agent) => {

@@ -47,7 +47,7 @@ export class AgentNewContactComponent {
       const type = this.contactForm.value.contactType;
       const value = this.contactForm.value.value;
 
-      // Validação simples de email
+
       if (type == 1) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
