@@ -20,21 +20,21 @@ export class LoginComponent {
     private authorizationService: AuthorizationService,
     private loginService: LoginService,
     private router: Router) {
-    // Inicializa o formulário com campos e validações
+
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // Campo de email com validação
-      password: ['', [Validators.required, Validators.minLength(6)]] // Campo de senha com validação
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const loginData: login = this.loginForm.value as login; // Obtém os valores do formulário
+      const loginData: login = this.loginForm.value as login;
       this.loginService.loginEmployee(loginData).subscribe({
         next: (response) => {
 
-          this.authorizationService.setToken(response); // Armazena o token de autenticação
-          this.loginForm.reset(); // Reseta o formulário após o login
+          this.authorizationService.setToken(response);
+          this.loginForm.reset();
 
           const role = this.authorizationService.getRole();
 

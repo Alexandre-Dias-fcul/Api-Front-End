@@ -16,10 +16,10 @@ export class AgentEditComponent {
 
   agentForm: FormGroup;
 
-  isLoaded: boolean = false; // Variável para controlar o carregamento dos dados do agente
+  isLoaded: boolean = false;
 
-  id: number = 0; // ID do agente, usado para determinar se é uma criação ou atualização
-  // Formulário para edição do agente
+  id: number = 0;
+
   agent: agentAll = {
     id: 0,
     name: {
@@ -61,24 +61,24 @@ export class AgentEditComponent {
       {
         name: this.fb.group({
           firstName: ['', [Validators.required]],
-          middleNames: [''], // Campo de nomes do meio
+          middleNames: [''],
           lastName: ['', [Validators.required]],
         }),
         isActive: [true, [Validators.required]],
         gender: ['', [Validators.required]],
-        dateOfBirth: [null], // Campo de data de nascimento
-        hiredDate: [null], // Campo de data de contratação
-        dateOfTermination: [null],// Campo de data de demissão
-        photoFileName: [''], // Campo de nome do arquivo da foto
-        supervisorEmail: '', // Campo de ID do supervisor
-        role: [null, Validators.required], // Campo de função
+        dateOfBirth: [null],
+        hiredDate: [null],
+        dateOfTermination: [null],
+        photoFileName: [''],
+        supervisorEmail: '',
+        role: [null, Validators.required],
       });
 
     const role = this.authorization.getRole();
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Manager', 'Broker' ou 'Admin'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -86,7 +86,7 @@ export class AgentEditComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o ID não for válido
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -94,9 +94,9 @@ export class AgentEditComponent {
     this.agentService.getByIdWithAll(this.id).subscribe({
       next: (data) => {
 
-        this.agent = data; // Atribui os dados do agente à variável agent
+        this.agent = data;
 
-        this.isLoaded = true; // Define isLoaded como true após obter os dados
+        this.isLoaded = true;
 
         const middleNames = data.name.middleNames ? data.name.middleNames.join(' ') : '';
 
@@ -215,7 +215,7 @@ export class AgentEditComponent {
     this.agentService.updateAgent(agentData).subscribe({
       next: (response) => {
         this.agentForm.reset();
-        this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após a atualizaçã
+        this.router.navigate(['/main-page/agent-list']);
       },
       error: (error) => {
         console.error('Erro ao atualizar agente:', error);

@@ -117,7 +117,7 @@ export class ListingEditComponent {
         next: (response) => {
           console.log('Listing atualizada com sucesso:', response);
 
-          this.router.navigate(['/main-page/listing-list']); // Redireciona para a lista de agentes após a atualizaçã
+          this.router.navigate(['/main-page/listing-list']);
         },
         error: (error) => {
           console.error('Erro ao atualizar listing:', error);

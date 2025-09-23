@@ -12,9 +12,9 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 })
 export class AgentNewAccountComponent {
 
-  agentId: number; // Obtém o ID do agente da rota
+  agentId: number;
   accountForm: FormGroup;
-  continue: number; // Variável para controlar o fluxo de criação de conta
+  continue: number;
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
@@ -38,7 +38,7 @@ export class AgentNewAccountComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -47,11 +47,11 @@ export class AgentNewAccountComponent {
 
   onSubmit() {
     if (this.accountForm.valid) {
-      const accountData = this.accountForm.value; // Substitua pelo ID do agente desejado
+      const accountData = this.accountForm.value;
       this.agentService.agentAddAccount(accountData, this.agentId).subscribe(
         (response) => {
           console.log('Conta criada com sucesso:', response);
-          this.router.navigate(['/main-page/agent-list']); // Redireciona para a lista de agentes após criar a conta
+          this.router.navigate(['/main-page/agent-list']);
         },
         (error) => {
           console.error('Erro ao criar conta:', error);

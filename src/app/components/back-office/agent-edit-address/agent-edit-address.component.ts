@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { address } from '../../../models/address';
+
 
 
 @Component({
@@ -70,7 +70,7 @@ export class AgentEditAddressComponent {
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Agent' ou 'Manager'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
