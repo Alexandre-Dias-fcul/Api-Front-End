@@ -85,6 +85,11 @@
                 {
                 <div class="error-message">Data inválida</div>
                 }
+                @if(staffForm.get('hiredDate')?.hasError('invalidBirthDate') &&
+                (staffForm.get('hiredDate')?.dirty || staffForm.get('hiredDate')?.touched))
+                {
+                <div class="error-message">A data de nascimento tem de ser menor que a de contratação</div>
+                }
             </div>
 
         </div>
@@ -98,6 +103,12 @@
                 (staffForm.get('dateOfTermination')?.dirty ||staffForm.get('dateOfTermination')?.touched))
                 {
                 <div class="error-message">Data inválida</div>
+                }
+
+                @if(staffForm.get('dateOfTermination')?.hasError('invalidDates') &&
+                (staffForm.get('dateOfTermination')?.dirty || staffForm.get('dateOfTermination')?.touched))
+                {
+                <div class="error-message">A data de contratação tem de ser menor que a de rescisão</div>
                 }
             </div>
             <div class="form-group">

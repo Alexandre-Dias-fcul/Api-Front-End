@@ -57,7 +57,8 @@
                 {
                 <div class="error-message">Hora inválida</div>
                 }
-                @if(appointmentForm.get('hourEnd')?.hasError('invalidHours'))
+                @if(appointmentForm.get('hourEnd')?.hasError('invalidHours') &&
+                (appointmentForm.get('hourEnd')?.dirty || appointmentForm.get('hourEnd')?.touched))
                 {
                 <div class="error-message">Erro: hora de inicio tem de ser menor que a de fim</div>
                 }
