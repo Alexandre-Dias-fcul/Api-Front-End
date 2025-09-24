@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { agent } from '../../../models/agent';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
@@ -15,7 +15,7 @@ import { AuthorizationService } from '../../../services/back-office/authorizatio
 export class AgentNewComponent {
 
   agentForm: FormGroup;
-  id: number | null = null; // ID do agente, usado para determinar se é uma criação ou atualização
+  id: number | null = null;
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
@@ -28,24 +28,30 @@ export class AgentNewComponent {
       {
         name: this.fb.group({
           firstName: ['', [Validators.required]],
-          middleNames: [''], // Campo de nomes do meio
+          middleNames: [''],
           lastName: ['', [Validators.required]],
         }),
         isActive: [null, [Validators.required]],
         gender: ['', [Validators.required]],
-        dateOfBirth: [null], // Campo de data de nascimento
-        hiredDate: [null], // Campo de data de contratação
-        dateOfTermination: [null],// Campo de data de demissão
-        photoFileName: [''], // Campo de nome do arquivo da foto
-        supervisorEmail: [null], // Campo de ID do supervisor
-        role: [null, Validators.required], // Campo de função
-      });
+        dateOfBirth: [null],
+        hiredDate: [null],
+        dateOfTermination: [null],
+        photoFileName: [''],
+        supervisorEmail: [null],
+        role: [null, Validators.required],
+      }, {
+      validators: Validators.compose([
+        this.hireDateValidator('hiredDate', 'dateOfTermination'),
+        this.dateOfBirthValidator('dateOfBirth', 'hiredDate')
+      ])
+    }
+    );
 
     const role = this.authorization.getRole();
 
     if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
 
-      this.router.navigate(['/front-page', 'login']); // Redireciona para a página de login se o papel não for 'Manager', 'Broker' ou 'Admin'
+      this.router.navigate(['/front-page', 'login']);
 
       return;
     }
@@ -220,6 +226,36 @@ export class AgentNewComponent {
       });
     }
 
+  }
+
+  private dateOfBirthValidator(dateOfBirthField: string, hiredDateField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const dobField = formGroup.get(dateOfBirthField)?.value;
+      const hiredField = formGroup.get(hiredDateField)?.value;
+      if (dobField > hiredField) {
+
+        formGroup.get(hiredDateField)?.setErrors({ invalidBirthDate: true });
+        return { invalidBirthDate: true };
+      } else {
+        formGroup.get(hiredDateField)?.setErrors(null);
+        return null;
+      }
+    };
+  }
+
+  private hireDateValidator(hiredDateField: string, dateOfTerminationField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const hiredField = formGroup.get(hiredDateField)?.value;
+      const terminationField = formGroup.get(dateOfTerminationField)?.value;
+
+      if (hiredField > terminationField) {
+        formGroup.get(dateOfTerminationField)?.setErrors({ invalidDates: true });
+        return { invalidDates: true };
+      } else {
+        formGroup.get(dateOfTerminationField)?.setErrors(null);
+        return null;
+      }
+    };
   }
 
   private toDateInputString(date: Date | string | null | undefined): string | null {

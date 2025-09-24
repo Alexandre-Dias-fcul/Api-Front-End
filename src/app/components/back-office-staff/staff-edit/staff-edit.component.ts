@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
@@ -66,6 +66,11 @@ export class StaffEditComponent {
       hiredDate: [null],
       dateOfTermination: [null],
       photoFileName: ['']
+    }, {
+      validators: Validators.compose([
+        this.hireDateValidator('hiredDate', 'dateOfTermination'),
+        this.dateOfBirthValidator('dateOfBirth', 'hiredDate')
+      ])
     });
 
     const role = this.authorization.getRole();
@@ -150,6 +155,36 @@ export class StaffEditComponent {
       console.error("Formulário inválido.");
       this.errorMessage = 'Formulário inválido.';
     }
+  }
+
+  private dateOfBirthValidator(dateOfBirthField: string, hiredDateField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const dobField = formGroup.get(dateOfBirthField)?.value;
+      const hiredField = formGroup.get(hiredDateField)?.value;
+      if (dobField > hiredField) {
+
+        formGroup.get(hiredDateField)?.setErrors({ invalidBirthDate: true });
+        return { invalidBirthDate: true };
+      } else {
+        formGroup.get(hiredDateField)?.setErrors(null);
+        return null;
+      }
+    };
+  }
+
+  private hireDateValidator(hiredDateField: string, dateOfTerminationField: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const hiredField = formGroup.get(hiredDateField)?.value;
+      const terminationField = formGroup.get(dateOfTerminationField)?.value;
+
+      if (hiredField > terminationField) {
+        formGroup.get(dateOfTerminationField)?.setErrors({ invalidDates: true });
+        return { invalidDates: true };
+      } else {
+        formGroup.get(dateOfTerminationField)?.setErrors(null);
+        return null;
+      }
+    };
   }
 
   private toDateInputString(date: Date | string | null | undefined): string | null {
