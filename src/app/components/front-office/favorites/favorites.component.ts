@@ -24,13 +24,17 @@ export class FavoritesComponent {
   ) {
     const role = this.authorization.getRole();
 
-    if (!role || (role !== 'User')) {
+    const userId = Number(this.authorization.getId());
+
+    if (!role || role !== 'User' || !userId) {
+
       this.router.navigate(['front-page', 'login-user']);
 
       return;
     }
 
-    this.favorite.getAllFavorites().subscribe({
+
+    this.favorite.getAllFavoritesByUserId(userId).subscribe({
       next: (response) => {
 
         const favorites = response;
