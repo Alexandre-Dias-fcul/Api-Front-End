@@ -25,11 +25,21 @@ export class FavoriteService {
       );
   }
 
+  getAllFavoritesByUserId(userId: number): Observable<favorite[]> {
+    return this.http.get<favorite[]>(`${this.urlFavorite}/GetAllByUserId/${userId}`).pipe(
+      catchError((error) => {
+        console.error('Erro na chamada getAllFavoritesByUserId', error);
+
+        return throwError(() => new Error('Erro ao listar favoritos.'));
+      })
+    );
+  }
+
   getFavoriteById(id: number): Observable<favorite> {
     return this.http.get<favorite>(`${this.urlFavorite}/${id}`).pipe
       (
         catchError((error) => {
-          console.error('Erro na chamada dgetFavoriteById:', error);
+          console.error('Erro na chamada getFavoriteById:', error);
           return throwError(() => new Error('Erro ao obter favorito.'));
         })
       );
