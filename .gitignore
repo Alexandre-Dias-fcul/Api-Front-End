@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 
+/src/environments/environment.development.ts
+
 # Node
 /node_modules
 npm-debug.log
@@ -43,3 +45,5 @@ Thumbs.db
 
 .cursor\rules\nx-rules.mdc
 .github\instructions\nx.instructions.md
+
+
