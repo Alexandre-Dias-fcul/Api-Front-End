@@ -2,17 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { login } from '../../models/login';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  UrlLoginEmployee:string = 'https://localhost:7212/api/Authentication/AuthenticationEmployee';
-  UrlLoginUser:string = 'https://localhost:7212/api/Authentication/AuthenticationUser';
+  UrlLoginEmployee:string = `${environment.apiUrl}/Authentication/AuthenticationEmployee`;
+  UrlLoginUser:string = `${environment.apiUrl}/Authentication/AuthenticationUser`;
 
-  constructor(private http:HttpClient) 
-  { 
+  constructor(private http:HttpClient)
+  {
 
   }
 

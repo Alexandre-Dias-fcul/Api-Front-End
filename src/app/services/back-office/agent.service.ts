@@ -9,12 +9,13 @@ import { agentAll } from '../../models/agentAll';
 import { agentListing } from '../../models/agentListing';
 import { agentSupervisor } from '../../models/agentSupervisor';
 import { agentParticipant } from '../../models/agentParticipant';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
 
-  urlAgent: string = 'https://localhost:7212/api/Agent';
+  urlAgent: string = `${environment.apiUrl}/Agent`;
   constructor(private http: HttpClient) { }
 
   getAllAgents(): Observable<agent[]> {
