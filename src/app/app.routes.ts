@@ -42,6 +42,7 @@ import { UserEditAccountComponent } from './components/back-office-user/user-edi
 import { StaffEditAccountComponent } from './components/back-office-staff/staff-edit-account/staff-edit-account.component';
 import { DetailListingComponent } from './components/front-office/detail-listing/detail-listing.component';
 import { FavoritesComponent } from './components/front-office/favorites/favorites.component';
+import { AgentRegister } from './components/back-office/agent-register/agent-register';
 
 export const routes: Routes = [
   {
@@ -49,7 +50,7 @@ export const routes: Routes = [
   },
   {
     path: 'front-page', component: FrontPageComponent, children: [
-      { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
+      { path: '', redirectTo: 'view-listings', pathMatch: 'full', },
       { path: 'view-listings', component: ViewListingsComponent },
       { path: 'detail-listing/:id', component: DetailListingComponent },
       { path: 'login', component: LoginComponent },
@@ -102,8 +103,9 @@ export const routes: Routes = [
         { path: 'user-edit/:id', component: UserEditComponent },
         { path: 'user-new-account/:id', component: UserNewAccountComponent },
         { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent },
-        { path: 'user-edit-account/:id', component: UserEditAccountComponent }
-
+        { path: 'user-edit-account/:id', component: UserEditAccountComponent },
+        { path: 'agent-register', component: AgentRegister },
+        { path: 'agent-register/:id', component: AgentRegister }
       ]
   }
 ];
