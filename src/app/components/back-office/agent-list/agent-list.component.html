@@ -1,5 +1,5 @@
 <div class="table-header">
-    <a [routerLink]="['/main-page','agent-new']" class="add-user-link">Novo Agente</a>
+    <a [routerLink]="['/main-page','agent-register']" class="add-user-link">Novo Agente</a>
     <input type="text" class="search-bar" placeholder="Pesquisar...">
 </div>
 <table class="user-table">
@@ -25,7 +25,7 @@
             <td>{{ 'Administrador' }}</td>
             }
             <td>
-                <a [routerLink]="['/main-page','agent-edit',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
+                <a [routerLink]="['/main-page','agent-register',agent.id]"><i class="fas fa-edit edit-icon"></i></a>
                 <a (click)="deleteAgent(agent.id)"><i class="fas fa-trash delete-icon"></i></a>
                 @if(agent.supervisorId == id){
 
