@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { Router, RouterLink } from '@angular/router';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
 import { listing } from '../../../models/listing';
@@ -18,7 +17,6 @@ export class ListingNewComponent {
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
-    private authorization: AuthorizationService,
     private router: Router,
     private listingService: ListingService
   ) {
@@ -38,15 +36,6 @@ export class ListingNewComponent {
         otherImagesFileNames: ['']
       }
     );
-
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
 
   }
 

@@ -36,11 +36,6 @@ export class UserProfileComponent {
 
     const id = this.authorization.getId();
 
-    if (!role || (role !== 'User') || !id) {
-
-      return;
-    }
-
     this.userService.getUserById(Number(id)).subscribe(
       {
         next: (data) => {

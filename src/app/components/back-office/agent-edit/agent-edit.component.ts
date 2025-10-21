@@ -3,7 +3,6 @@ import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { agent } from '../../../models/agent';
 @Component({
   selector: 'app-agent-edit',
@@ -53,7 +52,6 @@ export class AgentEditComponent {
   possibleSupervisors: agentAll[] = [];
 
   constructor(private fb: FormBuilder,
-    private authorization: AuthorizationService,
     private agentService: AgentService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -81,19 +79,9 @@ export class AgentEditComponent {
     }
     );
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {
-      this.router.navigate(['/front-page', 'login']);
 
       return;
     }

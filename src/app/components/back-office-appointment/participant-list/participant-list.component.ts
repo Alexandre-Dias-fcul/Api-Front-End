@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { appointmentWithParticipants } from '../../../models/appointmentWithParticipants';
 import { CommonModule } from '@angular/common';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
-import { participant } from '../../../models/participant';
 
 
 @Component({
@@ -33,23 +31,13 @@ export class ParticipantListComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
+  constructor(
     private router: Router,
     private route: ActivatedRoute,
     private appointmentService: AppointmentService,
     private agentService: AgentService,
     private staffService: StaffService
   ) {
-
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Staff' && role !== 'Agent' && role !== 'Manager'
-      && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
 

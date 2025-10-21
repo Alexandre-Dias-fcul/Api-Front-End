@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { userAll } from '../../../models/userAll';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/front-office/user.service';
 import { user } from '../../../models/user';
@@ -45,7 +44,6 @@ export class UserEditComponent {
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
-    private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
@@ -62,19 +60,9 @@ export class UserEditComponent {
       photoFileName: ['']
     });
 
-    const role = this.authorization.getRole();
-
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (!role || (role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-      return;
-    }
-
     if (!this.id) {
-      this.router.navigate(['/front-page', 'login']);
-
       return;
     }
 

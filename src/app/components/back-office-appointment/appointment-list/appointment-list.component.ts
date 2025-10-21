@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { agentParticipant } from '../../../models/agentParticipant';
 import { AgentService } from '../../../services/back-office/agent.service';
@@ -38,30 +38,13 @@ export class AppointmentListComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
-    private router: Router,
+  constructor(
+    private authorization: AuthorizationService,
     private agentService: AgentService,
     private staffService: StaffService,
     private appointmentService: AppointmentService) {
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Staff' && role !== 'Agent' && role !== 'Manager'
-      && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
     const id = Number(authorization.getId());
-
-    if (!id) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
 
     this.agentService.getByIdWithParticipants(id).subscribe(
       {

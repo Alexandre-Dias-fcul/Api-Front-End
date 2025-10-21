@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { userAll } from '../../../models/userAll';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/front-office/user.service';
 
@@ -43,7 +42,7 @@ export class UserEditAccountComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
+  constructor(
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -55,18 +54,9 @@ export class UserEditAccountComponent {
       password: ['', [Validators.required, Validators.minLength(6)]]
     })
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Admin')) {
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
     const userId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!userId) {
-      this.router.navigate(['/front-page', 'login']);
 
       return;
     }

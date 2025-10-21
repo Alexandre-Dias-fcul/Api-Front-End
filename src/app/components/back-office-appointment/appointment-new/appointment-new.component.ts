@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { AppointmentService } from '../../../services/back-office-appointment/appointment.service';
 import { Router, RouterLink } from '@angular/router';
 import { appointment } from '../../../models/appointment';
@@ -18,7 +17,6 @@ export class AppointmentNewComponent {
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
-    private authorization: AuthorizationService,
     private router: Router,
     private appointmentService: AppointmentService
   ) {
@@ -33,15 +31,6 @@ export class AppointmentNewComponent {
       status: ['', [Validators.required]]
     }, { validators: this.hoursValidator('hourStart', 'hourEnd') }
     );
-
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Staff' && role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
 
   }
 

@@ -42,6 +42,7 @@ import { UserEditAccountComponent } from './components/back-office-user/user-edi
 import { StaffEditAccountComponent } from './components/back-office-staff/staff-edit-account/staff-edit-account.component';
 import { DetailListingComponent } from './components/front-office/detail-listing/detail-listing.component';
 import { FavoritesComponent } from './components/front-office/favorites/favorites.component';
+import { canActivateEmployee, canActivateSupervisor, canActivateAgent, canActivateAdmin, canActivateUser } from './components/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -55,54 +56,54 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'login-user', component: LoginUserComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'user-profile', component: UserProfileComponent },
-      { path: 'edit-user-profile', component: EditUserProfileComponent },
-      { path: 'favorites', component: FavoritesComponent }
+      { path: 'user-profile', component: UserProfileComponent, canActivate: [canActivateUser] },
+      { path: 'edit-user-profile', component: EditUserProfileComponent, canActivate: [canActivateUser] },
+      { path: 'favorites', component: FavoritesComponent, canActivate: [canActivateUser] }
     ]
   },
   {
-    path: 'main-page', component: MainPageComponent, children:
+    path: 'main-page', component: MainPageComponent, canActivate: [canActivateEmployee], children:
       [
         { path: '', redirectTo: 'agent-list', pathMatch: 'full' },
-        { path: 'agent-list', component: AgentListComponent },
-        { path: 'agent-new', component: AgentNewComponent },
-        { path: 'agent-new/:id', component: AgentNewComponent },
-        { path: 'agent-new-account/:id', component: AgentNewAccountComponent },
-        { path: 'agent-new-account/:id/:continue', component: AgentNewAccountComponent },
-        { path: 'agent-new-address/:id', component: AgentNewAddressComponent },
-        { path: 'agent-new-contact/:id', component: AgentNewContactComponent },
-        { path: 'agent-edit/:id', component: AgentEditComponent },
-        { path: 'agent-edit-account/:id', component: AgentEditAccountComponent },
-        { path: 'agent-edit-address/:idAgent/:idAddress', component: AgentEditAddressComponent },
-        { path: 'agent-edit-contact/:idAgent/:idContact', component: AgentEditContactComponent },
-        { path: 'listing-list', component: ListingListComponent },
-        { path: 'listing-new', component: ListingNewComponent },
-        { path: 'listing-edit/:id', component: ListingEditComponent },
-        { path: 'agent-reassign/:id', component: AgentReassignComponent },
-        { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent },
-        { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent },
-        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent },
-        { path: 'agent-address-list/:id', component: AgentAddressListComponent },
-        { path: 'agent-contact-list/:id', component: AgentContactListComponent },
-        { path: 'appointment-list', component: AppointmentListComponent },
-        { path: 'appointment-new', component: AppointmentNewComponent },
-        { path: 'appointment-edit/:id', component: AppointmentEditComponent },
-        { path: 'participant-list/:id', component: ParticipantListComponent },
-        { path: 'participant-new/:id', component: ParticipantNewComponent },
-        { path: 'staff-list', component: StaffListComponent },
-        { path: 'staff-new', component: StaffNewComponent },
-        { path: 'staff-new/:id', component: StaffNewComponent },
-        { path: 'staff-new-account/:id', component: StaffNewAccountComponent },
-        { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent },
-        { path: 'staff-edit/:id', component: StaffEditComponent },
-        { path: 'staff-edit-account/:id', component: StaffEditAccountComponent },
-        { path: 'user-list', component: UserListComponent },
-        { path: 'user-new', component: UserNewComponent },
-        { path: 'user-new/:id', component: UserNewComponent },
-        { path: 'user-edit/:id', component: UserEditComponent },
-        { path: 'user-new-account/:id', component: UserNewAccountComponent },
-        { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent },
-        { path: 'user-edit-account/:id', component: UserEditAccountComponent }
+        { path: 'agent-list', component: AgentListComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new', component: AgentNewComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new/:id', component: AgentNewComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new-account/:id', component: AgentNewAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new-account/:id/:continue', component: AgentNewAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new-address/:id', component: AgentNewAddressComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-new-contact/:id', component: AgentNewContactComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-edit/:id', component: AgentEditComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-edit-account/:id', component: AgentEditAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-edit-address/:idAgent/:idAddress', component: AgentEditAddressComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-edit-contact/:idAgent/:idContact', component: AgentEditContactComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-address-list/:id', component: AgentAddressListComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-contact-list/:id', component: AgentContactListComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-reassign/:id', component: AgentReassignComponent, canActivate: [canActivateSupervisor] },
+        { path: 'listing-list', component: ListingListComponent, canActivate: [canActivateAgent] },
+        { path: 'listing-new', component: ListingNewComponent, canActivate: [canActivateAgent] },
+        { path: 'listing-edit/:id', component: ListingEditComponent, canActivate: [canActivateAgent] },
+        { path: 'listing-self-reassign/:idAgent/:idListing', component: ListingSelfReassignComponent, canActivate: [canActivateSupervisor] },
+        { path: 'listing-reassign-between-agents/:idAgent/:idListing', component: ListingReassignBetweenAgentsComponent, canActivate: [canActivateSupervisor] },
+        { path: 'listing-reassign-to-agent/:id', component: ListingReassignToAgentComponent, canActivate: [canActivateSupervisor] },
+        { path: 'appointment-list', component: AppointmentListComponent, canActivate: [canActivateEmployee] },
+        { path: 'appointment-new', component: AppointmentNewComponent, canActivate: [canActivateEmployee] },
+        { path: 'appointment-edit/:id', component: AppointmentEditComponent, canActivate: [canActivateEmployee] },
+        { path: 'participant-list/:id', component: ParticipantListComponent, canActivate: [canActivateEmployee] },
+        { path: 'participant-new/:id', component: ParticipantNewComponent, canActivate: [canActivateEmployee] },
+        { path: 'staff-list', component: StaffListComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-new', component: StaffNewComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-new/:id', component: StaffNewComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-new-account/:id', component: StaffNewAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-new-account/:id/:continue', component: StaffNewAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-edit/:id', component: StaffEditComponent, canActivate: [canActivateSupervisor] },
+        { path: 'staff-edit-account/:id', component: StaffEditAccountComponent, canActivate: [canActivateSupervisor] },
+        { path: 'user-list', component: UserListComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-new', component: UserNewComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-new/:id', component: UserNewComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-edit/:id', component: UserEditComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-new-account/:id', component: UserNewAccountComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent, canActivate: [canActivateAdmin] },
+        { path: 'user-edit-account/:id', component: UserEditAccountComponent, canActivate: [canActivateAdmin] }
 
       ]
   }
