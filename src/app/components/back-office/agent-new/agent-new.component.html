@@ -168,3 +168,11 @@
         </div>
     </form>
 </div>
+
+<!-- Modal para criação de conta do agente -->
+<app-agent-account-modal
+    [isVisible]="showAccountModal"
+    [agentId]="createdAgentId"
+    (accountCreated)="onAccountCreated()"
+    (modalClosed)="onModalClosed()">
+</app-agent-account-modal>

@@ -5,10 +5,11 @@ import { AgentService } from '../../../services/back-office/agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { agentAll } from '../../../models/agentAll';
+import { AgentAccountModalComponent } from '../../shared/agent-account-modal/agent-account-modal.component';
 
 @Component({
   selector: 'app-agent-new',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, AgentAccountModalComponent],
   templateUrl: './agent-new.component.html',
   styleUrl: './agent-new.component.css'
 })
@@ -19,6 +20,10 @@ export class AgentNewComponent {
   id: number | null = null;
   errorMessage: string | null = null;
   possibleSupervisors: agentAll[] = [];
+
+  // Modal properties
+  showAccountModal: boolean = false;
+  createdAgentId: number | null = null;
 
   constructor(private fb: FormBuilder,
     private authorization: AuthorizationService,
@@ -234,7 +239,8 @@ export class AgentNewComponent {
       // UPDATE
       this.agentService.updateAgent(agentData).subscribe({
         next: (response) => {
-          this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
+          this.createdAgentId = response.id;
+          this.showAccountModal = true;
         },
         error: (error) => {
           console.error('Erro ao atualizar agente:', error);
@@ -245,9 +251,9 @@ export class AgentNewComponent {
       // CREATE
       this.agentService.addAgent(agentData).subscribe({
         next: (response) => {
-
+          this.createdAgentId = response.id;
           this.agentForm.reset();
-          this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
+          this.showAccountModal = true;
         },
         error: (error) => {
           console.error('Erro ao criar agente:', error);
@@ -255,7 +261,16 @@ export class AgentNewComponent {
         }
       });
     }
+  }
 
+  onAccountCreated() {
+    this.showAccountModal = false;
+    this.router.navigate(['/main-page/agent-list']);
+  }
+
+  onModalClosed() {
+    this.showAccountModal = false;
+    this.createdAgentId = null;
   }
 
   private dateOfBirthValidator(dateOfBirthField: string, hiredDateField: string): ValidatorFn {
