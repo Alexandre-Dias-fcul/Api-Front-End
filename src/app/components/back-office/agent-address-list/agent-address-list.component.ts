@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { agentAll } from '../../../models/agentAll';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { AgentService } from '../../../services/back-office/agent.service';
 
 @Component({
@@ -44,20 +43,13 @@ export class AgentAddressListComponent {
 
   constructor(
     private agentService: AgentService,
-    private authorization: AuthorizationService,
-    private route: ActivatedRoute,
-    private router: Router) {
-
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
+    private route: ActivatedRoute) {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!id) {
+      return;
+    }
 
     this.agentService.getByIdWithAll(id).subscribe({
       next: (response: agentAll) => {

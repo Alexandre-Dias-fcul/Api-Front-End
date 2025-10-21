@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
 import { agent } from '../../../models/agent';
 import { AgentService } from '../../../services/back-office/agent.service';
@@ -20,7 +19,6 @@ export class ListingReassignToAgentComponent {
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
-    private authorization: AuthorizationService,
     private router: Router,
     private listingService: ListingService,
     private agentService: AgentService
@@ -34,15 +32,9 @@ export class ListingReassignToAgentComponent {
 
     this.idListing = Number(this.route.snapshot.paramMap.get('id'));
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
+    if (!this.idListing) {
       return;
     }
-
   }
 
   onSubmit() {

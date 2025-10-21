@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { staff } from '../../../models/staff';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
@@ -19,7 +18,6 @@ export class StaffNewComponent {
 
   constructor(private fb: FormBuilder,
     private staffService: StaffService,
-    private authorization: AuthorizationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -44,15 +42,7 @@ export class StaffNewComponent {
       ])
     });
 
-
-    const role = this.authorization.getRole();
-
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-      this.router.navigate(['/front-page', 'login']);
-      return;
-    }
 
     if (this.id) {
 

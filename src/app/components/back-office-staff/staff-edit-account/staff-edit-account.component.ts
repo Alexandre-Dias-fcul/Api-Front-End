@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StaffService } from '../../../services/back-office-staff/staff.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { staffAll } from '../../../models/staffAll';
 
 @Component({
@@ -50,27 +49,16 @@ export class StaffEditAccountComponent {
   constructor(private fb: FormBuilder,
     private staffService: StaffService,
     private router: Router,
-    private route: ActivatedRoute,
-    private authorization: AuthorizationService
+    private route: ActivatedRoute
   ) {
     this.accountForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     })
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-      this.router.navigate(['/main-page', 'login']);
-
-      return;
-    }
-
     const staffId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!staffId) {
-      this.router.navigate(['/front-page', 'login']);
-
       return;
     }
 

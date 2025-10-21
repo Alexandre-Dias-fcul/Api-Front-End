@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { Router } from '@angular/router';
 import { FavoriteService } from '../../../services/front-office/favorite.service';
 import { CommonModule } from '@angular/common';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
@@ -18,21 +17,11 @@ export class FavoritesComponent {
   errorMessage: string | null = null;
 
   constructor(private authorization: AuthorizationService,
-    private router: Router,
     private favorite: FavoriteService,
     private listingService: ListingService
   ) {
-    const role = this.authorization.getRole();
 
     const userId = Number(this.authorization.getId());
-
-    if (!role || role !== 'User' || !userId) {
-
-      this.router.navigate(['front-page', 'login-user']);
-
-      return;
-    }
-
 
     this.favorite.getAllFavoritesByUserId(userId).subscribe({
       next: (response) => {

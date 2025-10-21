@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ListingService } from '../../../services/back-office-agent/listing.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class ListingSelfReassignComponent {
   errorMessage: string | null = null;
 
   constructor(private route: ActivatedRoute,
-    private authorization: AuthorizationService,
     private router: Router,
     private listingService: ListingService) {
 
@@ -26,16 +24,9 @@ export class ListingSelfReassignComponent {
 
     this.idListing = Number(this.route.snapshot.paramMap.get('idListing'));
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
+    if (!this.idAgent || !this.idListing) {
       return;
     }
-
-
   }
 
   reassign() {
