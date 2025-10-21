@@ -16,6 +16,8 @@ export class AgentRegister implements OnInit {
   agentForm: FormGroup
   errorMessage: string | null = null;
   agent: agentAll = {} as agentAll
+  supervisorId: number | null = null
+  possibleSupervisors: agentAll[] = [];
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -52,6 +54,47 @@ export class AgentRegister implements OnInit {
     });
   }
 
+  changeSupervisor(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    const role = Number(value);
+    this.choseSupervisor(role);
+  }
+
+  choseSupervisor(role: number) {
+
+    let agents: agentAll[] = [];
+
+    this.possibleSupervisors = [];
+
+    this.agentService.getAllAgents().subscribe(
+
+      {
+        next: (response) => {
+
+          agents = response;
+          agents = agents.filter((agent) => (agent.role > role && agent.id != this.agent.id));
+          agents.forEach((agent) => this.agentService.getByIdWithAll(agent.id).subscribe({
+            next: (data) => {
+              this.possibleSupervisors.push(data);
+              this.possibleSupervisors = this.possibleSupervisors.filter((agent) => (agent.entityLink?.account !== null
+                && agent.entityLink?.account !== undefined));
+
+            }, error: (error) => {
+
+              console.error('Erro ao obter agente:', error);
+              this.errorMessage = error;
+            }
+          }));
+        }
+        , error: (error) => {
+          console.error('Erro ao obter agentes:', error);
+          this.errorMessage = error;
+        }
+      }
+    )
+
+  }
+
   makeFormOnEdit(id: number | null) {
     if (!id) {
       return
@@ -67,7 +110,7 @@ export class AgentRegister implements OnInit {
         if (this.agent.supervisorId != null) {
           this.agentService.getByIdWithAll(this.agent.supervisorId).subscribe({
             next: (supervisor: agentAll) => {
-              const supervisorEmail = supervisor.entityLink?.account?.email || '';
+              const supervisorEmail = supervisor.id || '';
               this.agentForm.patchValue({ supervisorEmail });
             }, error: (error) => {
               console.error('Erro ao obter supervisor', error);
@@ -92,15 +135,13 @@ export class AgentRegister implements OnInit {
           photoFileName: data.photoFileName,
           role: data.role
         });
+
+        this.choseSupervisor(data.role);
       }, error: (error) => {
         console.error('Erro ao obter Agent', error);
         this.errorMessage = error;
       }
     });
-  }
-
-  validateForm() {
-
   }
 
   onSubmit() {
@@ -119,7 +160,7 @@ export class AgentRegister implements OnInit {
         dateOfTermination: this.agentForm.get('dateOfTermination')?.value,
         photoFileName: this.agentForm.get('photoFileName')?.value,
         role: Number(this.agentForm.get('role')?.value),
-        supervisorId: this.adminId(this.agentForm.get('supervisorEmail')?.value)!,
+        supervisorId: Number(this.agentForm.get('supervisorEmail')?.value),
       }
 
       if (this.id) {
@@ -170,24 +211,6 @@ export class AgentRegister implements OnInit {
     else {
       return [];
     }
-  }
-
-  private adminId(email: string) {
-    if (!email) {
-      return
-    }
-
-    this.agentService.getAgentByEmail(email).subscribe(
-      {
-        next: (response) => {
-          return response.id
-        },
-        error: (error) => {
-          console.error('Erro ao buscar agent:', error);
-          this.errorMessage = error;
-        }
-      }
-    )
   }
 
   private hireDateValidator(hiredDateField: string, dateOfTerminationField: string): ValidatorFn {

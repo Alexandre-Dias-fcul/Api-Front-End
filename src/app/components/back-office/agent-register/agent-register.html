@@ -50,7 +50,7 @@
 
       <div class="form-group">
         <label for="role">Função</label>
-        <select id="role" name="role" formControlName="role">
+        <select id="role" name="role" formControlName="role" (change)="changeSupervisor($event)" >
           <option value='0'>Agente</option>
           <option value='1'>Gestor</option>
           <option value='2'>Corretor</option>
@@ -136,8 +136,13 @@
 
       <div class="form-group">
         <label for="supervisorEmail">Supervisor Email</label>
-        <input type="text" id="supervisorEmail" formControlName="supervisorEmail"
-          placeholder="Digite o email do supervisor">
+        <select id="supervisorEmail" formControlName="supervisorEmail">
+          @for(supervisor of possibleSupervisors; track supervisor.id ){
+          <option [value]='supervisor.id'>
+            {{supervisor.entityLink?.account?.email}}
+          </option>
+          }
+        </select>
         @if(agentForm.get('supervisorEmail')?.invalid &&
         (agentForm.get('supervisorEmail')?.dirty || agentForm.get('supervisorEmail')?.touched))
         {
@@ -158,18 +163,18 @@
       <button type="submit" class="btn-submit">Salvar</button>
 
       @if(id){
-        @if(agent.entityLink?.account == null || agent.entityLink?.account == undefined)
-        {
-          <a [routerLink]="['/main-page/agent-new-account', agent.id]" class="btn-action-new">Criar Conta</a>
-        }
-        @else
-        {
-          <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
-        }
+      @if(agent.entityLink?.account == null || agent.entityLink?.account == undefined)
+      {
+      <a [routerLink]="['/main-page/agent-new-account', agent.id]" class="btn-action-new">Criar Conta</a>
+      }
+      @else
+      {
+      <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
+      }
 
-        <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-list">Ver Endereços</a>
+      <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-list">Ver Endereços</a>
 
-        <a [routerLink]="['/main-page/agent-contact-list', agent.id]" class="btn-action-list">Ver Contactos</a>
+      <a [routerLink]="['/main-page/agent-contact-list', agent.id]" class="btn-action-list">Ver Contactos</a>
       }
 
       <a [routerLink]="['/main-page/agent-list']" class="btn-reset">Cancelar</a>
