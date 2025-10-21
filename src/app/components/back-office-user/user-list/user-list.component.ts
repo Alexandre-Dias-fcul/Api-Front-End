@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { user } from '../../../models/user';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UserService } from '../../../services/front-office/user.service';
 import { CommonModule } from '@angular/common';
 
@@ -17,16 +16,9 @@ export class UserListComponent {
   users: user[] = [];
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
-    private router: Router,
+  constructor(
     private userService: UserService
   ) {
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Admin')) {
-      this.router.navigate(['/front-page', 'login']);
-      return;
-    }
 
     this.userService.getAllUsers().subscribe({
 

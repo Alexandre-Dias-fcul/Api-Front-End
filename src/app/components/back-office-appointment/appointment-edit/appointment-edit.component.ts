@@ -48,15 +48,6 @@ export class AppointmentEditComponent {
       }, { validators: this.hoursValidator('hourStart', 'hourEnd') }
     );
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Staff' && role !== 'Agent' && role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!this.id) {

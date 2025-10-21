@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { agentListing } from '../../../models/agentListing';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -35,27 +34,14 @@ export class AgentReassignComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
+  constructor(
     private agentService: AgentService,
     private route: ActivatedRoute,
-    private router: Router
   ) {
-
-    const role = this.authorization.getRole();
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
     if (!this.id) {
-
-      this.router.navigate(['/front-page', 'login']);
-
       return;
     }
 

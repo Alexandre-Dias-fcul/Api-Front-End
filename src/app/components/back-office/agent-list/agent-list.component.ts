@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { agent } from '../../../models/agent';
 import { AgentService } from '../../../services/back-office/agent.service';
 import { CommonModule } from '@angular/common';
@@ -18,26 +18,9 @@ export class AgentListComponent {
   errorMessage: string | null = null;
 
   constructor(private agentService: AgentService,
-    private authorization: AuthorizationService,
-    private router: Router) {
-
-    const role = this.authorization.getRole();
+    private authorization: AuthorizationService) {
 
     this.id = Number(this.authorization.getId());
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
-
-    if (!this.id) {
-
-      this.router.navigate(['/front-page', 'login']);
-
-      return;
-    }
 
     this.agentService.getAllAgents().subscribe({
 

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { agentAll } from '../../../models/agentAll';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AgentService } from '../../../services/back-office/agent.service';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { contact } from '../../../models/contact';
 
 @Component({
@@ -50,8 +49,7 @@ export class AgentEditContactComponent {
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private agentService: AgentService,
-    private authorization: AuthorizationService
+    private agentService: AgentService
   ) {
 
     this.contactForm = this.fb.group({
@@ -63,12 +61,7 @@ export class AgentEditContactComponent {
 
     this.contactId = Number(this.route.snapshot.paramMap.get('idContact'));
 
-    const role = this.authorization.getRole();
-
-    if (!role || (role !== 'Manager' && role !== 'Broker' && role !== 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
+    if (!agentId || !this.contactId) {
       return;
     }
 

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthorizationService } from '../../../services/back-office/authorization.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/front-office/user.service';
 
@@ -20,7 +19,7 @@ export class UserNewAccountComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authorization: AuthorizationService,
+  constructor(
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
@@ -32,16 +31,11 @@ export class UserNewAccountComponent {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
-    const role = this.authorization.getRole();
-
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.continue = Number(this.route.snapshot.paramMap.get('continue'));
 
-    if (!role || (role != 'Admin')) {
-
-      this.router.navigate(['/front-page', 'login']);
-
+    if (!this.userId) {
       return;
     }
 
