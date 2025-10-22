@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/back-office/login/login.component';
 import { MainPageComponent } from './components/back-office/main-page/main-page.component';
 import { AgentListComponent } from './components/back-office/agent-list/agent-list.component';
-import { AgentNewComponent } from './components/back-office/agent-new/agent-new.component';
-import { AgentEditComponent } from './components/back-office/agent-edit/agent-edit.component';
 import { AgentNewAccountComponent } from './components/back-office/agent-new-account/agent-new-account.component';
 import { AgentEditAddressComponent } from './components/back-office/agent-edit-address/agent-edit-address.component';
 import { AgentNewAddressComponent } from './components/back-office/agent-new-address/agent-new-address.component';
@@ -42,6 +40,7 @@ import { UserEditAccountComponent } from './components/back-office-user/user-edi
 import { StaffEditAccountComponent } from './components/back-office-staff/staff-edit-account/staff-edit-account.component';
 import { DetailListingComponent } from './components/front-office/detail-listing/detail-listing.component';
 import { FavoritesComponent } from './components/front-office/favorites/favorites.component';
+import { AgentRegister } from './components/back-office/agent-register/agent-register';
 import { canActivateEmployee, canActivateSupervisor, canActivateAgent, canActivateAdmin, canActivateUser } from './components/guards/auth.guard';
 
 export const routes: Routes = [
@@ -50,7 +49,7 @@ export const routes: Routes = [
   },
   {
     path: 'front-page', component: FrontPageComponent, children: [
-      { path: '', redirectTo: 'view-listings', pathMatch: 'full' },
+      { path: '', redirectTo: 'view-listings', pathMatch: 'full', },
       { path: 'view-listings', component: ViewListingsComponent },
       { path: 'detail-listing/:id', component: DetailListingComponent },
       { path: 'login', component: LoginComponent },
@@ -66,19 +65,18 @@ export const routes: Routes = [
       [
         { path: '', redirectTo: 'agent-list', pathMatch: 'full' },
         { path: 'agent-list', component: AgentListComponent, canActivate: [canActivateSupervisor] },
-        { path: 'agent-new', component: AgentNewComponent, canActivate: [canActivateSupervisor] },
-        { path: 'agent-new/:id', component: AgentNewComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-new-account/:id', component: AgentNewAccountComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-new-account/:id/:continue', component: AgentNewAccountComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-new-address/:id', component: AgentNewAddressComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-new-contact/:id', component: AgentNewContactComponent, canActivate: [canActivateSupervisor] },
-        { path: 'agent-edit/:id', component: AgentEditComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-edit-account/:id', component: AgentEditAccountComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-edit-address/:idAgent/:idAddress', component: AgentEditAddressComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-edit-contact/:idAgent/:idContact', component: AgentEditContactComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-address-list/:id', component: AgentAddressListComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-contact-list/:id', component: AgentContactListComponent, canActivate: [canActivateSupervisor] },
         { path: 'agent-reassign/:id', component: AgentReassignComponent, canActivate: [canActivateSupervisor] },
+        { path: 'agent-register', component: AgentRegister, canActivate: [canActivateSupervisor] },
+        { path: 'agent-register/:id', component: AgentRegister, canActivate: [canActivateSupervisor] },
         { path: 'listing-list', component: ListingListComponent, canActivate: [canActivateAgent] },
         { path: 'listing-new', component: ListingNewComponent, canActivate: [canActivateAgent] },
         { path: 'listing-edit/:id', component: ListingEditComponent, canActivate: [canActivateAgent] },
@@ -103,8 +101,7 @@ export const routes: Routes = [
         { path: 'user-edit/:id', component: UserEditComponent, canActivate: [canActivateAdmin] },
         { path: 'user-new-account/:id', component: UserNewAccountComponent, canActivate: [canActivateAdmin] },
         { path: 'user-new-account/:id/:continue', component: UserNewAccountComponent, canActivate: [canActivateAdmin] },
-        { path: 'user-edit-account/:id', component: UserEditAccountComponent, canActivate: [canActivateAdmin] }
-
+        { path: 'user-edit-account/:id', component: UserEditAccountComponent, canActivate: [canActivateAdmin] },
       ]
   }
 ];
