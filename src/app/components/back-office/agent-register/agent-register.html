@@ -38,8 +38,8 @@
       <div class="form-group">
         <label for="isActive">Activo</label>
         <select id="isActive" name="isActive" formControlName="isActive">
-          <option value="true">Sim</option>
-          <option value="false">Não</option>
+          <option [ngValue]="true">Sim</option>
+          <option [ngValue]="false">Não</option>
         </select>
         @if(agentForm.get('isActive')?.invalid &&
         (agentForm.get('isActive')?.dirty || agentForm.get('isActive')?.touched))
@@ -169,7 +169,7 @@
       }
       @else
       {
-      <a [routerLink]="['/main-page/agent-edit-account', agent.id]" class="btn-action-edit">Editar Conta</a>
+      <a (click)="edit(agent.id, agent.entityLink?.account?.email!)" class="btn-action-edit">Editar Conta</a>
       }
 
       <a [routerLink]="['/main-page/agent-address-list', agent.id]" class="btn-action-list">Ver Endereços</a>
@@ -182,3 +182,14 @@
     </div>
   </form>
 </div>
+
+@if(showAccountModal) {
+  <app-agent-account-modal
+      [isVisible]="showAccountModal"
+      [agentId]="createdAgentId"
+      [isEdit]="isAccountModalEdit"
+      [accountEmail]="accountEmail!"
+      (accountCreated)="onAccountCreated()"
+      (modalClosed)="onModalClosed()">
+  </app-agent-account-modal>
+}

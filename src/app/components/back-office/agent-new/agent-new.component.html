@@ -1,0 +1,178 @@
+<div class="form-container">
+    <h2 class="form-title">Novo Agente</h2>
+    <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="name">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Primeiro Nome</label>
+                    <input type="text" id="firstName" formControlName="firstName" placeholder="Digite o primeiro nome">
+                    @if(agentForm.get('name.firstName')?.invalid &&
+                    (agentForm.get('name.firstName')?.dirty || agentForm.get('name.firstName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Ultimo Nome</label>
+                    <input type="text" id="lastName" formControlName="lastName" placeholder="Digite o último nome">
+                    @if(agentForm.get('name.lastName')?.invalid &&
+                    (agentForm.get('name.lastName')?.dirty || agentForm.get('name.lastName')?.touched))
+                    {
+                    <div class="error-message">Nome inválido</div>
+                    }
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label for="middleNames">Nomes do Meio</label>
+                <input type="text" id="middleNames" formControlName="middleNames" placeholder="Digite os nomes do meio">
+                @if(agentForm.get('name.middleNames')?.invalid &&
+                (agentForm.get('name.middleNames')?.dirty || agentForm.get('name.middleNames')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="isActive">Activo</label>
+                <select id="isActive" formControlName="isActive">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+                @if(agentForm.get('isActive')?.invalid &&
+                (agentForm.get('isActive')?.dirty || agentForm.get('isActive')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="role">Função</label>
+                <select id="role" formControlName="role" (change)="choseSupervisor($event)">
+                    <option value='0'>Agente</option>
+                    <option value='1'>Gestor</option>
+                    <option value='2'>Corretor</option>
+                    <option value='3'>Administrador</option>
+                </select>
+                @if(agentForm.get('role')?.invalid &&
+                (agentForm.get('role')?.dirty || agentForm.get('role')?.touched))
+                {
+                <div class="error-message">Opção inválida</div> }
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="dateOfBirth">Data de Nascimento</label>
+                <input type="date" id="dateOfBirth" formControlName="dateOfBirth"
+                    placeholder="Digite a data de nascimento">
+                @if(agentForm.get('dateOfBirth')?.invalid &&
+                (agentForm.get('dateOfBirth')?.dirty || agentForm.get('dateOfBirth')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Género</label>
+                <select id="gender" formControlName="gender">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+                @if(agentForm.get('gender')?.invalid &&
+                (agentForm.get('gender')?.dirty || agentForm.get('gender')?.touched))
+                {
+                <div class="error-message">Opção inválida</div>
+                }
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="hiredDate">Data de Contratação</label>
+                <input type="date" id="hiredDate" formControlName="hiredDate"
+                    placeholder="Digite a data de contratação">
+                @if(agentForm.get('hiredDate')?.invalid &&
+                (agentForm.get('hiredDate')?.dirty || agentForm.get('hiredDate')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+
+                @if(agentForm.get('hiredDate')?.hasError('invalidBirthDate') &&
+                (agentForm.get('hiredDate')?.dirty || agentForm.get('hiredDate')?.touched))
+                {
+                <div class="error-message">A data de nascimento tem de ser menor que a de contratação</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfTermination">Data de rescisão</label>
+                <input type="date" id="dateOfTermination" formControlName="dateOfTermination"
+                    placeholder="Digite a data de rescisão">
+                @if(agentForm.get('dateOfTermination')?.invalid &&
+                (agentForm.get('dateOfTermination')?.dirty || agentForm.get('dateOfTermination')?.touched))
+                {
+                <div class="error-message">Data inválida</div>
+                }
+
+                @if(agentForm.get('dateOfTermination')?.hasError('invalidDates') &&
+                (agentForm.get('dateOfTermination')?.dirty || agentForm.get('dateOfTermination')?.touched))
+                {
+                <div class="error-message">A data de contratação tem de ser menor que a de rescisão</div>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="photoFileName">Foto</label>
+                <input type="text" id="photoFileName" formControlName="photoFileName"
+                    placeholder="Digite o nome do arquivo da foto">
+                @if(agentForm.get('photoFileName')?.invalid &&
+                (agentForm.get('photoFileName')?.dirty || agentForm.get('photoFileName')?.touched))
+                {
+                <div class="error-message">Nome inválido</div>
+                }
+            </div>
+
+
+            <div class="form-group">
+                <label for="supervisorEmail">Supervisor Email</label>
+                <select id="supervisorEmail" formControlName="supervisorEmail">
+                    @for(supervisor of possibleSupervisors; track supervisor.id ){
+                    <option [value]='supervisor.entityLink?.account?.email'>
+                        {{supervisor.entityLink?.account?.email}}
+                    </option>
+                    }
+                </select>
+                @if(agentForm.get('supervisorEmail')?.invalid &&
+                (agentForm.get('supervisorEmail')?.dirty || agentForm.get('supervisorEmail')?.touched))
+                {
+                <div class="error-message">Opção inválida</div> }
+            </div>
+        </div>
+
+        @if(errorMessage != null)
+        {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+        }
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a [routerLink]="['/main-page/agent-list']" class="btn-reset">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Modal para criação de conta do agente -->
+<app-agent-account-modal
+    [isVisible]="showAccountModal"
+    [agentId]="createdAgentId"
+    (accountCreated)="onAccountCreated()"
+    (modalClosed)="onModalClosed()">
+</app-agent-account-modal>
