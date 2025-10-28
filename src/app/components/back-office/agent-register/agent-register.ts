@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { AgentService } from '../../../services/back-office/agent.service';
+import { AgentAccountModalComponent } from '../../shared/agent-account-modal/agent-account-modal.component';
 import { agentAll } from '../../../models/agentAll';
 import dayjs from "dayjs"
 
 @Component({
   selector: 'app-agent-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, AgentAccountModalComponent],
   templateUrl: './agent-register.html',
   styleUrl: './agent-register.css'
 })
@@ -18,6 +19,12 @@ export class AgentRegister implements OnInit {
   agent: agentAll = {} as agentAll
   supervisorId: number | null = null
   possibleSupervisors: agentAll[] = [];
+
+  // Modal properties
+  showAccountModal: boolean = false;
+  createdAgentId: number | null = null;
+  isAccountModalEdit: boolean = false
+  accountEmail?: string = ''
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -95,6 +102,23 @@ export class AgentRegister implements OnInit {
 
   }
 
+  edit(agentId: number, email: string) {
+    this.isAccountModalEdit = true
+    this.showAccountModal = true;
+    this.createdAgentId = agentId
+    this.accountEmail = email
+  }
+
+  onAccountCreated() {
+    this.showAccountModal = false;
+    this.router.navigate(['/main-page/agent-list']);
+  }
+
+  onModalClosed() {
+    this.showAccountModal = false;
+    this.createdAgentId = null;
+  }
+
   makeFormOnEdit(id: number | null) {
     if (!id) {
       return
@@ -153,14 +177,14 @@ export class AgentRegister implements OnInit {
           middleNames: this.middleNamesToArray(this.agentForm.get('name.middleNames')?.value),
           lastName: this.agentForm.get('name.lastName')?.value
         },
-        isActive: Boolean(this.agentForm.get('isActive')?.value),
+        isActive: this.agentForm.get('isActive')?.value,
         gender: this.agentForm.get('gender')?.value,
         dateOfBirth: this.agentForm.get('dateOfBirth')?.value,
         hiredDate: this.agentForm.get('hiredDate')?.value,
         dateOfTermination: this.agentForm.get('dateOfTermination')?.value,
         photoFileName: this.agentForm.get('photoFileName')?.value,
         role: Number(this.agentForm.get('role')?.value),
-        supervisorId: Number(this.agentForm.get('supervisorEmail')?.value),
+        supervisorId: Number(this.agentForm.get('supervisorEmail')?.value) || null,
       }
 
       if (this.id) {
@@ -177,9 +201,12 @@ export class AgentRegister implements OnInit {
 
   private updateAgent(agentData: agentAll) {
     this.agentService.updateAgent(agentData).subscribe({
-      next: () => {
+      next: (response) => {
+        this.createdAgentId = response.id;
+        this.showAccountModal = true;
+
         this.agentForm.reset();
-        this.router.navigate(['/main-page/agent-list']);
+        // this.router.navigate(['/main-page/agent-list']);
       },
       error: (error) => {
         console.error('Erro ao atualizar agente:', error);
@@ -191,8 +218,11 @@ export class AgentRegister implements OnInit {
   private saveAgent(agentData: agentAll) {
     this.agentService.addAgent(agentData).subscribe({
       next: (response) => {
+        this.createdAgentId = response.id;
+        this.showAccountModal = true;
+
         this.agentForm.reset();
-        this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
+        // this.router.navigate(['/main-page/agent-new-account/', response.id, 1]);
       },
       error: (error) => {
         console.error('Erro ao criar agente:', error);
