@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    /* Altura total para suporte ao sticky footer */
+}
+
 body {
     font-family: Arial, sans-serif;
 }
