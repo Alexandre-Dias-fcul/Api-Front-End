@@ -111,13 +111,24 @@ main {
     /* Sombra leve para destacar o conteúdo */
     margin: 2rem;
     /* Espaçamento externo para separar do restante do layout */
+    flex: 1;
+    /* Ocupa todo o espaço disponível */
+    padding-bottom: 6rem;
+    /* Espaço para o footer fixo */
 }
 
 .secondary-container {
     width: calc(100% - 250px);
     transition: width 0.5s ease;
-    float: right;
+    margin-left: 250px;
     /* Alinha o conteúdo à direita da barra lateral */
+    min-height: calc(100vh - 4rem);
+    /* Altura mínima da viewport menos o margin-top */
+    display: flex;
+    flex-direction: column;
+    /* Layout flexbox vertical */
+    flex: 1;
+    /* Ocupa todo o espaço disponível */
 }
 
 
@@ -287,14 +298,27 @@ header {
     /* Fundo escuro */
     color: white;
     /* Texto branco */
-    padding: 1.5rem 1rem;
+    padding-top: 1rem;
+
+    padding-bottom: .5rem;
+
     /* Espaçamento interno */
     text-align: center;
     /* Centraliza o texto */
-    margin-top: 2rem;
-    /* Espaço acima do footer */
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     /* Sombra leve no topo */
+    position: fixed;
+    /* Fixa o footer na parte inferior */
+    bottom: 0;
+    /* Posiciona no final da tela */
+    left: 250px;
+    /* Alinha à direita da sidebar */
+    right: 0;
+    /* Ocupa toda a largura restante */
+    z-index: 1000;
+    /* Garante que fique acima de outros elementos */
+    width: calc(100% - 250px);
+    /* Largura total menos a sidebar */
 }
 
 .footer-content {
