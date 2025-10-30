@@ -298,7 +298,10 @@ header {
     /* Fundo escuro */
     color: white;
     /* Texto branco */
-    padding: 1.5rem 1rem;
+    padding-top: 1rem;
+
+    padding-bottom: .5rem;
+
     /* Espaçamento interno */
     text-align: center;
     /* Centraliza o texto */
