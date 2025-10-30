@@ -12,6 +12,7 @@ export class AgentAccountModalComponent implements OnChanges {
   @Input() isVisible: boolean = false;
   @Input() agentId: number | null = null;
   @Input() isEdit: boolean = false;
+  @Input() accountEmail: string = ''
   @Output() modalClosed = new EventEmitter<void>();
   @Output() accountCreated = new EventEmitter<void>();
 
@@ -28,7 +29,14 @@ export class AgentAccountModalComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.isVisible) {
-      this.accountForm.reset();
+      if (this.isEdit && this.accountEmail) {
+        this.accountForm.patchValue({
+          email: this.accountEmail,
+          password: ''
+        });
+      } else {
+        this.accountForm.reset();
+      }
       this.errorMessage = null;
     }
   }
@@ -37,7 +45,25 @@ export class AgentAccountModalComponent implements OnChanges {
     if (this.accountForm.valid && this.agentId) {
       this.isLoading = true;
       const accountData = this.accountForm.value;
-      
+
+      if (this.isEdit) {
+        this.agentService.agentUpdateAccount(accountData, this.agentId).subscribe(
+          (response) => {
+            console.log('Conta criada com sucesso:', response);
+            this.isLoading = false;
+            this.accountCreated.emit();
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Erro ao criar conta:', error);
+            this.errorMessage = error.error || 'Erro ao criar conta.';
+            this.isLoading = false;
+          }
+        );
+
+        return
+      }
+
       this.agentService.agentAddAccount(accountData, this.agentId).subscribe(
         (response) => {
           console.log('Conta criada com sucesso:', response);
@@ -52,6 +78,7 @@ export class AgentAccountModalComponent implements OnChanges {
         }
       );
     } else {
+      console.log(this.accountForm.errors)
       this.errorMessage = 'Formulário inválido. Verifique os campos.';
     }
   }
